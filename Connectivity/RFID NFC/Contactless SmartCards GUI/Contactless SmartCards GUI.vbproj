@@ -154,23 +154,5 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Shared Code\Core Libraries\Core Libraries.vbproj">
-      <Project>{0F6BD189-ED33-45CC-96F8-0DF6B1037CC3}</Project>
-      <Name>Core Libraries</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Shared Code\GUI Controls\AlphaGradientPanel\AlphaGradientPanel.vbproj">
-      <Project>{a65d2f89-5203-411b-8111-cd0b17b8a642}</Project>
-      <Name>AlphaGradientPanel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Layouts\main\medieval\medieval Layout.vbproj">
-      <Project>{1413D8AB-9254-4E42-8F73-319FA58C7742}</Project>
-      <Name>medieval Layout</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\contactless.smartcards\contactless.smartcards.library.vbproj">
-      <Project>{46318B4A-F3FD-4433-A641-23CB0ED3EF5F}</Project>
-      <Name>contactless.smartcards.library</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

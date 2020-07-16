@@ -89,7 +89,7 @@ Public Class HttpDataFilesDownload
         Dim encryption As New AesCipher(state)
         Dim encrypted As String = HttpUtility.UrlEncode(encryption.encrypt(json))
         Dim PostData As New Dictionary(Of String, String)
-        PostData.Add("origin", state.softwareAccessMode)
+        PostData.Add("origin", state.customization.softwareAccessMode)
         PostData.Add("data", encrypted)
 
         Dim Data2Send As String = ""

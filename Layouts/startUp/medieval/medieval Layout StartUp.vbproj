@@ -5,15 +5,17 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7852C39B-137B-48E2-B064-8B6612323383}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <StartupObject>AeonLabs.Layouts.StartUp.My.MyApplication</StartupObject>
+    <OutputType>Library</OutputType>
+    <StartupObject>
+    </StartupObject>
     <RootNamespace>AeonLabs.Layouts.StartUp</RootNamespace>
     <AssemblyName>medieval.startup</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -62,12 +64,6 @@
     </Reference>
     <Reference Include="contactless.smartcards">
       <HintPath>..\..\..\Connectivity\RFID NFC\contactless.smartcards\bin\contactless.smartcards.dll</HintPath>
-    </Reference>
-    <Reference Include="Custom Controls">
-      <HintPath>..\..\..\GUI\Custom Controls\bin\Debug\Custom Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="MessageBox">
-      <HintPath>..\..\..\GUI\MessageBox\bin\Debug\MessageBox.dll</HintPath>
     </Reference>
     <Reference Include="Quote of the Day">
       <HintPath>..\..\..\Backend\PlugIns\Quote of the Day\Quote of the Day\bin\Debug\Quote of the Day.dll</HintPath>
@@ -165,6 +161,14 @@
     <ProjectReference Include="..\..\..\Backend\Startup\startup.vbproj">
       <Project>{dad992f4-ffde-4ecc-8fd5-1556fde556bf}</Project>
       <Name>startup</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GUI\Custom Controls\Custom Controls.vbproj">
+      <Project>{139894e5-2335-4583-b449-dc1d2a94937a}</Project>
+      <Name>Custom Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GUI\MessageBox\MessageBox.vbproj">
+      <Project>{19a34a5b-0354-408d-af53-6b852bb0ab25}</Project>
+      <Name>MessageBox</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

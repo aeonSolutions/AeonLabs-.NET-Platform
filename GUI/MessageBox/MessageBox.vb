@@ -22,7 +22,6 @@ Public Class messageBoxForm
         InitializeComponent()
         Me.ResumeLayout()
         msbox = New MessageBoxChild(_message, _title, _buttons, _icon, posx, posy)
-
     End Sub
 
     Private Sub messageBoxForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -38,5 +37,6 @@ Public Class messageBoxForm
         End If
         msbox.Location = Me.PointToScreen(Point.Empty)
         msbox.Size = Me.ClientSize
+        msbox.Invalidate()
     End Sub
 End Class

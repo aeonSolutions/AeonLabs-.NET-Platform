@@ -5,7 +5,15 @@ Imports System.Windows.Forms.VisualStyles
 Partial Public Class PanelTransparentTextBox
     Inherits Panel
     Public Sub New()
-        SetStyle(ControlStyles.SupportsTransparentBackColor Or ControlStyles.OptimizedDoubleBuffer Or ControlStyles.AllPaintingInWmPaint Or ControlStyles.ResizeRedraw Or ControlStyles.UserPaint, True)
+        SuspendLayout()
+
+        SetStyle(ControlStyles.AllPaintingInWmPaint, True)
+        SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
+        '' SetStyle(ControlStyles.SupportsTransparentBackColor, True)
+        SetStyle(ControlStyles.ResizeRedraw, True)
+        Me.SetStyle(ControlStyles.UserPaint, True)
+        Me.UpdateStyles()
+
         BackColor = Color.Transparent
         Dim line As New LabelDoubleBuffer With {
             .BackColor = Color.White,
@@ -15,6 +23,7 @@ Partial Public Class PanelTransparentTextBox
             .AutoSize = False
         }
         Me.Controls.Add(line)
+        ResumeLayout()
     End Sub
 
 

@@ -6,7 +6,8 @@ Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 
 Public Class startupBackgroundTasksClass
-    Public WithEvents state As environmentVarsCore
+    Public state As environmentVarsCore
+    Public WithEvents enVarsLoading As loadEnvironment
 
     Public Event updatePrgressBar(sender As Object, value As Integer)
     Public Event updateStatusMessage(sender As Object, message As String)
@@ -362,7 +363,8 @@ Public Class startupBackgroundTasksClass
 #Region "load envirnment from cloud"
     Private Sub loadEnvironmentVarsFromCloud()
         taskManager.setStatus("loadEnvironmentVarsFromCloud", tasksManager.tasksManagerClass.BUSY)
-        state.loadAddons()
+        enVarsLoading = New environmentLoading.loadEnvironment(state)
+        enVarsLoading.loadAddons()
         ''see result above
     End Sub
 #End Region
@@ -399,7 +401,7 @@ Public Class startupBackgroundTasksClass
         End If
         state.maxWorkHoursDay = TimeSpan.Parse(DBsettings("work_hours")(0))
         state.delayDaysValidationAttendance = DBsettings("max_days_delay_validation")(0)
-        state.customization.BusinessName = DBsettings("company_name")(0)
+        state.customization.businessname = DBsettings("company_name")(0)
 
 Lastline:
         If errorFlag Then
@@ -419,7 +421,7 @@ Lastline:
     End Sub
 #End Region
 
-    Private Sub enVars_environmentDataLoadedCompleted(task As Integer) Handles state.environmentDataLoadedCompleted
+    Private Sub enVarsLoading_environmentDataLoadedCompleted(task As Integer) Handles enVarsLoading.environmentDataLoadedCompleted
         If task.Equals(loadEnvironment.LOAD_ADDONS) Then
             taskManager.setStatus("loadEnvironmentVarsFromCloud", tasksManager.tasksManagerClass.FINISHED)
         End If

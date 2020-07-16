@@ -27,25 +27,20 @@ Public Class MessageBoxChild
         messageText = _message
         iconImage = _icon
         buttons = _buttons
-        If posx = -1 And posy = -1 Then
-            Me.StartPosition = FormStartPosition.CenterParent
-            'Me.Location = New Point(mainForm.Width / 2 - Me.Width / 2, mainForm.Height / 2 - Me.Height / 2)
-        Else
-            Me.Location = New Point(posx - Me.Width / 2, posy - Me.Height / 2)
-        End If
-        Me.StartPosition = FormStartPosition.CenterScreen
+
 
 
         If IsNothing(_state) Then
             enVars = New AeonLabs.Environment.environmentVarsCore
+            enVars.loadEnvironmentcoreDefaults()
         Else
             enVars = _state
         End If
 
-        title.Font = New Font(enVars.fontTitle.Families(0), enVars.DialogTitleFontSize, FontStyle.Bold)
-        message.Font = New Font(enVars.fontText.Families(0), enVars.RegularTextFontSize, FontStyle.Regular)
-        ContinueBtn.Font = New Font(enVars.fontTitle.Families(0), enVars.buttonFontSize, FontStyle.Bold)
-        cancelBtn.Font = New Font(enVars.fontTitle.Families(0), enVars.buttonFontSize, FontStyle.Bold)
+        title.Font = New Font(enVars.layoutDesign.fontTitle.Families(0), enVars.layoutDesign.DialogTitleFontSize, FontStyle.Bold)
+        message.Font = New Font(enVars.layoutDesign.fontText.Families(0), enVars.layoutDesign.RegularTextFontSize, FontStyle.Regular)
+        ContinueBtn.Font = New Font(enVars.layoutDesign.fontTitle.Families(0), enVars.layoutDesign.buttonFontSize, FontStyle.Bold)
+        cancelBtn.Font = New Font(enVars.layoutDesign.fontTitle.Families(0), enVars.layoutDesign.buttonFontSize, FontStyle.Bold)
         ContinueBtn.BackColor = Color.FromArgb(200, Color.Black)
         ContinueBtn.Parent = AlphaGradientPanel1
         ContinueBtn.Location = New Point(40, Me.Height - 10 - ContinueBtn.Height)
@@ -59,13 +54,13 @@ Public Class MessageBoxChild
 
 
         title.Text = titleMsg
-        Dim fontToMeasure As New Font(enVars.fontTitle.Families(0), enVars.DialogTitleFontSize, Drawing.FontStyle.Regular)
+        Dim fontToMeasure As New Font(enVars.layoutDesign.fontTitle.Families(0), enVars.layoutDesign.DialogTitleFontSize, Drawing.FontStyle.Regular)
         Dim sizeOfString As New SizeF
         Dim g As Graphics = Me.CreateGraphics
         sizeOfString = g.MeasureString(titleMsg, fontToMeasure)
         title.Location = New Point(Me.Width / 2 - sizeOfString.Width / 2, title.Location.Y)
 
-        fontToMeasure = New Font(enVars.fontTitle.Families(0), enVars.RegularTextFontSize, Drawing.FontStyle.Regular)
+        fontToMeasure = New Font(enVars.layoutDesign.fontTitle.Families(0), enVars.layoutDesign.RegularTextFontSize, Drawing.FontStyle.Regular)
         sizeOfString = New SizeF
         g = Me.CreateGraphics
         sizeOfString = g.MeasureString("_", fontToMeasure)

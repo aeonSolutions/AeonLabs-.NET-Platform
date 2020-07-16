@@ -53,31 +53,7 @@ Public Class loadEnvironment
     Public Sub New(_enVars As environmentVarsCore, ByVal Optional settings As Integer = -100)
         enVars = _enVars
 
-        'ToDo check default font files are present
-        Dim FontFileNqame = New FileInfo(enVars.fontsPath & enVars.fontTitleFile)
-        FontFileNqame.Refresh()
-        If FontFileNqame.Exists Then
-            enVars.fontTitle.AddFontFile(enVars.fontsPath & enVars.fontTitleFile)
-        Else
-            MessageBox.Show("font file not found. reinstall the program")
-            Throw New Exception("font file not found")
-        End If
-
-        FontFileNqame = New FileInfo(enVars.fontsPath & enVars.fontTextFile)
-        FontFileNqame.Refresh()
-        If FontFileNqame.Exists Then
-            enVars.fontText.AddFontFile(enVars.fontsPath & enVars.fontTextFile)
-        Else
-            MessageBox.Show("font file not found. reinstall the program")
-            Throw New Exception("font file not found")
-        End If
-
-        'TODO move tableSearchOptions to its assembly
-        Dim options As New environmentVarsCore.TableSearchOptionsStructure
-        options.viewPlanningAssignmentWorkers = False
-        options.viewOtherConstructionSitesAttendance = False
-        options.viewThisConstructionSiteAttendance = False
-        enVars.tableSearchOptions = options
+        enVars.loadEnvironmentcoreDefaults()
         dataLoaded = False
         dataLoadedStatusQueue = 0
         load(settings)
@@ -150,8 +126,8 @@ Public Class loadEnvironment
                     Dim data = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(decrypted)
 
                     'datatable color schemes
-                    .buttonColor = Color.FromArgb(CInt(data.Item("buttonColor").ToString))
-                    .dividerColor = Color.FromArgb(CInt(data.Item("dividerColor").ToString))
+                    .layoutDesign.buttonColor = Color.FromArgb(CInt(data.Item("buttonColor").ToString))
+                    .layoutDesign.dividerColor = Color.FromArgb(CInt(data.Item("dividerColor").ToString))
                     .colorSite = Color.FromArgb(CInt(data.Item("colorSite").ToString))
                     .colorSection = Color.FromArgb(CInt(data.Item("colorSection").ToString))
                     .colorCompany = Color.FromArgb(CInt(data.Item("colorCompany").ToString))
@@ -167,20 +143,20 @@ Public Class loadEnvironment
                     .colorPlannedChangeOfSite = Color.FromArgb(CInt(data.Item("colorPlannedChangeOfSite").ToString))
                     .colorPlannedTeam = Color.FromArgb(CInt(data.Item("colorPlannedTeam").ToString))
                     .colorFullDayValidated = Color.FromArgb(CInt(data.Item("colorFullDayValidated").ToString))
-                    .colorMainMenu = Color.FromArgb(CInt(data.Item("colorMainMenu").ToString))
+                    .layoutDesign.colorMainMenu = Color.FromArgb(CInt(data.Item("colorMainMenu").ToString))
                     'font files
-                    .fontTitleFile = data.Item("fontTitleFile").ToString
-                    .fontTextFile = data.Item("fontTextFile").ToString
+                    .layoutDesign.fontTitleFile = data.Item("fontTitleFile").ToString
+                    .layoutDesign.fontTextFile = data.Item("fontTextFile").ToString
                     'delay Days Validation Attendance
                     .delayDaysValidationAttendance = data.Item("delayDaysValidationAttendance").ToString
-                    .fontTitle.AddFontFile(.fontsPath & .fontTitleFile)
-                    .fontText.AddFontFile(.fontsPath & .fontTextFile)
+                    .layoutDesign.fontTitle.AddFontFile(.fontsPath & .layoutDesign.fontTitleFile)
+                    .layoutDesign.fontText.AddFontFile(.fontsPath & .layoutDesign.fontTextFile)
                 Catch ex As Exception
                     .stateErrorMessage = ex.ToString
                 End Try
             End With
         Else
-            Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(currentLang)
+            Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(enVars.currentLang)
             enVars.stateErrorMessage = My.Resources.strings.errorDataFileNotFound
         End If
         changeDataLoadedState(False, LOAD_CONFIG)
@@ -199,7 +175,7 @@ Public Class loadEnvironment
         vars.Add("task", enVars.taskId("addons"))
         vars.Add("id", enVars.userId)
 
-        loadAddOnsData = New HttpDataPostData(Me)
+        loadAddOnsData = New HttpDataPostData(enVars)
         loadAddOnsData.initialize()
         loadAddOnsData.loadQueue(vars, Nothing, Nothing)
         loadAddOnsData.startRequest()
@@ -235,7 +211,7 @@ Public Class loadEnvironment
 #Region "load Location"
     Public Sub loadLocation()
         changeDataLoadedState(True)
-        loadIpAddressData = New HttpDataGetData(Me, "https://api.ipify.org")
+        loadIpAddressData = New HttpDataGetData(enVars, "https://api.ipify.org")
         loadIpAddressData.initialize()
         loadIpAddressData.startRequest()
     End Sub
@@ -244,7 +220,7 @@ Public Class loadEnvironment
         If IPAddress.TryParse(responseData, _ip).Equals(True) Then
             enVars.currentIpAddress = responseData
 
-            loadLocationCoordinates = New HttpDataGetData(Me, "http://ip-api.com/json/" & responseData)
+            loadLocationCoordinates = New HttpDataGetData(enVars, "http://ip-api.com/json/" & responseData)
             loadLocationCoordinates.initialize()
             loadLocationCoordinates.startRequest()
         End If
@@ -258,7 +234,7 @@ Public Class loadEnvironment
                 locationDataItem.latitude = jsonLatResult.Item("lat").ToString.Replace(",", ".")
                 locationDataItem.longitude = jsonLatResult.Item("lon").ToString.Replace(",", ".")
                 enVars.locationData = locationDataItem
-                loadLocationData = New HttpDataGetData(Me, "http://nominatim.openstreetmap.org/reverse?format=json&lat=" & locationData.latitude & "&lon=" & locationData.longitude & "&zoom=18&addressdetails=1")
+                loadLocationData = New HttpDataGetData(enVars, "http://nominatim.openstreetmap.org/reverse?format=json&lat=" & enVars.locationData.latitude & "&lon=" & enVars.locationData.longitude & "&zoom=18&addressdetails=1")
                 loadLocationData.initialize()
                 loadLocationData.startRequest()
             End If

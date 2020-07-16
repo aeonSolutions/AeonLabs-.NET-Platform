@@ -12,9 +12,10 @@
     <AssemblyName>network</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,17 +50,8 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="environment">
-      <HintPath>..\..\environment\environment\bin\Debug\environment.dll</HintPath>
-    </Reference>
-    <Reference Include="MessageBox">
-      <HintPath>..\..\MessageBox\bin\Debug\MessageBox.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="security">
-      <HintPath>..\..\security\security\bin\Debug\security.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -141,6 +133,20 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\GUI\MessageBox\MessageBox.vbproj">
+      <Project>{19a34a5b-0354-408d-af53-6b852bb0ab25}</Project>
+      <Name>MessageBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Environment\environment\environment\environment.vbproj">
+      <Project>{82ad9932-5319-4ce8-a398-75b91133feec}</Project>
+      <Name>environment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Security\security\security.vbproj">
+      <Project>{4d13834b-a75b-4737-bc37-f520d12a69d0}</Project>
+      <Name>security</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

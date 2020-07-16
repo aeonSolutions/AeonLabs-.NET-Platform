@@ -86,14 +86,14 @@ Public Class HttpDataPostData
             vars.Add("language", state.currentLang)
         End If
         If Not vars.ContainsKey("origin") Then
-            vars.Add("origin", state.softwareAccessMode)
+            vars.Add("origin", state.customization.softwareAccessMode)
         End If
 
         Dim serializer As New JavaScriptSerializer()
         Dim json As String = serializer.Serialize(vars)
         Dim encryption As New AesCipher(state)
         Dim encrypted As String = HttpUtility.UrlEncode(encryption.encrypt(json))
-        Dim PostData = "origin=" & state.softwareAccessMode & "&data=" & encrypted
+        Dim PostData = "origin=" & state.customization.softwareAccessMode & "&data=" & encrypted
         Dim request As WebRequest = WebRequest.Create(url)
         Dim responseFromServer As String = ""
         Dim decrypted As String = ""
@@ -101,7 +101,7 @@ Public Class HttpDataPostData
         request.Method = "POST"
         Dim byteArray As Byte() = Encoding.UTF8.GetBytes(PostData)
         request.ContentType = "application/x-www-form-urlencoded"
-        request.Headers.Add("Authorization", state.ApiHttpHeaderToken & "-" & state.softwareAccessMode)
+        request.Headers.Add("Authorization", state.ApiHttpHeaderToken & "-" & state.customization.softwareAccessMode)
         request.ContentLength = byteArray.Length
         Try
             Dim dataStream As Stream = request.GetRequestStream()

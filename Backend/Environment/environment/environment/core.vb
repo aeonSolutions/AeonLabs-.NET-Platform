@@ -1,24 +1,72 @@
 ﻿
 Imports System.Drawing
 Imports System.Drawing.Text
+Imports System.IO
 
 Public Class environmentVarsCore
-    Public Property customization As New EnvironmentCustomization
+
+#Region "events"
+    Public Event dataChanged(sender As Object, envars As environmentVarsCore)
+#End Region
+
+#Region "CUSTOMIZATION"
+    Public Property customization As New customization
+#End Region
+
+#Region "ASSEMBLIES"
     Public Property assembliesStatic As New Dictionary(Of String, environmentAssembliesClass)
     Public Property assembliesDynamic As New Dictionary(Of String, environmentAssembliesClass)
+#End Region
 
-    '    Public Property environmentAssemblies As New environmentAssembliesClass
+#Region "LOCAL USER SETTINGS"
+    Public Property SettingsSecretKey = "29kdzQaFwSuNJ85t" ' it has to be exactly 16 chars for a 128bit encryption, 32chars for 256bit 
 
+    'ÚSER SETTINGS
+    Public Property userSettings As New userSettingsClass
+
+    'UPDATES
+    Public Property checkForUpdatesIsEnabled As Boolean = False
+    Public Property packageUpdatesIsEnabled As Boolean = False
+    Public Property plugInsUpdatesIsEnabled As Boolean = False
+    'LANGUAGE
+    Public Property currentLang As String = ""
+    Public Property country As String = ""
+    Public Property defaultTranslatedLang = "fr"
+#End Region
+
+#Region "NOTIFICATIONS"
     Public Property notifications As New List(Of notificationsClass)
-    Public Property layoutDesign As New environmentLayoutClass
+#End Region
 
+#Region "APP DESIGN"
+    Public Property layoutDesign As New environmentLayoutClass
+#End Region
+
+#Region "FOLDER PATHS"
     Public Property imagesPath As String = String.Format("{0}\images\", System.Environment.CurrentDirectory)
     Public Property basePath As String = String.Format("{0}\", System.Environment.CurrentDirectory)
     Public Property tmpPath As String = String.Format("{0}\tmp\", System.Environment.CurrentDirectory)
     Public Property fontsPath As String = String.Format("{0}\fonts\", System.Environment.CurrentDirectory)
     Public Property libraryPath As String = String.Format("{0}\library\", System.Environment.CurrentDirectory)
     Public Property templatesPath As String = String.Format("{0}\templates\", System.Environment.CurrentDirectory)
+    Public Property packagesPath As String = String.Format("{0}\packages\", System.Environment.CurrentDirectory)
+    Public Property plugInsPath As String = String.Format("{0}\plugins\", System.Environment.CurrentDirectory)
+#End Region
 
+#Region "DIAGONOSTICS AND CRASH DATA"
+    Public Property SendDiagnosticData As Boolean = False
+    Public Property SendCrashData As Boolean = False
+#End Region
+
+#Region "Env. vars states (this class)"
+    Public Property stateLoaded As Boolean = False
+    Public Property settingsLoaded As Boolean = False
+    Public Property dataLoaded As Boolean = False
+    Public Property stateErrorFound As Boolean = False
+    Public Property stateErrorMessage As String = ""
+#End Region
+
+    'TO BE CLASSIF. and SORTED
     Public Property ServerBaseAddr As String = "" ' base path without final slash
     Public Property ApiServerAddrPath As String = ""
     Public Property ApiHttpHeaderToken As String = "" 'GEN STRING ON LOAD
@@ -27,14 +75,10 @@ Public Class environmentVarsCore
 
     Public Property authorizedFileTemplates As Dictionary(Of String, String)
 
-    Public Property SettingsSecretKey = "29kdzQaFwSuNJ85t" ' it has to be exactly 16 chars for a 128bit encryption, 32chars for 256bit 
     Public Property secretKey = "26kozQaKwRuNJ24t" ' it has to be exactly 16 chars for a 128bit encryption, 32chars for 256bit 
 
     Public Property AppId As String = ""
     Public Property currentIpAddress As String = ""
-
-    Public Property SendDiagnosticData As Boolean = False
-    Public Property SendCrashData As Boolean = False
 
     Public Property successLogin As Boolean = False
     Public Property userId As String = ""
@@ -42,12 +86,6 @@ Public Class environmentVarsCore
     Public Property userConnType As String = ""
     Public Property userType As String = ""
     Public Property userPhoto As String = ""
-
-    Public Property stateLoaded As Boolean = False
-    Public Property settingsLoaded As Boolean = False
-    Public Property dataLoaded As Boolean = False
-    Public Property stateErrorFound As Boolean = False
-    Public Property stateErrorMessage As String = ""
 
     Public Property journalResponsables As String = "Miguel Silva"
 
@@ -57,11 +95,6 @@ Public Class environmentVarsCore
     Public Property locationData As locationDataStructure
 
     'INTO SETTINGS: 
-    'LANGUAGE
-    Public Property currentLang As String = ""
-    Public Property country As String = ""
-    Public Property defaultTranslatedLang = "fr"
-
     'ToDo: settings to add on DB settings table
     Public Property delayDaysValidationAttendance As Integer = 1
     Public Property AutomaticLogoutTime As New TimeSpan(0, 15, 0) '15 min timeout - integer (Hours, Minutes, Seconds) 
@@ -70,27 +103,6 @@ Public Class environmentVarsCore
     Public Property maxWorkHoursDay As TimeSpan = TimeSpan.Parse("10:00:00")
 
     'VISUAL STYLES
-    ' Time interval to change background image on main form
-    Public Property RandomBackgroundTimeInterval As New TimeSpan(0, 15, 0) '15 min timeout - integer (Hours, Minutes, Seconds) 
-    'fonts
-    Public fontText, fontTitle As New PrivateFontCollection()
-    Public Property fontTitleFile As String = "TrajanPro.ttf"
-    Public Property fontTextFile As String = "Roboto-Medium.ttf"
-
-    'font text size
-    Public Property menuTitleFontSize As Integer = 10
-    Public Property subMenuTitleFontSize As Integer = 8
-    Public Property buttonFontSize As Integer = 12
-    Public Property SmallTextFontSize As Integer = 7
-    Public Property RegularTextFontSize As Integer = 9
-    Public Property DialogTitleFontSize As Integer = 12
-    Public Property groupBoxTitleFontSize As Integer = 8
-    'main color schemes
-    Public Property buttonColor As Color = Color.DarkOrange
-    Public Property dividerColor As Color = Color.FromArgb(253, 186, 49)
-    Public Property colorMainMenu As Color = Color.FromArgb(35, 40, 45)
-    Public Property colorMainPageHeader As Color = Color.FromArgb(253, 186, 49)
-
     'datatable color schemes
     Public Property colorFullDayValidated As Color = Color.FromArgb(192, 255, 192)
     Public Property colorPlannedTeam As Color = Color.FromArgb(204, 255, 117)
@@ -155,6 +167,8 @@ Public Class environmentVarsCore
 
     ' options on queries
     Public Property queryWorkerOptionsClothes As String() = {"pe", "calcas", "casaco", "peso", "altura"}
+
+
     Public Structure TableSearchOptionsStructure
         Public viewPlanningAssignmentWorkers As Boolean
         Public viewOtherConstructionSitesAttendance As Boolean
@@ -176,4 +190,15 @@ Public Class environmentVarsCore
         Public longitude As String
 
     End Structure
+
+    Public Sub loadEnvironmentcoreDefaults()
+        layoutDesign.loadDefaults(Me)
+
+        'TODO move tableSearchOptions to its assembly
+        Dim options As New environmentVarsCore.TableSearchOptionsStructure
+        options.viewPlanningAssignmentWorkers = False
+        options.viewOtherConstructionSitesAttendance = False
+        options.viewThisConstructionSiteAttendance = False
+        tableSearchOptions = options
+    End Sub
 End Class

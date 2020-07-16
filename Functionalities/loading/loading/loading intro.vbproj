@@ -5,15 +5,17 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{58529C40-9665-4AD7-AD1A-70BD2C3E8C45}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <StartupObject>AeonLabs.Loading.My.MyApplication</StartupObject>
+    <OutputType>Library</OutputType>
+    <StartupObject>
+    </StartupObject>
     <RootNamespace>AeonLabs.Loading</RootNamespace>
     <AssemblyName>loading</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,9 +52,6 @@
   <ItemGroup>
     <Reference Include="CircularProgressBar">
       <HintPath>..\..\..\GUI\CircularProgressBarDll\bin\Debug\CircularProgressBar.dll</HintPath>
-    </Reference>
-    <Reference Include="MessageBox">
-      <HintPath>..\..\..\GUI\MessageBox\bin\Debug\MessageBox.dll</HintPath>
     </Reference>
     <Reference Include="network">
       <HintPath>..\..\..\Backend\Network\network\bin\Debug\network.dll</HintPath>
@@ -155,6 +154,10 @@
     <ProjectReference Include="..\..\..\Backend\Management Coding Tasks\tasksManager.vbproj">
       <Project>{a65bdeca-8f8c-43af-812b-b0753e22c93f}</Project>
       <Name>tasksManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GUI\MessageBox\MessageBox.vbproj">
+      <Project>{19a34a5b-0354-408d-af53-6b852bb0ab25}</Project>
+      <Name>MessageBox</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

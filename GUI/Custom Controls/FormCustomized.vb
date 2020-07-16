@@ -1,6 +1,7 @@
 ﻿Imports System.Drawing
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
+Imports AeonLabs.Environment
 
 Partial Public Class FormCustomized
     Inherits Form
@@ -41,7 +42,14 @@ Partial Public Class FormCustomized
     ''' <summary>
     ''' Timer to aid in fade effects.
     ''' </summary>
-    Private timer As Timer
+    Private FadeFxTimer As Timer
+
+    '''inactivity timer code auto logout
+    Private inActivity As Stopwatch = Nothing
+    Private WithEvents timerInactivity As New Timer
+    Public Property InactivityTimeOut As New TimeSpan(0, 15, 0)
+    Public Event InactivityDetected(sender As Object)
+
 #End Region
 
 #Region "Properties"
@@ -51,7 +59,6 @@ Partial Public Class FormCustomized
     Public Property TargetOpacity As Double
         Set(ByVal value As Double)
             f_TargetOpacity = value
-            If Not timer.Enabled Then timer.Start()
         End Set
         Get
             Return f_TargetOpacity
@@ -131,16 +138,11 @@ Partial Public Class FormCustomized
             If Not ContainsFocus AndAlso WindowState <> FormWindowState.Minimized Then TargetOpacity = f_InactiveOpacity
         End Set
     End Property
-#End Region
-    ''LOADING FORM GRAPHICS PERFORMANCE
-    Protected Overloads Overrides ReadOnly Property CreateParams() As CreateParams
-        Get
-            Dim cp As CreateParams = MyBase.CreateParams
-            cp.ExStyle = cp.ExStyle Or 33554432
-            Return cp
-        End Get
-    End Property
 
+
+#End Region
+
+#Region "CustomMessageFilter"
     Public Function PreFilterMessage(ByRef m As Message) As Boolean Implements IMessageFilter.PreFilterMessage
         If m.Msg = &H20A Then
             Dim pos As Point = New Point(m.LParam.ToInt32())
@@ -161,22 +163,48 @@ Partial Public Class FormCustomized
     <DllImport("user32.dll")>
     Private Shared Function SendMessage(ByVal hWnd As IntPtr, ByVal msg As Integer, ByVal wp As IntPtr, ByVal lp As IntPtr) As IntPtr
     End Function
+#End Region
 
+#Region "CONSTRUCTORS"
     ''' <summary>
     ''' Creates a new FormCustomized.
     ''' </summary>
     Public Sub New()
         SuspendLayout()
 
-        Me.SetStyle(ControlStyles.DoubleBuffer Or ControlStyles.AllPaintingInWmPaint, True)
+        SetStyle(ControlStyles.AllPaintingInWmPaint, True)
+        SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
+        '' SetStyle(ControlStyles.SupportsTransparentBackColor, True)
+        SetStyle(ControlStyles.ResizeRedraw, True)
         Me.SetStyle(ControlStyles.UserPaint, True)
+        Me.UpdateStyles()
 
-        timer = New Timer()
-        timer.Interval = 25
-        AddHandler timer.Tick, New EventHandler(AddressOf timer_Tick)
+        ResumeLayout()
+
+        'fade in / out FX
+        FadeFxTimer = New Timer()
+        FadeFxTimer.Interval = 25
+        AddHandler FadeFxTimer.Tick, New EventHandler(AddressOf timer_Tick)
         AddHandler Deactivate, New EventHandler(AddressOf FormCustomized_Deactivate)
         AddHandler Activated, New EventHandler(AddressOf FormCustomized_Activated)
         AddHandler Load, New EventHandler(AddressOf FormCustomized_Load)
+
+        enableFadeFXandInacivityDetection()
+    End Sub
+#End Region
+
+#Region "FADE IN/OUT FORM FX PLUS INACTIVITY"
+    Public Sub enableFadeFXandInacivityDetection()
+        inActivity = New Stopwatch
+        'inactivity detection
+        resetActivity()
+        timerInactivity.Interval = 60 * 1000 'check every 1 second for new messages from the OS
+        timerInactivity.Start()
+        inActivity.Reset()
+        inActivity.Start()
+
+        'fade FX
+        If Not FadeFxTimer.Enabled Then FadeFxTimer.Start()
     End Sub
 
     ''' <summary>
@@ -195,8 +223,17 @@ Partial Public Class FormCustomized
         f_ActiveOpacity = 1
         f_InactiveOpacity = 0.85
         f_MinimizedOpacity = 0
-        f_FadeTime = 0.35
+        f_FadeTime = 0.000001
     End Sub
+#End Region
+
+#Region "inacitvity detection"
+    Private Sub timerInactivity_tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles timerInactivity.Tick
+        If inActivity.Elapsed > InactivityTimeOut Then
+            RaiseEvent InactivityDetected(Me)
+        End If
+    End Sub
+#End Region
 
 #Region "WindowsMessageCodes"
     Private Const WM_SYSCOMMAND = &H112
@@ -206,49 +243,88 @@ Partial Public Class FormCustomized
     Private Const SC_CLOSE = &HF060
 #End Region
 
+#Region "misc"
+    Public Property mbDoPaintBackground As Boolean
+    Private Const CUSTOM_WM_SYSCOMMAND = &H112
+    Private Const WM_MAXBUTTONSomethingSomething As Integer = &HF030  '61488
+    Private Const WM_MINBUTTONSomethingSomething As Integer = &HF120   '61728
+
     ''' <summary>
     ''' Intercepts WindowMessages before they are processed.
     ''' </summary>
     Protected Overrides Sub WndProc(ByRef m As Message)
-        If m.Msg = FormCustomized.WM_SYSCOMMAND OrElse m.Msg = FormCustomized.WM_COMMAND Then
-            'Fade to zero on minimze
-            If m.WParam = CType(FormCustomized.SC_MINIMIZE, IntPtr) Then
-                If heldMessage.WParam <> CType(FormCustomized.SC_MINIMIZE, IntPtr) Then
-                    heldMessage = m
-                    TargetOpacity = f_MinimizedOpacity
+        'Traps specifically for "Maximize" button
+        Try
+            If m.Msg = CUSTOM_WM_SYSCOMMAND Then     'to address flickering on maximize form
+                ' Handle running on 64-bit platforms
+                Dim param As Long
+                If (IntPtr.Size = 4) Then
+                    param = CLng(m.WParam.ToInt32)
                 Else
-                    heldMessage = New Message()
-                    TargetOpacity = f_ActiveOpacity
+                    param = CLng(m.WParam.ToInt64)
                 End If
 
-                Return
+                If CInt(param) = WM_MAXBUTTONSomethingSomething Then
+                    mbDoPaintBackground = False
+                ElseIf CInt(param) = WM_MINBUTTONSomethingSomething Then
+                    mbDoPaintBackground = False
+                End If
+            ElseIf m.Msg = FormCustomized.WM_SYSCOMMAND OrElse m.Msg = FormCustomized.WM_COMMAND Then
+                'Fade to zero on minimze
+                If m.WParam = CType(FormCustomized.SC_MINIMIZE, IntPtr) Then
+                    If heldMessage.WParam <> CType(FormCustomized.SC_MINIMIZE, IntPtr) Then
+                        heldMessage = m
+                        TargetOpacity = f_MinimizedOpacity
+                    Else
+                        heldMessage = New Message()
+                        TargetOpacity = f_ActiveOpacity
+                    End If
 
-                'Fade in if the window is restored from the taskbar
-            ElseIf m.WParam = CType(FormCustomized.SC_RESTORE, IntPtr) AndAlso WindowState = FormWindowState.Minimized Then
-                MyBase.WndProc(m)
-                TargetOpacity = f_ActiveOpacity
-                Return
+                    Exit Sub
+                    'Fade in if the window is restored from the taskbar
+                ElseIf m.WParam = CType(FormCustomized.SC_RESTORE, IntPtr) AndAlso WindowState = FormWindowState.Minimized Then
+                    MyBase.WndProc(m)
+                    TargetOpacity = f_ActiveOpacity
+                    Exit Sub
 
-                'Fade out if the window is closed.
-            ElseIf m.WParam = CType(FormCustomized.SC_CLOSE, IntPtr) Then
-                heldMessage = m
-                TargetOpacity = f_MinimizedOpacity
-                Return
+                    'Fade out if the window is closed.
+                ElseIf m.WParam = CType(FormCustomized.SC_CLOSE, IntPtr) Then
+                    heldMessage = m
+                    TargetOpacity = f_MinimizedOpacity
+                    Exit Sub
+                End If
             End If
-        End If
+        Catch ex As Exception
+
+        End Try
+        'Listen for operating system messages to the application. If the form to expire is moved, mousemove detected, keydown detected it will stay open
+        'When no message is sent from the OS within 30 seconds the form will expire.
+        resetActivity()
 
         MyBase.WndProc(m)
     End Sub
 
+    Public Sub resetActivity()
+        If inActivity Is Nothing Then
+            Exit Sub
+        End If
+        inActivity.Reset()
+        inActivity.Start()
+    End Sub
+
+
     'Causes the form to fade in.
-    Private Sub FormCustomized_Load(ByVal sender As Object, ByVal e As EventArgs)
+    Private Sub FormCustomized_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+        If Not FadeFxTimer.Enabled Then
+            Exit Sub
+        End If
         Opacity = f_MinimizedOpacity
         TargetOpacity = f_ActiveOpacity
     End Sub
 
     'Performs fade increment.
     Private Sub timer_Tick(ByVal sender As Object, ByVal e As EventArgs)
-        Dim fadeChangePerTick = timer.Interval * 1.0 / 1000 / f_FadeTime
+        Dim fadeChangePerTick = FadeFxTimer.Interval * 1.0 / 1000 / f_FadeTime
 
         'Check to see if it is time to stop the timer
         If Math.Abs(f_TargetOpacity - Opacity) < fadeChangePerTick Then
@@ -262,7 +338,7 @@ Partial Public Class FormCustomized
             MyBase.WndProc(heldMessage)
             heldMessage = New Message()
             'Stop the timer to save processor.
-            timer.Stop()
+            FadeFxTimer.Stop()
         ElseIf f_TargetOpacity > Opacity Then
             Opacity += fadeChangePerTick
         ElseIf f_TargetOpacity < Opacity Then
@@ -271,14 +347,21 @@ Partial Public Class FormCustomized
     End Sub
 
     'Fade out the form when it losses focus.
-    Private Sub FormCustomized_Deactivate(ByVal sender As Object, ByVal e As EventArgs)
+    Private Sub FormCustomized_Deactivate(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Deactivate
+        If Not FadeFxTimer.Enabled Then
+            Exit Sub
+        End If
         TargetOpacity = f_InactiveOpacity
     End Sub
 
     'Fade in the form when it gaines focus.
-    Private Sub FormCustomized_Activated(ByVal sender As Object, ByVal e As EventArgs)
+    Private Sub FormCustomized_Activated(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Activated
+        If Not FadeFxTimer.Enabled Then
+            Exit Sub
+        End If
         TargetOpacity = f_ActiveOpacity
     End Sub
+#End Region
 
 End Class
 

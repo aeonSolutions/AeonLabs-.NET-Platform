@@ -1,11 +1,12 @@
 ﻿Imports System.Drawing
 Imports System.Windows.Forms
-Imports AeonLabs.Layout
+Imports AeonLabs.Layouts
 Imports BlueActivity.Controls
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class LayoutStartUpForm
-    Inherits System.Windows.Forms.Form
+    Inherits FormCustomized
+
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -29,27 +30,27 @@ Partial Class LayoutStartUpForm
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(LayoutStartUpForm))
-        Me.VersionLabel = New AeonLabs.Layout.LabelDoubleBuffer()
+        Me.VersionLabel = New LabelDoubleBuffer()
         Me.cancelCard_lbl = New System.Windows.Forms.LinkLabel()
-        Me.statusMessage = New AeonLabs.Layout.LabelDoubleBuffer()
-        Me.titleLabel = New AeonLabs.Layout.LabelDoubleBuffer()
-        Me.locationLabel = New AeonLabs.Layout.LabelDoubleBuffer()
-        Me.quoteOfTheDaySentenceLabel = New AeonLabs.Layout.LabelDoubleBuffer()
-        Me.versionTitleLabel = New AeonLabs.Layout.LabelDoubleBuffer()
-        Me.TitleFlavourLabel = New AeonLabs.Layout.LabelDoubleBuffer()
+        Me.statusMessage = New LabelDoubleBuffer()
+        Me.titleLabel = New LabelDoubleBuffer()
+        Me.locationLabel = New LabelDoubleBuffer()
+        Me.quoteOfTheDaySentenceLabel = New LabelDoubleBuffer()
+        Me.versionTitleLabel = New LabelDoubleBuffer()
+        Me.TitleFlavourLabel = New LabelDoubleBuffer()
         Me.websiteLink = New System.Windows.Forms.LinkLabel()
         Me.progressbar = New CircularProgressBar.CircularProgress.CircularProgressBar()
         Me.panelLogin = New BlueActivity.Controls.AlphaGradientPanel()
         Me.ColorWithAlpha1 = New BlueActivity.Controls.ColorWithAlpha()
         Me.loginBtn = New System.Windows.Forms.PictureBox()
-        Me.cardId_lbl = New AeonLabs.Layout.LabelDoubleBuffer()
+        Me.cardId_lbl = New LabelDoubleBuffer()
         Me.cardId = New System.Windows.Forms.TextBox()
-        Me.access_code = New AeonLabs.Layout.LabelDoubleBuffer()
+        Me.access_code = New LabelDoubleBuffer()
         Me.codetxt = New System.Windows.Forms.MaskedTextBox()
         Me.show_password = New System.Windows.Forms.PictureBox()
         Me.PanelLocationText = New System.Windows.Forms.Panel()
         Me.locationTextTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.animatedBackGround = New AeonLabs.Layout.PictureBoxDoubleBuffer()
+        Me.animatedBackGround = New PictureBoxDoubleBuffer()
         Me.panelLogin.SuspendLayout()
         CType(Me.loginBtn, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.show_password, System.ComponentModel.ISupportInitialize).BeginInit()

@@ -5,15 +5,17 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1413D8AB-9254-4E42-8F73-319FA58C7742}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <StartupObject>AeonLabs.Layout.My.MyApplication</StartupObject>
-    <RootNamespace>AeonLabs.Layout</RootNamespace>
+    <OutputType>Library</OutputType>
+    <StartupObject>
+    </StartupObject>
+    <RootNamespace>AeonLabs.Layouts</RootNamespace>
     <AssemblyName>medieval</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -90,30 +92,11 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Custom Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\GUI\Custom Controls\bin\Debug\Custom Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="MessageBox">
-      <HintPath>..\InternalCode\MessageBox\bin\Debug\MessageBox.dll</HintPath>
+    <Reference Include="FontAwesome.Sharp, Version=5.13.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\Apps\remoteAttendance.systems\packages\FontAwesome.Sharp.5.13.0\lib\net472\FontAwesome.Sharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="network">
-      <HintPath>..\InternalCode\network\network\bin\Debug\network.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\BUILD FILES\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="panel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\InternalCode\AlphaGradientPanel\bin\panel.dll</HintPath>
-    </Reference>
-    <Reference Include="security">
-      <HintPath>..\InternalCode\security\security\bin\Debug\security.dll</HintPath>
-    </Reference>
-    <Reference Include="settings">
-      <HintPath>..\InternalCode\settings\settings\bin\Debug\settings.dll</HintPath>
-    </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -125,6 +108,9 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="tasksManager">
+      <HintPath>..\..\..\Backend\Management Coding Tasks\bin\Debug\tasksManager.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -200,13 +186,45 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Backend\Environment\EnvironmentAssembly\assemblyEnvironment\assemblyEnvironment.vbproj">
+      <Project>{DB6F9048-2A83-4BC3-B29E-36F185E2F4C8}</Project>
+      <Name>assemblyEnvironment</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Backend\Environment\environment\environment\environment.vbproj">
       <Project>{82ad9932-5319-4ce8-a398-75b91133feec}</Project>
       <Name>environment</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Backend\Management Coding Tasks\tasksManager.vbproj">
-      <Project>{a65bdeca-8f8c-43af-812b-b0753e22c93f}</Project>
-      <Name>tasksManager</Name>
+    <ProjectReference Include="..\..\..\Backend\Environment\Settings\settings\settings.vbproj">
+      <Project>{dd0029c3-11c2-4dc9-9ed6-ee49bd9ef999}</Project>
+      <Name>settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Backend\Layout\Menu Layout Vertical\Menu Layout Vertical\Menu Layout Vertical.vbproj">
+      <Project>{91d6b342-9cb0-4e6b-b3d9-9a84b1d7ffb7}</Project>
+      <Name>Menu Layout Vertical</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Backend\Network\network\network.vbproj">
+      <Project>{27ee122c-a84c-408a-b8e4-f42586b13124}</Project>
+      <Name>network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Backend\Security\security\security.vbproj">
+      <Project>{4d13834b-a75b-4737-bc37-f520d12a69d0}</Project>
+      <Name>security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GUI\AlphaGradientPanel\AlphaGradientPanel.vbproj">
+      <Project>{a65d2f89-5203-411b-8111-cd0b17b8a642}</Project>
+      <Name>AlphaGradientPanel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GUI\Custom Controls\Custom Controls.vbproj">
+      <Project>{139894e5-2335-4583-b449-dc1d2a94937a}</Project>
+      <Name>Custom Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GUI\MessageBox\MessageBox.vbproj">
+      <Project>{19a34a5b-0354-408d-af53-6b852bb0ab25}</Project>
+      <Name>MessageBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\PlugIns\Layout Lateral Settings\Layout Lateral Settings\Layout Lateral Settings.vbproj">
+      <Project>{ee881e82-47e9-498e-b6ca-776106b52bcc}</Project>
+      <Name>Layout Lateral Settings</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

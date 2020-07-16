@@ -15,7 +15,6 @@ Namespace AeonLabs.Layout
 
         Public Function layoutDesignSettings() As environmentLayoutClass
             Dim layout As New environmentLayoutClass
-            layout.layoutPanel.backColor = Color.Black
 
             Return layout
         End Function

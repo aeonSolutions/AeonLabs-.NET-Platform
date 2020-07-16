@@ -3,8 +3,15 @@
 Public Class PictureBoxDoubleBuffer
     Inherits PictureBox
     Public Sub New()
-        Me.DoubleBuffered = True
-        SetStyle(ControlStyles.AllPaintingInWmPaint Or ControlStyles.OptimizedDoubleBuffer Or ControlStyles.ResizeRedraw Or ControlStyles.UserPaint, True)
+        SuspendLayout()
+
+        SetStyle(ControlStyles.AllPaintingInWmPaint, True)
+        SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
+        ''SetStyle(ControlStyles.SupportsTransparentBackColor, True)
+        SetStyle(ControlStyles.ResizeRedraw, True)
+        Me.SetStyle(ControlStyles.UserPaint, True)
         Me.UpdateStyles()
+
+        ResumeLayout()
     End Sub
 End Class
