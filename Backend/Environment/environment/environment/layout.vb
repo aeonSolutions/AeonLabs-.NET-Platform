@@ -4,7 +4,7 @@ Imports AeonLabs.Environment.Assembly.assemblyEnvironmentVarsClass
 
 Public Class environmentLayoutClass
 
-    Public Property menu As New assemblyMenuClass
+    Public Property menu As New menuClass
 
     'MAIN LAYOUT design scheme
     Public Property MENU_BACK_COLOR As Color = Color.Black

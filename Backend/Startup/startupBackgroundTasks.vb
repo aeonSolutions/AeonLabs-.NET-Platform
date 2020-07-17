@@ -233,12 +233,13 @@ Public Class startupBackgroundTasksClass
         RaiseEvent updatePrgressBar(Me, CInt((LoadingCounter / LoadingCounterTotalTasks) * 100))
         RaiseEvent updateStatusMessage(Me, "Loading cloud settings...")
 
+        'TODO review
         dynamicAssembliesToLoadIndex = New List(Of Integer)
         Dim found As Boolean = False
-        For i = 0 To state.assembliesDynamic.Count - 1
+        For i = 0 To state.assemblies.Count - 1
             found = False
             For j = 0 To dynamicAssembliesToLoad.Count - 1
-                If dynamicAssembliesToLoad.ElementAt(j).Equals(state.assembliesDynamic.ElementAt(i).Key) Then
+                If dynamicAssembliesToLoad.ElementAt(j).Equals(state.assemblies.ElementAt(i).Key) Then
                     dynamicAssembliesToLoadIndex.Add(i)
                     found = True
                     Exit For
@@ -335,16 +336,12 @@ Public Class startupBackgroundTasksClass
 
     Private Sub getfiles_requestCompleted(sender As Object, responseData As String) Handles getFiles.requestCompleted
         Try
-            For i = 0 To state.assembliesStatic.Count - 1
-                Dim assembly As Reflection.Assembly = Reflection.Assembly.LoadFile(state.libraryPath & state.assembliesStatic.ElementAt(i).Key)
-                state.assembliesStatic(i).AssemblyObject = assembly.[GetType](state.assembliesStatic.ElementAt(i).Value.spaceName)
+            'TODO review
+            For i = 0 To state.assemblies.Count - 1
+                Dim assembly As Reflection.Assembly = Reflection.Assembly.LoadFile(state.libraryPath & state.assemblies.ElementAt(i).Key)
+                state.assemblies(i).Values.ElementAt(0).AssemblyObject = assembly.[GetType](state.assemblies(i).Values.ElementAt(0).spaceName)
             Next
-            If dynamicAssembliesToLoad.Count > 0 And state.customization.hasDynamicAssemblies Then
-                For i = 0 To dynamicAssembliesToLoad.Count - 1
-                    Dim assembly As Reflection.Assembly = Reflection.Assembly.LoadFile(state.libraryPath & state.assembliesDynamic.ElementAt(dynamicAssembliesToLoadIndex(i)).Key)
-                    state.assembliesDynamic(dynamicAssembliesToLoadIndex(i)).AssemblyObject = assembly.[GetType](state.assembliesStatic.ElementAt(dynamicAssembliesToLoadIndex(i)).Value.spaceName)
-                Next
-            End If
+
 
         Catch ex As Exception
             'TODO save crash report

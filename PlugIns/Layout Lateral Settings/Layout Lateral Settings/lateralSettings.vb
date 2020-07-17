@@ -75,12 +75,6 @@ Public Class lateralSettingsForm
         updateMainApp.Invoke(Me, dataUpdate)
     End Sub
 
-    Private Sub MacTrackBar2_MouseUp(sender As Object, e As MouseEventArgs) Handles MacTrackBar1.MouseUp
-        MacTrackBar1.BorderStyle = BorderStyle.None
-        MacTrackBar1.BorderColor = Color.Transparent
-        MacTrackBar1.Invalidate()
-    End Sub
-
     Private Sub panelForm_Paint_1(sender As Object, e As PaintEventArgs) Handles panelForm.Paint
 
     End Sub

@@ -157,11 +157,5 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Backend\Environment\environment\environment\environment.vbproj">
-      <Project>{82ad9932-5319-4ce8-a398-75b91133feec}</Project>
-      <Name>environment</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

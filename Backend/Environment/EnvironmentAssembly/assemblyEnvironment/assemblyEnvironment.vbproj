@@ -76,6 +76,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="assemblyEnvironmentVars.Class.vb" />
+    <Compile Include="EnvironmentAssignedToControlClass.vb" />
+    <Compile Include="environmentLoadedAssembliesClass.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -112,6 +114,12 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\GUI\Custom Controls\Custom Controls.vbproj">
+      <Project>{139894e5-2335-4583-b449-dc1d2a94937a}</Project>
+      <Name>Custom Controls</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

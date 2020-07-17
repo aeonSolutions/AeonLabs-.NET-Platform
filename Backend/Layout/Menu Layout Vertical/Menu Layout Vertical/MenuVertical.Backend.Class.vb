@@ -43,9 +43,9 @@ Public Class MenuVerticalClass
 
 #Region "BUILD VERTICAL MENU "
     Public Function buildMenu() As PanelDoubleBuffer
-        Dim menuItems As IList(Of assemblymenuItemClass) = (From s In enVars.layoutDesign.menu.items
-                                                            Where s.subMenuIndex.Equals(False)
-                                                            Select s).ToList()
+        Dim menuItems As IList(Of menuItemClass) = (From s In enVars.layoutDesign.menu.items
+                                                    Where s.subMenuIndex.Equals(False)
+                                                    Select s).ToList()
         Dim previousSubMenuItemsCounter As Integer = 0
         Dim totalHeight As Integer = 0
 
@@ -64,9 +64,9 @@ Public Class MenuVerticalClass
 
             buildMenu(menuItems(i), 0, i)
 
-            Dim subMenuItems As IList(Of assemblymenuItemClass) = (From s In menuItems
-                                                                   Where Not s.subMenuIndex.Equals(False) And s.menuIndex.Equals(menuItems(d).menuIndex)
-                                                                   Select s).ToList()
+            Dim subMenuItems As IList(Of menuItemClass) = (From s In menuItems
+                                                           Where Not s.subMenuIndex.Equals(False) And s.menuIndex.Equals(menuItems(d).menuIndex)
+                                                           Select s).ToList()
 
             totalHeight += (subMenuItems.Count) * enVars.layoutDesign.menu.properties.height + 1
 
@@ -90,7 +90,7 @@ Public Class MenuVerticalClass
 
 
 #Region "BUILD MENU ITEMS"
-    Private Sub buildMenu(menuItem As assemblymenuItemClass, placeIndex As Integer, firstmenuItemListIndex As Integer)
+    Private Sub buildMenu(menuItem As menuItemClass, placeIndex As Integer, firstmenuItemListIndex As Integer)
         Dim titlePosY As Integer = 0
         Dim menuPosX As Integer = enVars.layoutDesign.menu.properties.ClosedStateSize
 

@@ -78,7 +78,6 @@
     <Compile Include="updateEnvironmentClass.vb" />
     <Compile Include="updateMainAppClass.vb" />
     <Compile Include="userSettings.vb" />
-    <Compile Include="assemblies.vb" />
     <Compile Include="layout.vb" />
     <Compile Include="notifications.Class.vb" />
     <Compile Include="constants.vb" />

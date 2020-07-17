@@ -2,6 +2,7 @@
 Imports System.Drawing
 Imports System.Drawing.Text
 Imports System.IO
+Imports AeonLabs.Environment.Assembly
 
 Public Class environmentVarsCore
 
@@ -20,8 +21,8 @@ Public Class environmentVarsCore
 #End Region
 
 #Region "ASSEMBLIES"
-    Public Property assembliesStatic As New Dictionary(Of String, environmentAssembliesClass)
-    Public Property assembliesDynamic As New Dictionary(Of String, environmentAssembliesClass)
+    Public Property assemblies As New Dictionary(Of String, Dictionary(Of String, environmentLoadedAssembliesClass))
+    Public Property assignedAssembliesToControl As New Dictionary(Of String, List(Of EnvironmentAssignedToControlClass))
 #End Region
 
 #Region "LOCAL USER SETTINGS"

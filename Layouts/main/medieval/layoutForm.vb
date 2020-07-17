@@ -1,10 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports AeonLabs.Environment
-Imports AeonLabs.Environment.Assembly.assemblyEnvironmentVarsClass
-Imports AeonLabs.environmentLoading
-Imports AeonLabs.Layout
+Imports AeonLabs.Environment.Assembly
 Imports AeonLabs.Layout.Menu.Vertical
-Imports AeonLabs.Layouts
 Imports AeonLabs.PlugIns.SideBar.Settings
 
 
@@ -52,6 +49,40 @@ Public Class mainAppLayoutForm
 
 #Region "Layout settings"
     Private Const LATERAL_MENU_OPEN_WIDTH As Integer = 400
+
+    'AssembliesToLoadAtStart = {({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"})}
+    Public ReadOnly AssembliesToLoadAtStartOLD = {({"", "", "", ""}), ({"", "", "", ""}), ({"", "", "", ""}), ({"", "", "", ""})}
+
+    Public Shared Function AssembliesToLoadAtStart() As Dictionary(Of String, Dictionary(Of String, environmentLoadedAssembliesClass))
+        Dim returnAssemblies As New Dictionary(Of String, Dictionary(Of String, environmentLoadedAssembliesClass))
+        Dim assembliesTypes As Dictionary(Of String, environmentLoadedAssembliesClass)
+        Dim assemblyDetails As environmentLoadedAssembliesClass
+        Dim fileName As String
+        Dim formName As String
+
+        'Add assembly
+        assembliesTypes = New Dictionary(Of String, environmentLoadedAssembliesClass)
+        assemblyDetails = New environmentLoadedAssembliesClass
+        With assemblyDetails
+            fileName = "settings.layout.widget.dll"
+            formName = "lateralSettingsForm"
+            .assemblyFormName = formName
+            .spaceName = "AeonLabs.PlugIns.SideBar.Settings"
+            .UID = "NPmPqPuuqlwPL6swalnnMSqKGCp6MTr9"
+
+            .positionX = nothing ' Nothing for default posX
+            .positionY = Nothing ' Nothing for default poxY
+            .anchor = AnchorStyles.Left Or AnchorStyles.Top
+            .control = Nothing
+        End With
+        assembliesTypes.Add(formName, assemblyDetails)
+        returnAssemblies.Add(fileName, assembliesTypes)
+        'end of add assembly
+
+        'RETURN ASSEMBLIES DICT list
+        Return returnAssemblies
+    End Function
+
 #End Region
 
 #Region "constructors"
@@ -65,8 +96,11 @@ Public Class mainAppLayoutForm
         enVars = _enVars
         enVars.layoutDesign.menu.properties.ClosedStateSize = LATERAL_MENU_OPEN_WIDTH
 
-        'Instantiating the delegate
+        'Instantiating the delegate for update data from child forms
         updateMainApp = AddressOf updateMainAppLayout
+
+        'assign controls to assemblies
+        assignControlToAssembly()
 
         'Me.InactivityTimeOut = enVars.AutomaticLogoutTime
 
@@ -88,6 +122,13 @@ Public Class mainAppLayoutForm
         Me.ResumeLayout()
         '' needs to be the last 
         Me.Show()
+
+    End Sub
+#End Region
+
+#Region "assign control to assembly"
+    Private Sub assignControlToAssembly()
+        enVars.assemblies("settings.layout.widget.dll").Item("lateralSettingsForm").control = panelMenuOptionsContainer
 
     End Sub
 #End Region

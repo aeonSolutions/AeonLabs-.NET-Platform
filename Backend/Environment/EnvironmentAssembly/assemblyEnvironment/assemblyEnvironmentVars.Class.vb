@@ -5,15 +5,15 @@ Public Class assemblyEnvironmentVarsClass
 
     Public Property MenuPanelBackColor As Color
     'duplicate on layout env
-    Public Property menu As New assemblyMenuClass
+    Public Property menu As New menuClass
 
 
 
 
 
 
-    Public Class assemblyMenuClass
-        Public Property items As New List(Of assemblymenuItemClass) 'menu items
+    Public Class menuClass
+        Public Property items As New List(Of menuItemClass) 'menu items
         Public Property menuSort As New List(Of Integer)
         Public Property properties As New menuDesignPropertiesClass
         Class menuDesignPropertiesClass
@@ -25,7 +25,7 @@ Public Class assemblyEnvironmentVarsClass
         End Class
     End Class
 
-    Public Class assemblymenuItemClass
+    Public Class menuItemClass
         'settings for loading contents
         Public Property nameSpaceString As String         ' Note that I´m in namespace  "ConsoleApplication1.MyClassA"
         Public Property assemblyFilename As String
@@ -41,7 +41,7 @@ Public Class assemblyEnvironmentVarsClass
         Public Property menuIndex As Integer              '1 is the first on TOP; 0 is disabled
         Public Property subMenuIndex As Integer = -1      '1 is the first on TOP; false means is a menu 
         Public Property menuListIndex As Integer            'index of the TOP menu item within the menuitems list
-        Public Property menuDesignProperties As assemblyMenuClass.menuDesignPropertiesClass
+        Public Property menuDesignProperties As menuClass.menuDesignPropertiesClass
 
         Public Property notifications As Integer          ' number of notification pending on menu item
         Public Property icon As String

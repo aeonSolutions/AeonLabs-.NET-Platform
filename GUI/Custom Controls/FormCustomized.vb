@@ -1,7 +1,4 @@
-﻿Imports System.Drawing
-Imports System.Runtime.InteropServices
-Imports System.Windows.Forms
-Imports AeonLabs.Environment
+﻿Imports System.Runtime.InteropServices
 
 Partial Public Class FormCustomized
     Inherits Form
