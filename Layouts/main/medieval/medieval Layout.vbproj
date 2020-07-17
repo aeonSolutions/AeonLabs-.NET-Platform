@@ -190,6 +190,10 @@
       <Project>{DB6F9048-2A83-4BC3-B29E-36F185E2F4C8}</Project>
       <Name>assemblyEnvironment</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Backend\Environment\environmentLoading\environmentLoading\environmentLoading.vbproj">
+      <Project>{C2FF0762-AA5D-4C42-8249-339EB1D2D5F0}</Project>
+      <Name>environmentLoading</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Backend\Environment\environment\environment\environment.vbproj">
       <Project>{82ad9932-5319-4ce8-a398-75b91133feec}</Project>
       <Name>environment</Name>

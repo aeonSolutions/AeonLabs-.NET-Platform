@@ -25,7 +25,7 @@ Namespace My.Resources
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0"),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute()>  _
-    Public Class strings
+    Friend Class strings
         
         Private Shared resourceMan As Global.System.Resources.ResourceManager
         
@@ -40,10 +40,10 @@ Namespace My.Resources
         '''  Returns the cached ResourceManager instance used by this class.
         '''</summary>
         <Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
-        Public Shared ReadOnly Property ResourceManager() As Global.System.Resources.ResourceManager
+        Friend Shared ReadOnly Property ResourceManager() As Global.System.Resources.ResourceManager
             Get
                 If Object.ReferenceEquals(resourceMan, Nothing) Then
-                    Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("AeonLabs.Layouts.strings", GetType(strings).Assembly)
+                    Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("AeonLabs.PlugIns.SideBar.Settings.strings", GetType(strings).Assembly)
                     resourceMan = temp
                 End If
                 Return resourceMan
@@ -55,7 +55,7 @@ Namespace My.Resources
         '''  resource lookups using this strongly typed resource class.
         '''</summary>
         <Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
-        Public Shared Property Culture() As Global.System.Globalization.CultureInfo
+        Friend Shared Property Culture() As Global.System.Globalization.CultureInfo
             Get
                 Return resourceCulture
             End Get
@@ -65,56 +65,38 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to DataFile not found.
+        '''  Looks up a localized string similar to Background Image.
         '''</summary>
-        Public Shared ReadOnly Property errorDataFileNotFound() As String
+        Friend Shared ReadOnly Property backGroundImage() As String
             Get
-                Return ResourceManager.GetString("errorDataFileNotFound", resourceCulture)
+                Return ResourceManager.GetString("backGroundImage", resourceCulture)
             End Get
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Error downloading photo.
+        '''  Looks up a localized string similar to Change transparency color.
         '''</summary>
-        Public Shared ReadOnly Property errorDownloadingPhoto() As String
+        Friend Shared ReadOnly Property colorPallete() As String
             Get
-                Return ResourceManager.GetString("errorDownloadingPhoto", resourceCulture)
+                Return ResourceManager.GetString("colorPallete", resourceCulture)
             End Get
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Are you sure you want to exit.
+        '''  Looks up a localized string similar to Image.
         '''</summary>
-        Public Shared ReadOnly Property exitApp() As String
+        Friend Shared ReadOnly Property imageFile() As String
             Get
-                Return ResourceManager.GetString("exitApp", resourceCulture)
+                Return ResourceManager.GetString("imageFile", resourceCulture)
             End Get
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Toggle menu.
+        '''  Looks up a localized string similar to Open File....
         '''</summary>
-        Public Shared ReadOnly Property MenuToggle() As String
+        Friend Shared ReadOnly Property openFile() As String
             Get
-                Return ResourceManager.GetString("MenuToggle", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Question.
-        '''</summary>
-        Public Shared ReadOnly Property question() As String
-            Get
-                Return ResourceManager.GetString("question", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to View settings.
-        '''</summary>
-        Public Shared ReadOnly Property settingsToggle() As String
-            Get
-                Return ResourceManager.GetString("settingsToggle", resourceCulture)
+                Return ResourceManager.GetString("openFile", resourceCulture)
             End Get
         End Property
     End Class

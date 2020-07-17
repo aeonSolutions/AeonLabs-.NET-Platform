@@ -28,22 +28,20 @@ Partial Class mainAppLayoutForm
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(mainAppLayoutForm))
         Me.panelBottom = New PanelDoubleBuffer()
         Me.statusText = New LabelDoubleBuffer()
-        Me.panelLateralMenuContainer = New PanelDoubleBuffer()
         Me.iconMenuSettings = New FontAwesome.Sharp.IconPictureBox()
         Me.menuIconPic = New FontAwesome.Sharp.IconPictureBox()
-        Me.PanelLateralWrapper = New PanelDoubleBuffer()
-        Me.lateralPanelMenuOptionContainer = New PanelDoubleBuffer()
-        Me.lateralPanelMenuWrapper = New PanelDoubleBuffer()
-        Me.lateralPanelMenuOptions = New PanelDoubleBuffer()
+        Me.panelLeftSide = New PanelDoubleBuffer()
+        Me.panelMenuOptionsContainer = New PanelDoubleBuffer()
+        Me.panelMenuOptions = New PanelDoubleBuffer()
         Me.panelMain = New PanelDoubleBuffer()
         Me.panelTop = New PanelDoubleBuffer()
         Me.ColorWithAlpha1 = New BlueActivity.ColorWithAlpha()
+        Me.panelSideMenuContainer = New PanelDoubleBuffer()
         Me.panelBottom.SuspendLayout()
         CType(Me.iconMenuSettings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.menuIconPic, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelLateralWrapper.SuspendLayout()
-        Me.lateralPanelMenuWrapper.SuspendLayout()
-        Me.lateralPanelMenuOptions.SuspendLayout()
+        Me.panelLeftSide.SuspendLayout()
+        Me.panelMenuOptions.SuspendLayout()
         Me.SuspendLayout()
         '
         'panelBottom
@@ -69,18 +67,6 @@ Partial Class mainAppLayoutForm
         Me.statusText.TabIndex = 0
         Me.statusText.Text = "status message"
         Me.statusText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'panelLateralMenuContainer
-        '
-        Me.panelLateralMenuContainer.AutoSize = True
-        Me.panelLateralMenuContainer.BackColor = System.Drawing.Color.Transparent
-        Me.panelLateralMenuContainer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.panelLateralMenuContainer.Location = New System.Drawing.Point(0, 0)
-        Me.panelLateralMenuContainer.Name = "panelLateralMenuContainer"
-        Me.panelLateralMenuContainer.PANEL_CLOSED_STATE_DIM = 40
-        Me.panelLateralMenuContainer.PANEL_OPEN_STATE_DIM = 400
-        Me.panelLateralMenuContainer.Size = New System.Drawing.Size(300, 561)
-        Me.panelLateralMenuContainer.TabIndex = 2
         '
         'iconMenuSettings
         '
@@ -108,64 +94,54 @@ Partial Class mainAppLayoutForm
         Me.menuIconPic.TabIndex = 0
         Me.menuIconPic.TabStop = False
         '
-        'PanelLateralWrapper
+        'panelLeftSide
         '
-        Me.PanelLateralWrapper.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.PanelLateralWrapper.BackColor = System.Drawing.Color.Transparent
-        Me.PanelLateralWrapper.Controls.Add(Me.lateralPanelMenuOptionContainer)
-        Me.PanelLateralWrapper.Controls.Add(Me.lateralPanelMenuOptions)
-        Me.PanelLateralWrapper.Controls.Add(Me.lateralPanelMenuWrapper)
-        Me.PanelLateralWrapper.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PanelLateralWrapper.Location = New System.Drawing.Point(0, 0)
-        Me.PanelLateralWrapper.Name = "PanelLateralWrapper"
-        Me.PanelLateralWrapper.PANEL_CLOSED_STATE_DIM = 40
-        Me.PanelLateralWrapper.PANEL_OPEN_STATE_DIM = 400
-        Me.PanelLateralWrapper.Size = New System.Drawing.Size(300, 561)
-        Me.PanelLateralWrapper.TabIndex = 3
+        Me.panelLeftSide.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelLeftSide.BackColor = System.Drawing.Color.Transparent
+        Me.panelLeftSide.Controls.Add(Me.panelMenuOptionsContainer)
+        Me.panelLeftSide.Controls.Add(Me.panelSideMenuContainer)
+        Me.panelLeftSide.Controls.Add(Me.panelMenuOptions)
+        Me.panelLeftSide.Dock = System.Windows.Forms.DockStyle.Left
+        Me.panelLeftSide.Location = New System.Drawing.Point(0, 0)
+        Me.panelLeftSide.Name = "panelLeftSide"
+        Me.panelLeftSide.PANEL_CLOSED_STATE_DIM = 40
+        Me.panelLeftSide.PANEL_OPEN_STATE_DIM = 400
+        Me.panelLeftSide.Size = New System.Drawing.Size(300, 561)
+        Me.panelLeftSide.TabIndex = 3
         '
-        'lateralPanelMenuOptionContainer
+        'panelMenuOptionsContainer
         '
-        Me.lateralPanelMenuOptionContainer.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lateralPanelMenuOptionContainer.Location = New System.Drawing.Point(0, 33)
-        Me.lateralPanelMenuOptionContainer.Name = "lateralPanelMenuOptionContainer"
-        Me.lateralPanelMenuOptionContainer.PANEL_CLOSED_STATE_DIM = 40
-        Me.lateralPanelMenuOptionContainer.PANEL_OPEN_STATE_DIM = 400
-        Me.lateralPanelMenuOptionContainer.Size = New System.Drawing.Size(300, 54)
-        Me.lateralPanelMenuOptionContainer.TabIndex = 3
+        Me.panelMenuOptionsContainer.Dock = System.Windows.Forms.DockStyle.Top
+        Me.panelMenuOptionsContainer.Location = New System.Drawing.Point(0, 33)
+        Me.panelMenuOptionsContainer.Name = "panelMenuOptionsContainer"
+        Me.panelMenuOptionsContainer.PANEL_CLOSED_STATE_DIM = 40
+        Me.panelMenuOptionsContainer.PANEL_OPEN_STATE_DIM = 400
+        Me.panelMenuOptionsContainer.Size = New System.Drawing.Size(300, 54)
+        Me.panelMenuOptionsContainer.TabIndex = 3
         '
-        'lateralPanelMenuWrapper
+        'panelMenuOptions
         '
-        Me.lateralPanelMenuWrapper.Controls.Add(Me.panelLateralMenuContainer)
-        Me.lateralPanelMenuWrapper.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lateralPanelMenuWrapper.Location = New System.Drawing.Point(0, 0)
-        Me.lateralPanelMenuWrapper.Name = "lateralPanelMenuWrapper"
-        Me.lateralPanelMenuWrapper.PANEL_CLOSED_STATE_DIM = 40
-        Me.lateralPanelMenuWrapper.PANEL_OPEN_STATE_DIM = 400
-        Me.lateralPanelMenuWrapper.Size = New System.Drawing.Size(300, 561)
-        Me.lateralPanelMenuWrapper.TabIndex = 4
-        '
-        'lateralPanelMenuOptions
-        '
-        Me.lateralPanelMenuOptions.Controls.Add(Me.menuIconPic)
-        Me.lateralPanelMenuOptions.Controls.Add(Me.iconMenuSettings)
-        Me.lateralPanelMenuOptions.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lateralPanelMenuOptions.Location = New System.Drawing.Point(0, 0)
-        Me.lateralPanelMenuOptions.Name = "lateralPanelMenuOptions"
-        Me.lateralPanelMenuOptions.PANEL_CLOSED_STATE_DIM = 40
-        Me.lateralPanelMenuOptions.PANEL_OPEN_STATE_DIM = 400
-        Me.lateralPanelMenuOptions.Size = New System.Drawing.Size(300, 33)
-        Me.lateralPanelMenuOptions.TabIndex = 3
+        Me.panelMenuOptions.BackColor = System.Drawing.Color.Transparent
+        Me.panelMenuOptions.Controls.Add(Me.menuIconPic)
+        Me.panelMenuOptions.Controls.Add(Me.iconMenuSettings)
+        Me.panelMenuOptions.Dock = System.Windows.Forms.DockStyle.Top
+        Me.panelMenuOptions.Location = New System.Drawing.Point(0, 0)
+        Me.panelMenuOptions.Name = "panelMenuOptions"
+        Me.panelMenuOptions.PANEL_CLOSED_STATE_DIM = 40
+        Me.panelMenuOptions.PANEL_OPEN_STATE_DIM = 400
+        Me.panelMenuOptions.Size = New System.Drawing.Size(300, 33)
+        Me.panelMenuOptions.TabIndex = 3
         '
         'panelMain
         '
         Me.panelMain.AutoScroll = True
         Me.panelMain.BackColor = System.Drawing.Color.Transparent
         Me.panelMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.panelMain.Location = New System.Drawing.Point(300, 0)
+        Me.panelMain.Location = New System.Drawing.Point(300, 33)
         Me.panelMain.Name = "panelMain"
         Me.panelMain.PANEL_CLOSED_STATE_DIM = 40
         Me.panelMain.PANEL_OPEN_STATE_DIM = 400
-        Me.panelMain.Size = New System.Drawing.Size(713, 535)
+        Me.panelMain.Size = New System.Drawing.Size(713, 502)
         Me.panelMain.TabIndex = 4
         '
         'panelTop
@@ -183,6 +159,19 @@ Partial Class mainAppLayoutForm
         '
         Me.ColorWithAlpha1.Alpha = 80
         Me.ColorWithAlpha1.Color = System.Drawing.Color.White
+        Me.ColorWithAlpha1.Parent = Nothing
+        '
+        'panelSideMenuContainer
+        '
+        Me.panelSideMenuContainer.AutoSize = True
+        Me.panelSideMenuContainer.BackColor = System.Drawing.Color.Transparent
+        Me.panelSideMenuContainer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.panelSideMenuContainer.Location = New System.Drawing.Point(0, 33)
+        Me.panelSideMenuContainer.Name = "panelSideMenuContainer"
+        Me.panelSideMenuContainer.PANEL_CLOSED_STATE_DIM = 40
+        Me.panelSideMenuContainer.PANEL_OPEN_STATE_DIM = 400
+        Me.panelSideMenuContainer.Size = New System.Drawing.Size(300, 528)
+        Me.panelSideMenuContainer.TabIndex = 2
         '
         'mainAppLayoutForm
         '
@@ -192,10 +181,10 @@ Partial Class mainAppLayoutForm
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1013, 561)
-        Me.Controls.Add(Me.panelTop)
         Me.Controls.Add(Me.panelMain)
+        Me.Controls.Add(Me.panelTop)
         Me.Controls.Add(Me.panelBottom)
-        Me.Controls.Add(Me.PanelLateralWrapper)
+        Me.Controls.Add(Me.panelLeftSide)
         Me.MinimumSize = New System.Drawing.Size(950, 600)
         Me.Name = "mainAppLayoutForm"
         Me.Opacity = 0.999R
@@ -206,23 +195,21 @@ Partial Class mainAppLayoutForm
         Me.panelBottom.ResumeLayout(False)
         CType(Me.iconMenuSettings, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.menuIconPic, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelLateralWrapper.ResumeLayout(False)
-        Me.lateralPanelMenuWrapper.ResumeLayout(False)
-        Me.lateralPanelMenuWrapper.PerformLayout()
-        Me.lateralPanelMenuOptions.ResumeLayout(False)
+        Me.panelLeftSide.ResumeLayout(False)
+        Me.panelLeftSide.PerformLayout()
+        Me.panelMenuOptions.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents panelBottom As PanelDoubleBuffer
-    Friend WithEvents panelLateralMenuContainer As PanelDoubleBuffer
     Friend WithEvents statusText As LabelDoubleBuffer
-    Friend WithEvents PanelLateralWrapper As PanelDoubleBuffer
+    Friend WithEvents panelLeftSide As PanelDoubleBuffer
     Friend WithEvents panelMain As PanelDoubleBuffer
     Friend WithEvents panelTop As PanelDoubleBuffer
     Friend WithEvents menuIconPic As FontAwesome.Sharp.IconPictureBox
     Friend WithEvents iconMenuSettings As FontAwesome.Sharp.IconPictureBox
-    Friend WithEvents lateralPanelMenuOptions As PanelDoubleBuffer
-    Friend WithEvents lateralPanelMenuWrapper As PanelDoubleBuffer
-    Friend WithEvents lateralPanelMenuOptionContainer As PanelDoubleBuffer
+    Friend WithEvents panelMenuOptions As PanelDoubleBuffer
+    Friend WithEvents panelMenuOptionsContainer As PanelDoubleBuffer
     Friend WithEvents ColorWithAlpha1 As BlueActivity.ColorWithAlpha
+    Friend WithEvents panelSideMenuContainer As PanelDoubleBuffer
 End Class

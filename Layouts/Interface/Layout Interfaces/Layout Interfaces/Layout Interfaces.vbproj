@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EE881E82-47E9-498E-B6CA-776106B52BCC}</ProjectGuid>
+    <ProjectGuid>{A0FF1F2C-36C7-4E64-837C-65F859425177}</ProjectGuid>
     <OutputType>Library</OutputType>
     <StartupObject>
     </StartupObject>
-    <RootNamespace>AeonLabs.PlugIns.SideBar.Settings</RootNamespace>
-    <AssemblyName>Layout Lateral Settings</AssemblyName>
+    <RootNamespace>AeonLabs.Layouts.Interfaces</RootNamespace>
+    <AssemblyName>Layout Interfaces</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -23,7 +23,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>Layout Lateral Settings.xml</DocumentationFile>
+    <DocumentationFile>Layout Interfaces.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -33,7 +33,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>Layout Lateral Settings.xml</DocumentationFile>
+    <DocumentationFile>Layout Interfaces.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -49,9 +49,6 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FontAwesome.Sharp, Version=5.13.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FontAwesome.Sharp.5.13.0\lib\net472\FontAwesome.Sharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -77,12 +74,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="lateralSettings.Designer.vb">
-      <DependentUpon>lateralSettings.vb</DependentUpon>
-    </Compile>
-    <Compile Include="lateralSettings.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="sendUpdateDataToMainForm.vb" />
+    <Compile Include="updateLayoutInterface.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -99,26 +92,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="strings.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>strings.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="lateralSettings.resx">
-      <DependentUpon>lateralSettings.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="strings.resx">
-      <CustomToolNamespace>My.Resources</CustomToolNamespace>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>strings.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -132,25 +112,6 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Backend\Environment\environment\environment\environment.vbproj">
-      <Project>{82ad9932-5319-4ce8-a398-75b91133feec}</Project>
-      <Name>environment</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GUI\AlphaGradientPanel\AlphaGradientPanel.vbproj">
-      <Project>{a65d2f89-5203-411b-8111-cd0b17b8a642}</Project>
-      <Name>AlphaGradientPanel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GUI\Custom Controls\Custom Controls.vbproj">
-      <Project>{139894e5-2335-4583-b449-dc1d2a94937a}</Project>
-      <Name>Custom Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GUI\MACTrackBarLib\MACTrackBarLib.vbproj">
-      <Project>{77a112b1-5440-440b-a0f6-2edcc5b093cb}</Project>
-      <Name>MACTrackBarLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

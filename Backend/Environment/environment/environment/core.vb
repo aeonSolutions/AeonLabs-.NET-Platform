@@ -5,8 +5,14 @@ Imports System.IO
 
 Public Class environmentVarsCore
 
-#Region "events"
+#Region "Interfaces, Events and delegates"
     Public Event dataChanged(sender As Object, envars As environmentVarsCore)
+    Public Delegate Sub updateMainLayoutDelegate(sender As Object, ByRef updateContents As updateMainAppClass)
+
+    Public Sub updateMainLayout(sender As Object, ByRef updateContents As updateMainAppClass)
+
+    End Sub
+
 #End Region
 
 #Region "CUSTOMIZATION"

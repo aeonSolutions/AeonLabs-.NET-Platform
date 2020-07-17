@@ -126,7 +126,13 @@
   <data name="exitApp" xml:space="preserve">
     <value>Are you sure you want to exit</value>
   </data>
+  <data name="MenuToggle" xml:space="preserve">
+    <value>Toggle menu</value>
+  </data>
   <data name="question" xml:space="preserve">
     <value>Question</value>
+  </data>
+  <data name="settingsToggle" xml:space="preserve">
+    <value>View settings</value>
   </data>
 </root>

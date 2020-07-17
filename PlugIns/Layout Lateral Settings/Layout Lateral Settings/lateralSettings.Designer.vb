@@ -24,20 +24,45 @@ Partial Class lateralSettingsForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.ColorWithAlpha1 = New BlueActivity.ColorWithAlpha()
-        Me.MacTrackBar1 = New XComponent.SliderBar.MACTrackBar()
-        Me.selectPanelBackColor = New FontAwesome.Sharp.IconPictureBox()
-        Me.panelForm = New PanelDoubleBuffer()
+        Me.components = New System.ComponentModel.Container()
         Me.ColorPickerDialog = New System.Windows.Forms.ColorDialog()
+        Me.ToolTips = New System.Windows.Forms.ToolTip(Me.components)
+        Me.selectBackGroundImage = New FontAwesome.Sharp.IconPictureBox()
+        Me.selectPanelBackColor = New FontAwesome.Sharp.IconPictureBox()
+        Me.MacTrackBar1 = New XComponent.SliderBar.MACTrackBar()
+        Me.panelForm = New PanelDoubleBuffer()
+        CType(Me.selectBackGroundImage, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.selectPanelBackColor, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelForm.SuspendLayout()
         Me.SuspendLayout()
         '
-        'ColorWithAlpha1
+        'selectBackGroundImage
         '
-        Me.ColorWithAlpha1.Alpha = 40
-        Me.ColorWithAlpha1.Color = System.Drawing.Color.Red
-        Me.ColorWithAlpha1.Parent = Nothing
+        Me.selectBackGroundImage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.selectBackGroundImage.BackColor = System.Drawing.Color.Transparent
+        Me.selectBackGroundImage.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.selectBackGroundImage.IconChar = FontAwesome.Sharp.IconChar.Image
+        Me.selectBackGroundImage.IconColor = System.Drawing.Color.White
+        Me.selectBackGroundImage.IconSize = 20
+        Me.selectBackGroundImage.Location = New System.Drawing.Point(40, 44)
+        Me.selectBackGroundImage.Name = "selectBackGroundImage"
+        Me.selectBackGroundImage.Size = New System.Drawing.Size(20, 20)
+        Me.selectBackGroundImage.TabIndex = 3
+        Me.selectBackGroundImage.TabStop = False
+        '
+        'selectPanelBackColor
+        '
+        Me.selectPanelBackColor.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.selectPanelBackColor.BackColor = System.Drawing.Color.Transparent
+        Me.selectPanelBackColor.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.selectPanelBackColor.IconChar = FontAwesome.Sharp.IconChar.Palette
+        Me.selectPanelBackColor.IconColor = System.Drawing.Color.White
+        Me.selectPanelBackColor.IconSize = 20
+        Me.selectPanelBackColor.Location = New System.Drawing.Point(3, 44)
+        Me.selectPanelBackColor.Name = "selectPanelBackColor"
+        Me.selectPanelBackColor.Size = New System.Drawing.Size(20, 20)
+        Me.selectPanelBackColor.TabIndex = 2
+        Me.selectPanelBackColor.TabStop = False
         '
         'MacTrackBar1
         '
@@ -59,46 +84,32 @@ Partial Class lateralSettingsForm
         Me.MacTrackBar1.TickFrequency = 10
         Me.MacTrackBar1.TickHeight = 4
         Me.MacTrackBar1.TickStyle = System.Windows.Forms.TickStyle.Both
-        Me.MacTrackBar1.TrackerColor = System.Drawing.Color.RoyalBlue
+        Me.MacTrackBar1.TrackerColor = System.Drawing.Color.White
         Me.MacTrackBar1.TrackerSize = New System.Drawing.Size(16, 16)
         Me.MacTrackBar1.TrackLineColor = System.Drawing.Color.White
         Me.MacTrackBar1.TrackLineHeight = 3
         Me.MacTrackBar1.Value = 0
         '
-        'selectPanelBackColor
-        '
-        Me.selectPanelBackColor.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.selectPanelBackColor.BackColor = System.Drawing.Color.Transparent
-        Me.selectPanelBackColor.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.selectPanelBackColor.IconChar = FontAwesome.Sharp.IconChar.Adjust
-        Me.selectPanelBackColor.IconColor = System.Drawing.Color.White
-        Me.selectPanelBackColor.IconSize = 20
-        Me.selectPanelBackColor.Location = New System.Drawing.Point(12, 55)
-        Me.selectPanelBackColor.Name = "selectPanelBackColor"
-        Me.selectPanelBackColor.Size = New System.Drawing.Size(20, 20)
-        Me.selectPanelBackColor.TabIndex = 2
-        Me.selectPanelBackColor.TabStop = False
-        '
         'panelForm
         '
-        Me.panelForm.Controls.Add(Me.selectPanelBackColor)
         Me.panelForm.Controls.Add(Me.MacTrackBar1)
+        Me.panelForm.Controls.Add(Me.selectBackGroundImage)
+        Me.panelForm.Controls.Add(Me.selectPanelBackColor)
         Me.panelForm.Dock = System.Windows.Forms.DockStyle.Fill
         Me.panelForm.Location = New System.Drawing.Point(0, 0)
-        Me.panelForm.Margin = New System.Windows.Forms.Padding(10)
         Me.panelForm.Name = "panelForm"
         Me.panelForm.PANEL_CLOSED_STATE_DIM = 40
         Me.panelForm.PANEL_OPEN_STATE_DIM = 400
-        Me.panelForm.Size = New System.Drawing.Size(400, 87)
-        Me.panelForm.TabIndex = 354
+        Me.panelForm.Size = New System.Drawing.Size(400, 113)
+        Me.panelForm.TabIndex = 356
         '
         'lateralSettingsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.DimGray
+        Me.BackColor = System.Drawing.Color.Silver
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(400, 87)
+        Me.ClientSize = New System.Drawing.Size(400, 113)
         Me.ControlBox = False
         Me.Controls.Add(Me.panelForm)
         Me.DoubleBuffered = True
@@ -112,15 +123,17 @@ Partial Class lateralSettingsForm
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Form1"
-        Me.TransparencyKey = System.Drawing.Color.DimGray
+        Me.TransparencyKey = System.Drawing.Color.Silver
+        CType(Me.selectBackGroundImage, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.selectPanelBackColor, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panelForm.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents ColorWithAlpha1 As BlueActivity.ColorWithAlpha
     Private WithEvents MacTrackBar1 As XComponent.SliderBar.MACTrackBar
     Friend WithEvents selectPanelBackColor As FontAwesome.Sharp.IconPictureBox
-    Friend WithEvents panelForm As PanelDoubleBuffer
     Friend WithEvents ColorPickerDialog As ColorDialog
+    Friend WithEvents selectBackGroundImage As FontAwesome.Sharp.IconPictureBox
+    Friend WithEvents ToolTips As ToolTip
+    Friend WithEvents panelForm As PanelDoubleBuffer
 End Class

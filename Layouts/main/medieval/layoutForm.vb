@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports AeonLabs.Environment
 Imports AeonLabs.Environment.Assembly.assemblyEnvironmentVarsClass
+Imports AeonLabs.environmentLoading
 Imports AeonLabs.Layout
 Imports AeonLabs.Layout.Menu.Vertical
 Imports AeonLabs.Layouts
@@ -10,7 +11,12 @@ Imports AeonLabs.PlugIns.SideBar.Settings
 Public Class mainAppLayoutForm
     Inherits FormCustomized
 
+
 #Region "variables fields"
+    Public updateMainApp As environmentVarsCore.updateMainLayoutDelegate
+
+    Private registeredPanels As New List(Of String)
+
     Public CurrentWrapperForm As Form
     Public LoadedFrm As Form
     Public childForm As String = ""
@@ -40,6 +46,8 @@ Public Class mainAppLayoutForm
     Private eDelta As Integer
     Private Sensitivity As Integer = 20
 
+    Private settingsToolTip As New ToolTip()
+    Private menuToggleToolTip As New ToolTip()
 #End Region
 
 #Region "Layout settings"
@@ -53,17 +61,17 @@ Public Class mainAppLayoutForm
         ' This call is required by the designer.
         Me.SuspendLayout()
         InitializeComponent()
-        Me.ResumeLayout()
 
         enVars = _enVars
         enVars.layoutDesign.menu.properties.ClosedStateSize = LATERAL_MENU_OPEN_WIDTH
-        ' hook up the event handler
-        AddHandler enVars.dataChanged, AddressOf mainLayout_DataChanged
+
+        'Instantiating the delegate
+        updateMainApp = AddressOf updateMainAppLayout
+
         'Me.InactivityTimeOut = enVars.AutomaticLogoutTime
 
         'initialize async tasks manager
         taskManager = New tasksManager.tasksManagerClass
-
         ''DEFINE TASKs TO DO
         With taskManager
             .registerTask("loadAssemblies", tasksManager.tasksManagerClass.TO_START)
@@ -74,16 +82,97 @@ Public Class mainAppLayoutForm
         Me.Opacity = 0
         Me.Refresh()
 
+        registerConfigurableLayoutControls()
+        addToolTips()
+
+        Me.ResumeLayout()
         '' needs to be the last 
         Me.Show()
-    End Sub
-#End Region
-
-#Region "update environment changes"
-    Public Sub mainLayout_DataChanged(sender As Object, envars As environmentVarsCore)
 
     End Sub
 #End Region
+
+#Region "TOOLTIPS"
+    Private Sub addToolTips()
+        'ADD TOOLTIPS 
+        Dim menuToggleToolTip As New ToolTip()
+        menuToggleToolTip.SetToolTip(menuIconPic, My.Resources.strings.MenuToggle)
+
+        Dim settingsToolTip As New ToolTip()
+        settingsToolTip.SetToolTip(iconMenuSettings, My.Resources.strings.settingsToggle)
+    End Sub
+#End Region
+
+#Region "REGISTER CONFIGURABLE LAYOUT CONTROLS"
+    Private Sub registerConfigurableLayoutControls()
+        'REGISTER CONFIGURABLE LAYOUT PANELS 
+        registeredPanels.Add(panelLeftSide.Name)
+        registeredPanels.Add(panelBottom.Name)
+        registeredPanels.Add(panelTop.Name)
+    End Sub
+#End Region
+
+#Region "update environment and layout"
+    Public Sub updateMainAppLayout(sender As Object, ByRef updateContents As updateMainAppClass)
+        enVars = updateContents.envars
+
+        If updateContents.updateTask.Equals(updateMainAppClass.UPDATE_LAYOUT) Then
+            SuspendLayout()
+            updateBkColorAndTransparency(Me, False, False)
+            ResumeLayout()
+            Refresh()
+        ElseIf updateContents.updateTask.Equals(updateMainAppClass.UPDATE_LAYOUT_BACKGROUND) Then
+            SuspendLayout()
+            Me.BackgroundImage = Image.FromFile(updateContents.backGroundFileName)
+            Me.BackgroundImageLayout = ImageLayout.Stretch
+
+            updateBkImageOnChildForms(Me, False, Nothing)
+            ResumeLayout()
+            Refresh()
+        ElseIf updateContents.updateTask.Equals(updateMainAppClass.UPDATE_ENVIRONMENT_VARS) Then
+            'REDUNDANT ...
+        End If
+    End Sub
+
+    Private Sub updateBkColorAndTransparency(ByVal ctrlContainer As Control, isOnChildren As Boolean, isOnForm As Boolean)
+        For Each ctrl As Control In ctrlContainer.Controls
+            Dim t = ctrl.Name
+            Dim typ = ctrl.GetType
+
+            If TypeOf ctrl Is PanelDoubleBuffer And Not isOnChildren Then
+                If registeredPanels.Contains(ctrl.Name.ToString) Then
+                    ctrl.BackColor = Color.FromArgb(enVars.layoutDesign.PanelTransparencyIndex, enVars.layoutDesign.PanelBackColor)
+                    If ctrl.HasChildren Then
+                        updateBkColorAndTransparency(ctrl, True, False)
+                    End If
+                End If
+            ElseIf (TypeOf ctrl Is FormCustomized Or TypeOf ctrl Is Form) And isOnChildren Then
+                updateBkColorAndTransparency(ctrl, True, True)
+            ElseIf TypeOf ctrl Is PanelDoubleBuffer And isOnChildren And isOnForm Then
+                ctrl.BackColor = Color.FromArgb(enVars.layoutDesign.PanelTransparencyIndex, enVars.layoutDesign.PanelBackColor)
+            ElseIf TypeOf ctrl Is PanelDoubleBuffer And isOnChildren And ctrl.HasChildren Then
+                updateBkColorAndTransparency(ctrl, True, False)
+            End If
+        Next
+    End Sub
+
+    Private Sub updateBkImageOnChildForms(ByVal ctrlContainer As Control, isOnChildren As Boolean, panelHost As PanelDoubleBuffer)
+        For Each ctrl As Control In ctrlContainer.Controls
+            Dim t = ctrl.Name
+            Dim typ = ctrl.GetType
+
+            If TypeOf ctrl Is PanelDoubleBuffer Then
+                If ctrl.HasChildren Then
+                    updateBkImageOnChildForms(ctrl, True, ctrl)
+                End If
+            ElseIf (TypeOf ctrl Is FormCustomized Or TypeOf ctrl Is Form) And isOnChildren Then
+                ctrl.BackgroundImage = cropImage(Me.BackgroundImage, panelHost.Location.X, panelHost.Location.Y, panelHost.Width, panelHost.Height)
+                ctrl.BackgroundImageLayout = ImageLayout.Stretch
+            End If
+        Next
+    End Sub
+#End Region
+
 
 #Region "form events"
     Private Sub MyForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
@@ -95,49 +184,47 @@ Public Class mainAppLayoutForm
 
         Refresh()
         Dim menuBuilder As MenuVerticalClass = New MenuVerticalClass(Me, enVars)
-        panelLateralMenuContainer.Controls.Add(menuBuilder.buildMenu())
+        panelSideMenuContainer.Controls.Add(menuBuilder.buildMenu())
         enVars = menuBuilder.enVars
 
         SuspendLayout()
 
-        PanelLateralWrapper.Parent = Me
-        PanelLateralWrapper.Width = enVars.layoutDesign.menu.properties.ClosedStateSize
-        PanelLateralWrapper.BackColor = Color.Transparent
+        panelLeftSide.Parent = Me
+        panelLeftSide.Width = enVars.layoutDesign.menu.properties.ClosedStateSize
+        panelLeftSide.BackColor = Color.Transparent
 
-        lateralPanelMenuOptionContainer.Parent = PanelLateralWrapper
-        lateralPanelMenuOptionContainer.Height = 0
+        panelMenuOptionsContainer.Parent = panelLeftSide
+        panelMenuOptionsContainer.Height = 0
 
-        lateralPanelMenuWrapper.Parent = PanelLateralWrapper
-        lateralPanelMenuWrapper.BackColor = Color.Transparent
-
-        panelLateralMenuContainer.Parent = lateralPanelMenuWrapper
-        panelLateralMenuContainer.BackColor = Color.FromArgb(50, Color.Red)
+        panelSideMenuContainer.Parent = panelLeftSide
         'hack to hide the scrool bars
-        panelLateralMenuContainer.Dock = DockStyle.None
-        panelLateralMenuContainer.Width = lateralPanelMenuWrapper.Width + 30
-        panelLateralMenuContainer.Height = lateralPanelMenuWrapper.Height
+        panelSideMenuContainer.Dock = DockStyle.None
+        panelSideMenuContainer.Width = panelLeftSide.Width + 30
+        panelSideMenuContainer.Height = panelLeftSide.Height
 
-        lateralPanelMenuOptions.Parent = PanelLateralWrapper
-        lateralPanelMenuOptions.BackColor = Color.FromArgb(50, Color.Red)
+        'TOP OPTIONS ON SIDE PANEL
+        panelMenuOptions.Parent = panelLeftSide
+        'lateralPanelMenuOptions.BackColor = Color.FromArgb(50, Color.Red)
 
-        menuIconPic.Parent = lateralPanelMenuOptions
+        menuIconPic.Parent = panelMenuOptions
         menuIconPic.BackColor = Color.Transparent
         menuIconPic.Width = enVars.layoutDesign.MENU_CLOSED_STATE - 3
         menuIconPic.Height = enVars.layoutDesign.MENU_CLOSED_STATE - 3
 
-        iconMenuSettings.Parent = lateralPanelMenuOptions
+        iconMenuSettings.Parent = panelMenuOptions
         iconMenuSettings.BackColor = Color.Transparent
 
+        'TOP PANEL
         panelTop.Parent = Me
-        panelTop.BackColor = Color.FromArgb(50, Color.Black)
-        lateralPanelMenuOptions.BackColor = Color.FromArgb(50, Color.Red)
 
+        'BOTTOM PANEL
         panelBottom.Parent = Me
-        panelBottom.BackColor = Color.FromArgb(50, Color.Black)
 
         statusText.Parent = panelBottom
         statusText.BackColor = Color.Transparent
         statusMessage = "status message test"
+
+        updateBkColorAndTransparency(Me, False, False)
 
         MenuUpdate(False)
 
@@ -146,7 +233,7 @@ Public Class mainAppLayoutForm
 
     Private currentForm As Form = Nothing
     Private Sub openChildForm(targetPanel As PanelDoubleBuffer, childForm As Form)
-
+        SuspendLayout()
         If currentForm IsNot Nothing Then currentForm.Close()
         currentForm = childForm
         childForm.TopLevel = False
@@ -161,7 +248,7 @@ Public Class mainAppLayoutForm
         childForm.BackgroundImage = cropImage(Me.BackgroundImage, targetPanel.Location.X, targetPanel.Location.Y, targetPanel.Width, targetPanel.Height)
         childForm.BackgroundImageLayout = ImageLayout.Stretch
         childForm.Show()
-        'TODO
+        ResumeLayout()
     End Sub
 
 #Region " Resize / crop Image "
@@ -247,7 +334,10 @@ Public Class mainAppLayoutForm
 
         If Not WindowState = FormWindowState.Maximized OrElse Not WindowState = FormWindowState.Minimized Then
             mbDoPaintBackground = True
-            Invalidate()
+            SuspendLayout()
+            updateBkImageOnChildForms(Me, False, Nothing)
+            ResumeLayout()
+            Refresh()
         End If
     End Sub
 
@@ -260,16 +350,13 @@ Public Class mainAppLayoutForm
         End If
     End Sub
 #End Region
-
-
     Private Sub topPanel_Paint(sender As Object, e As PaintEventArgs)
 
     End Sub
 
-
-    Private Sub panelLateralWrapper_Resize(sender As Object, e As System.EventArgs) Handles PanelLateralWrapper.Resize
-        panelLateralMenuContainer.Width = PanelLateralWrapper.Width + 30
-        panelLateralMenuContainer.Height = PanelLateralWrapper.Height
+    Private Sub panelLateralWrapper_Resize(sender As Object, e As System.EventArgs) Handles panelLeftSide.Resize
+        panelSideMenuContainer.Width = panelLeftSide.Width + 30
+        panelSideMenuContainer.Height = panelLeftSide.Height
     End Sub
 
     Private Sub resizeMenuElementsByOrder(previous As Control, current As Control)
@@ -278,7 +365,7 @@ Public Class mainAppLayoutForm
         Else
             current.Location = New Point(0, previous.Location.Y + previous.Height)
         End If
-        current.Width = PanelLateralWrapper.Width
+        current.Width = panelLeftSide.Width
         current.Dock = DockStyle.None
     End Sub
 
@@ -335,43 +422,44 @@ Public Class mainAppLayoutForm
             Dim vScrollPosition As Integer = VScroll 'panelLateral.VerticalScroll.Value
             vScrollPosition -= Math.Sign(eDelta) * Sensitivity
             vScrollPosition = Math.Max(0, vScrollPosition)
-            vScrollPosition = Math.Min(vScrollPosition, panelLateralMenuContainer.VerticalScroll.Maximum)
-            If Not vScrollPosition.Equals(panelLateralMenuContainer.VerticalScroll.Value) Then
-                panelLateralMenuContainer.SuspendLayout()
-                panelLateralMenuContainer.AutoScroll = True
-                panelLateralMenuContainer.VerticalScroll.Enabled = True
-                panelLateralMenuContainer.VerticalScroll.Value = vScrollPosition
-                panelLateralMenuContainer.AutoScrollPosition = New Point(panelLateralMenuContainer.AutoScrollPosition.X,
+            vScrollPosition = Math.Min(vScrollPosition, panelSideMenuContainer.VerticalScroll.Maximum)
+            If Not vScrollPosition.Equals(panelSideMenuContainer.VerticalScroll.Value) Then
+                panelSideMenuContainer.SuspendLayout()
+                panelSideMenuContainer.AutoScroll = True
+                panelSideMenuContainer.VerticalScroll.Enabled = True
+                panelSideMenuContainer.VerticalScroll.Value = vScrollPosition
+                panelSideMenuContainer.AutoScrollPosition = New Point(panelSideMenuContainer.AutoScrollPosition.X,
                          vScrollPosition)
-                panelLateralMenuContainer.AutoScroll = False
-                panelLateralMenuContainer.ResumeLayout()
+                panelSideMenuContainer.AutoScroll = False
+                panelSideMenuContainer.ResumeLayout()
                 VScroll = vScrollPosition
             End If
-            statusMessage = "VSCROOL: " & vScrollPosition & "      Previous:" & panelLateralMenuContainer.VerticalScroll.Value
+            statusMessage = "VSCROOL: " & vScrollPosition & "      Previous:" & panelSideMenuContainer.VerticalScroll.Value
         End If
 
     End Sub
     Private Sub doLPanelLateralScrool(sender As Object, e As System.Windows.Forms.MouseEventArgs)
 
-        If panelLateralMenuContainer.Bounds.Contains(e.Location) Then
+        If panelSideMenuContainer.Bounds.Contains(e.Location) Then
             Dim vScrollPosition As Integer = VScroll 'panelLateral.VerticalScroll.Value
             vScrollPosition -= Math.Sign(e.Delta) * Sensitivity
             vScrollPosition = Math.Max(0, vScrollPosition)
-            vScrollPosition = Math.Min(vScrollPosition, panelLateralMenuContainer.VerticalScroll.Maximum)
-            If Not vScrollPosition.Equals(panelLateralMenuContainer.VerticalScroll.Value) Then
-                panelLateralMenuContainer.SuspendLayout()
-                panelLateralMenuContainer.AutoScroll = True
+            vScrollPosition = Math.Min(vScrollPosition, panelSideMenuContainer.VerticalScroll.Maximum)
+            If Not vScrollPosition.Equals(panelSideMenuContainer.VerticalScroll.Value) Then
+                panelSideMenuContainer.SuspendLayout()
+                panelSideMenuContainer.AutoScroll = True
 
-                panelLateralMenuContainer.AutoScrollPosition = New Point(panelLateralMenuContainer.AutoScrollPosition.X,
+                panelSideMenuContainer.AutoScrollPosition = New Point(panelSideMenuContainer.AutoScrollPosition.X,
                                   vScrollPosition)
-                panelLateralMenuContainer.AutoScroll = False
-                panelLateralMenuContainer.ResumeLayout()
+                panelSideMenuContainer.AutoScroll = False
+                panelSideMenuContainer.ResumeLayout()
                 VScroll = vScrollPosition
             End If
-            statusMessage = "VSCROOL: " & vScrollPosition & "      Previous:" & panelLateralMenuContainer.VerticalScroll.Value
+            statusMessage = "VSCROOL: " & vScrollPosition & "      Previous:" & panelSideMenuContainer.VerticalScroll.Value
         End If
     End Sub
 #End Region
+
     Private Sub menuPanel_Click(sender As Object, e As EventArgs)
         Dim menukey As String = ""
         Dim subMenuPos As Integer = 0
@@ -400,7 +488,7 @@ Public Class mainAppLayoutForm
             menukey = menuPanel.Name.Substring(0, menuPanel.Name.IndexOf("-"))
             subMenuPos = CInt(menuPanel.Name.Substring(menuPanel.Name.IndexOf("-") + 1))
 
-            If PanelLateralWrapper.Width.Equals(enVars.layoutDesign.MENU_OPEN_STATE) Then '' its open the lateral bar
+            If panelLeftSide.Width.Equals(enVars.layoutDesign.MENU_OPEN_STATE) Then '' its open the lateral bar
                 If enVars.layoutDesign.menu.items.ElementAt(subMenuPos).isOpen.Equals(False) Then '' menu is closed
                     enVars.layoutDesign.menu.items.ElementAt(subMenuPos).isOpen = True
                     MenuUpdate(True)
@@ -485,7 +573,7 @@ Public Class mainAppLayoutForm
     End Sub
 
     Public Sub doMenuAnimmation(origin As String)
-        If (PanelLateralWrapper.Width.Equals(enVars.layoutDesign.MENU_OPEN_STATE)) Then '' is open 
+        If (panelLeftSide.Width.Equals(enVars.layoutDesign.MENU_OPEN_STATE)) Then '' is open 
             MenuItemStateReset(False)
             MenuUpdate(False)
         ElseIf origin.Equals("main") Then
@@ -494,15 +582,15 @@ Public Class mainAppLayoutForm
     End Sub
 
     Private Sub MenuUpdate(menuState As Boolean)
-        panelLateralMenuContainer.SuspendLayout()
+        panelSideMenuContainer.SuspendLayout()
         Dim menuPosX As Integer = 0
         Dim menuPosY As Integer = 0
 
         If menuState.Equals(True) Then
-            PanelLateralWrapper.Width = enVars.layoutDesign.MENU_OPEN_STATE
-            menuIconPic.Location = New Point(PanelLateralWrapper.Width - menuIconPic.Width - 3 - 10, menuIconPic.Location.Y)
+            panelLeftSide.Width = enVars.layoutDesign.MENU_OPEN_STATE
+            menuIconPic.Location = New Point(panelLeftSide.Width - menuIconPic.Width - 3 - 10, menuIconPic.Location.Y)
         Else
-            PanelLateralWrapper.Width = enVars.layoutDesign.MENU_CLOSED_STATE
+            panelLeftSide.Width = enVars.layoutDesign.MENU_CLOSED_STATE
             menuIconPic.Location = New Point(5, menuIconPic.Location.Y)
         End If
 
@@ -531,7 +619,7 @@ Public Class mainAppLayoutForm
             menuPosY = menuPosY + enVars.layoutDesign.menu.items.ElementAt(i).menuWrapperPanel.Height + 1
         Next i
 
-        panelLateralMenuContainer.ResumeLayout()
+        panelSideMenuContainer.ResumeLayout()
     End Sub
 
     Private Sub MenuItemStateReset(menuState As Boolean)
@@ -647,7 +735,7 @@ Public Class mainAppLayoutForm
     ''End Sub
 
     Private Sub wrapper_got_focus(sender As Object, e As EventArgs)
-        panelLateralMenuContainer.Width = 36
+        panelSideMenuContainer.Width = 36
     End Sub
 
     Private Sub wrapper_Resize(sender As Object, e As System.EventArgs)
@@ -680,8 +768,8 @@ Public Class mainAppLayoutForm
     End Sub
 
 #Region "selction clicks"
-    Private Sub panelLateral_Click(sender As Object, e As EventArgs) Handles panelLateralMenuContainer.Click
-        If (PanelLateralWrapper.Width.Equals(enVars.layoutDesign.MENU_OPEN_STATE)) Then '' is open 
+    Private Sub panelLateral_Click(sender As Object, e As EventArgs) Handles panelSideMenuContainer.Click, panelSideMenuContainer.Click
+        If (panelLeftSide.Width.Equals(enVars.layoutDesign.MENU_OPEN_STATE)) Then '' is open 
             MenuUpdate(False)
         Else
             MenuUpdate(True)
@@ -707,12 +795,12 @@ Public Class mainAppLayoutForm
             If Not IsNothing(currentForm) Then
                 currentForm.Close()
             End If
-            lateralPanelMenuOptionContainer.Height = 0
+            panelMenuOptionsContainer.Height = 0
         Else
             optionsIsOnpen = True
-            Dim formToLoad = New lateralSettingsForm(enVars)
-            openChildForm(lateralPanelMenuOptionContainer, formToLoad)
-            lateralPanelMenuOptionContainer.Height = formToLoad.Height
+            Dim formToLoad = New lateralSettingsForm(enVars, updateMainApp)
+            openChildForm(panelMenuOptionsContainer, formToLoad)
+            panelMenuOptionsContainer.Height = formToLoad.Height
         End If
     End Sub
 
@@ -720,7 +808,11 @@ Public Class mainAppLayoutForm
 
     End Sub
 
-    Private Sub panelLateralMenuContainer_Paint(sender As Object, e As PaintEventArgs) Handles panelLateralMenuContainer.Paint
+    Private Sub panelLateralMenuContainer_Paint(sender As Object, e As PaintEventArgs) Handles panelSideMenuContainer.Paint
+
+    End Sub
+
+    Private Sub lateralPanelMenuWrapper_Paint(sender As Object, e As PaintEventArgs)
 
     End Sub
 #End Region
