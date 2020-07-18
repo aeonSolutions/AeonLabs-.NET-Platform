@@ -2,7 +2,6 @@
 Imports System.Drawing
 Imports System.Drawing.Text
 Imports System.IO
-Imports AeonLabs.Environment.Assembly
 
 Public Class environmentVarsCore
 

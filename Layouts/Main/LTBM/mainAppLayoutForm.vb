@@ -1,50 +1,44 @@
 ﻿Imports System.ComponentModel
 Imports AeonLabs.Environment
-Imports AeonLabs.Environment.Assembly
 Imports AeonLabs.Layout.Menu.Vertical
-Imports AeonLabs.PlugIns.SideBar.Settings
-
+Imports AeonLabs.BasicLibraries
 
 Public Class mainAppLayoutForm
     Inherits FormCustomized
 
+#Region "SETUP LAYOUT"
+#Region "REGISTER CONFIGURABLE LAYOUT CONTROLS"
+    Private Sub registerConfigurableLayoutControls()
+        'REGISTER CONFIGURABLE LAYOUT PANELS 
+        registeredPanels.Add(panelLeftSide.Name)
+        registeredPanels.Add(panelBottom.Name)
+        registeredPanels.Add(panelTop.Name)
+    End Sub
+#End Region
 
-#Region "variables fields"
-    Public updateMainApp As environmentVarsCore.updateMainLayoutDelegate
+#Region "assign control to assembly"
+    Private Sub assignControlToAssembly()
+        Dim err As Boolean = False
+        Dim errMsg As String = ""
 
-    Private registeredPanels As New List(Of String)
+        If enVars.assemblies.ContainsKey("settings.layout.widget.dll") Then
+            If enVars.assemblies("settings.layout.widget.dll").ContainsKey("lateralSettingsForm") Then
+                enVars.assemblies("settings.layout.widget.dll").Item("lateralSettingsForm").control = panelMenuOptionsContainer
+            Else
+                errMsg &= "lateralSettingsForm"
+                err = True
+            End If
+        Else
+            errMsg &= "settings.layout.widget.dll"
+            err = True
+        End If
 
-    Public CurrentWrapperForm As Form
-    Public LoadedFrm As Form
-    Public childForm As String = ""
-    Private checkPrint As Integer
-
-    Private WithEvents StatusMessagesDisplayTime As Timer
-    Private WithEvents UpdateStatusMessageTimer As Timer
-    Private WithEvents ChangeBackgroundTimer As Timer
-
-    Public loaded As Boolean = False
-    Public Property enVars As New environmentVarsCore
-    Public Property statusMessage As String = ""
-
-    Private statusMessageLast As String = ""
-    Private statusMessageTimeout As Integer = 10
-    Private statusMessagePile As New List(Of String)
-
-    Private msgbox As messageBoxForm
-
-    Private BusyMenuOption As Boolean = False
-
-    Public Property usernamePhoto As PictureBox = Nothing
-
-    Private WithEvents bwChangeBackground As New BackgroundWorker
-    Private WithEvents taskManager As tasksManager.tasksManagerClass
-
-    Private eDelta As Integer
-    Private Sensitivity As Integer = 20
-
-    Private settingsToolTip As New ToolTip()
-    Private menuToggleToolTip As New ToolTip()
+        If err Then
+            Microsoft.VisualBasic.MsgBox("Error: assembly cound not be assigned a panel, " & errMsg)
+            Me.Close()
+            Exit Sub
+        End If
+    End Sub
 #End Region
 
 #Region "Layout settings"
@@ -53,64 +47,77 @@ Public Class mainAppLayoutForm
     'AssembliesToLoadAtStart = {({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"})}
     Public ReadOnly AssembliesToLoadAtStartOLD = {({"", "", "", ""}), ({"", "", "", ""}), ({"", "", "", ""}), ({"", "", "", ""})}
 
-    Public Shared Function AssembliesToLoadAtStart() As Dictionary(Of String, Dictionary(Of String, environmentLoadedAssembliesClass))
-        Dim returnAssemblies As New Dictionary(Of String, Dictionary(Of String, environmentLoadedAssembliesClass))
-        Dim assembliesTypes As Dictionary(Of String, environmentLoadedAssembliesClass)
-        Dim assemblyDetails As environmentLoadedAssembliesClass
-        Dim fileName As String
-        Dim formName As String
 
-        'Add assembly
-        assembliesTypes = New Dictionary(Of String, environmentLoadedAssembliesClass)
-        assemblyDetails = New environmentLoadedAssembliesClass
-        With assemblyDetails
-            fileName = "settings.layout.widget.dll"
-            formName = "lateralSettingsForm"
-            .assemblyFormName = formName
-            .spaceName = "AeonLabs.PlugIns.SideBar.Settings"
-            .UID = "NPmPqPuuqlwPL6swalnnMSqKGCp6MTr9"
-
-            .positionX = nothing ' Nothing for default posX
-            .positionY = Nothing ' Nothing for default poxY
-            .anchor = AnchorStyles.Left Or AnchorStyles.Top
-            .control = Nothing
-        End With
-        assembliesTypes.Add(formName, assemblyDetails)
-        returnAssemblies.Add(fileName, assembliesTypes)
-        'end of add assembly
-
-        'RETURN ASSEMBLIES DICT list
-        Return returnAssemblies
-    End Function
 
 #End Region
 
+#End Region
+
+#Region "variables fields"
+#Region "PUBLIC FIELDS"
+    Public updateMainApp As environmentVarsCore.updateMainLayoutDelegate
+    Public Property enVars As New environmentVarsCore
+    Public Property statusMessage As String = ""
+#End Region
+
+#Region "PRIVATE FIELDS"
+    'panel registered for layout color and background changes
+    Private registeredPanels As New List(Of String)
+    Private msgbox As messageBoxForm
+
+    'STATUS MESSAGE 
+    Private statusMessageLast As String = ""
+    Private statusMessageTimeout As Integer = 10
+    Private statusMessagePile As New List(Of String)
+    Private WithEvents StatusMessagesDisplayTime As Timer
+    Private WithEvents UpdateStatusMessageTimer As Timer
+
+    'TOOLTIPS
+    Private settingsToolTip As New ToolTip()
+    Private menuToggleToolTip As New ToolTip()
+
+    'CHANGE BACKGROUND IMAGE
+    Private WithEvents ChangeBackgroundTimer As Timer
+    Private WithEvents bwChangeBackground As New BackgroundWorker
+
+#End Region
+
+
+    Public CurrentWrapperForm As Form
+    Public LoadedFrm As Form
+    Public loaded As Boolean = False
+
+    Private BusyMenuOption As Boolean = False
+
+    Public Property usernamePhoto As PictureBox = Nothing
+
+
+    Private eDelta As Integer
+    Private Sensitivity As Integer = 20
+#End Region
+
 #Region "constructors"
-    Public Sub New(_enVars As environmentVarsCore)
+    Public Sub InitializeForm(_envars As environmentVarsCore)
+        If _envars IsNot Nothing Then
+            enVars = _envars
+        End If
+        enVars.layoutDesign.menu.properties.ClosedStateSize = LATERAL_MENU_OPEN_WIDTH
+
+        'ASSIGN ASSEMBLIES TO PANELS
+        assignControlToAssembly()
+    End Sub
+
+    Public Sub New()
         Application.AddMessageFilter(Me)
 
         ' This call is required by the designer.
         Me.SuspendLayout()
         InitializeComponent()
 
-        enVars = _enVars
-        enVars.layoutDesign.menu.properties.ClosedStateSize = LATERAL_MENU_OPEN_WIDTH
-
         'Instantiating the delegate for update data from child forms
         updateMainApp = AddressOf updateMainAppLayout
 
-        'assign controls to assemblies
-        assignControlToAssembly()
-
         'Me.InactivityTimeOut = enVars.AutomaticLogoutTime
-
-        'initialize async tasks manager
-        taskManager = New tasksManager.tasksManagerClass
-        ''DEFINE TASKs TO DO
-        With taskManager
-            .registerTask("loadAssemblies", tasksManager.tasksManagerClass.TO_START)
-        End With
-        taskManager.startListening()
 
         Me.Visible = False
         Me.Opacity = 0
@@ -121,15 +128,9 @@ Public Class mainAppLayoutForm
 
         Me.ResumeLayout()
         '' needs to be the last 
-        Me.Show()
-
-    End Sub
-#End Region
-
-#Region "assign control to assembly"
-    Private Sub assignControlToAssembly()
-        enVars.assemblies("settings.layout.widget.dll").Item("lateralSettingsForm").control = panelMenuOptionsContainer
-
+        If Not Me.IsDisposed Then
+            Me.Show()
+        End If
     End Sub
 #End Region
 
@@ -141,15 +142,6 @@ Public Class mainAppLayoutForm
 
         Dim settingsToolTip As New ToolTip()
         settingsToolTip.SetToolTip(iconMenuSettings, My.Resources.strings.settingsToggle)
-    End Sub
-#End Region
-
-#Region "REGISTER CONFIGURABLE LAYOUT CONTROLS"
-    Private Sub registerConfigurableLayoutControls()
-        'REGISTER CONFIGURABLE LAYOUT PANELS 
-        registeredPanels.Add(panelLeftSide.Name)
-        registeredPanels.Add(panelBottom.Name)
-        registeredPanels.Add(panelTop.Name)
     End Sub
 #End Region
 
@@ -207,13 +199,12 @@ Public Class mainAppLayoutForm
                     updateBkImageOnChildForms(ctrl, True, ctrl)
                 End If
             ElseIf (TypeOf ctrl Is FormCustomized Or TypeOf ctrl Is Form) And isOnChildren Then
-                ctrl.BackgroundImage = cropImage(Me.BackgroundImage, panelHost.Location.X, panelHost.Location.Y, panelHost.Width, panelHost.Height)
+                ctrl.BackgroundImage = cropImage(Me.BackgroundImage, panelHost.Location, panelHost.Size, Me.Size)
                 ctrl.BackgroundImageLayout = ImageLayout.Stretch
             End If
         Next
     End Sub
 #End Region
-
 
 #Region "form events"
     Private Sub MyForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
@@ -221,14 +212,13 @@ Public Class mainAppLayoutForm
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        loaded = False
 
-        Refresh()
-        Dim menuBuilder As MenuVerticalClass = New MenuVerticalClass(Me, enVars)
-        panelSideMenuContainer.Controls.Add(menuBuilder.buildMenu())
-        enVars = menuBuilder.enVars
+    End Sub
 
+    Private Sub Form1_shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         SuspendLayout()
+
+        loaded = False
 
         panelLeftSide.Parent = Me
         panelLeftSide.Width = enVars.layoutDesign.menu.properties.ClosedStateSize
@@ -267,92 +257,16 @@ Public Class mainAppLayoutForm
 
         updateBkColorAndTransparency(Me, False, False)
 
+
+
+        Dim menuBuilder As MenuVerticalClass = New MenuVerticalClass(Me, enVars)
+        panelSideMenuContainer.Controls.Add(menuBuilder.buildMenu())
+        enVars = menuBuilder.enVars
+
         MenuUpdate(False)
 
         ResumeLayout()
     End Sub
-
-    Private currentForm As Form = Nothing
-    Private Sub openChildForm(targetPanel As PanelDoubleBuffer, childForm As Form)
-        SuspendLayout()
-        If currentForm IsNot Nothing Then currentForm.Close()
-        currentForm = childForm
-        childForm.TopLevel = False
-        childForm.FormBorderStyle = FormBorderStyle.None
-        childForm.Dock = DockStyle.Fill
-        childForm.Parent = targetPanel
-        childForm.Width = targetPanel.Width
-        targetPanel.Height = childForm.Height
-        targetPanel.Controls.Add(childForm)
-        targetPanel.Tag = childForm
-        childForm.BringToFront()
-        childForm.BackgroundImage = cropImage(Me.BackgroundImage, targetPanel.Location.X, targetPanel.Location.Y, targetPanel.Width, targetPanel.Height)
-        childForm.BackgroundImageLayout = ImageLayout.Stretch
-        childForm.Show()
-        ResumeLayout()
-    End Sub
-
-#Region " Resize / crop Image "
-    Public Function cropImage(ByVal sourceImage As Image, posX As Integer, posY As Integer, width As Integer, height As Integer) As Image
-        Dim wRatio = sourceImage.Width / Me.ClientSize.Width
-        Dim hRatio = sourceImage.Height / Me.ClientSize.Height
-
-        Dim area = New Rectangle(posX * wRatio, posY * hRatio, width * wRatio, height * hRatio)
-
-        Dim outPut As New Bitmap(width, height)
-        Dim DescREctangle As Rectangle = New Rectangle(0, 0, outPut.Width, outPut.Height)
-        Dim g As Graphics = Drawing.Graphics.FromImage(outPut)
-        g.DrawImage(sourceImage, DescREctangle, area, GraphicsUnit.Pixel)
-        g.Save()
-        g.Dispose()
-        Return outPut
-    End Function
-
-    Public Overloads Shared Function ResizeImage(SourceImage As Drawing.Image, TargetWidth As Int32, TargetHeight As Int32) As Drawing.Bitmap
-        Dim bmSource = New Drawing.Bitmap(SourceImage)
-
-        Return ResizeImage(bmSource, TargetWidth, TargetHeight)
-    End Function
-
-    Public Overloads Shared Function ResizeImage(bmSource As Drawing.Bitmap, TargetWidth As Int32, TargetHeight As Int32) As Drawing.Bitmap
-        Dim bmDest As New Drawing.Bitmap(TargetWidth, TargetHeight, Drawing.Imaging.PixelFormat.Format32bppArgb)
-
-        Dim nSourceAspectRatio = bmSource.Width / bmSource.Height
-        Dim nDestAspectRatio = bmDest.Width / bmDest.Height
-
-        Dim NewX = 0
-        Dim NewY = 0
-        Dim NewWidth = bmDest.Width
-        Dim NewHeight = bmDest.Height
-
-        If nDestAspectRatio = nSourceAspectRatio Then
-            'same ratio
-        ElseIf nDestAspectRatio > nSourceAspectRatio Then
-            'Source is taller
-            NewWidth = Convert.ToInt32(Math.Floor(nSourceAspectRatio * NewHeight))
-            NewX = Convert.ToInt32(Math.Floor((bmDest.Width - NewWidth) / 2))
-        Else
-            'Source is wider
-            NewHeight = Convert.ToInt32(Math.Floor((1 / nSourceAspectRatio) * NewWidth))
-            NewY = Convert.ToInt32(Math.Floor((bmDest.Height - NewHeight) / 2))
-        End If
-
-        Using grDest = Drawing.Graphics.FromImage(bmDest)
-            With grDest
-                .CompositingQuality = Drawing.Drawing2D.CompositingQuality.HighQuality
-                .InterpolationMode = Drawing.Drawing2D.InterpolationMode.HighQualityBicubic
-                .PixelOffsetMode = Drawing.Drawing2D.PixelOffsetMode.HighQuality
-                .SmoothingMode = Drawing.Drawing2D.SmoothingMode.AntiAlias
-                .CompositingMode = Drawing.Drawing2D.CompositingMode.SourceOver
-
-                .DrawImage(bmSource, NewX, NewY, NewWidth, NewHeight)
-            End With
-        End Using
-
-        Return bmDest
-    End Function
-#End Region
-
 
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         If Me.IsDisposed Then
@@ -391,24 +305,6 @@ Public Class mainAppLayoutForm
         End If
     End Sub
 #End Region
-    Private Sub topPanel_Paint(sender As Object, e As PaintEventArgs)
-
-    End Sub
-
-    Private Sub panelLateralWrapper_Resize(sender As Object, e As System.EventArgs) Handles panelLeftSide.Resize
-        panelSideMenuContainer.Width = panelLeftSide.Width + 30
-        panelSideMenuContainer.Height = panelLeftSide.Height
-    End Sub
-
-    Private Sub resizeMenuElementsByOrder(previous As Control, current As Control)
-        If previous Is Nothing Then
-            current.Location = New Point(0, 0)
-        Else
-            current.Location = New Point(0, previous.Location.Y + previous.Height)
-        End If
-        current.Width = panelLeftSide.Width
-        current.Dock = DockStyle.None
-    End Sub
 
 #Region "mouse motion"
     Private Sub menuPanelLateral_mouseMove(sender As Object, e As System.Windows.Forms.MouseEventArgs)
@@ -501,6 +397,7 @@ Public Class mainAppLayoutForm
     End Sub
 #End Region
 
+#Region "App main menu"
     Private Sub menuPanel_Click(sender As Object, e As EventArgs)
         Dim menukey As String = ""
         Dim subMenuPos As Integer = 0
@@ -668,73 +565,7 @@ Public Class mainAppLayoutForm
             enVars.layoutDesign.menu.items.ElementAt(i).isOpen = menuState
         Next i
     End Sub
-
-    Private Sub doLogin()
-        If Not loaded Then
-            Exit Sub
-        End If
-        'TODO clear session vars
-        enVars.successLogin = False
-        If (WindowState.Equals(FormWindowState.Minimized)) Then
-            Exit Sub
-        End If
-
-        ''If Application.OpenForms().OfType(Of SplashScreen).Any Then
-        ''Exit Sub
-        ''End If
-
-        ''Me.Hide()
-        '' If splashScreenLogin.ShowDialog() = DialogResult.OK Then
-        ''Me.Show()
-        ''Else
-        ''Application.Exit()
-        ''Close()
-        ''End If
-    End Sub
-
-    Public Sub NoNetwork()
-        childForm = ""
-        If Not IsNothing(CurrentWrapperForm) Then
-            CurrentWrapperForm.Close()
-            CurrentWrapperForm.Dispose()
-        End If
-
-        Dim mask As PictureBox = New PictureBox
-        mask.Dock = DockStyle.Fill
-        mask.Top = TopMost
-        mask.Image = Image.FromFile(enVars.imagesPath & Convert.ToString("noNetwork.png"))
-        mask.SizeMode = PictureBoxSizeMode.CenterImage
-        mask.Parent = panelMain
-        panelMain.Controls.Clear()
-        panelMain.Controls.Add(mask)
-        mask.BringToFront()
-        panelMain.Refresh()
-    End Sub
-
-    Public Sub UnloadForms()
-        childForm = ""
-        If Not IsNothing(CurrentWrapperForm) Then
-            CurrentWrapperForm.Close()
-            CurrentWrapperForm.Dispose()
-        End If
-
-        panelMain.Refresh()
-        Exit Sub
-
-        If Me.panelMain.Controls.Count > 0 Then
-            Dim ctrl As Control = Nothing
-            For i As Integer = Me.panelMain.Controls.Count - 1 To 0 Step -1
-                ctrl = Me.panelMain.Controls(i)
-                Try
-                    'MISSING - BUGS HERE EVEN INSIDE THE TRY BLOCK
-                    Me.panelMain.Controls.Remove(ctrl)
-                Catch ex As Exception
-                    statusMessage = "Error unloading form"
-                End Try
-            Next
-            ctrl.Dispose()
-        End If
-    End Sub
+#End Region
 
 #Region "Status Message"
     Private Sub UpdateStatusMessageTimer_Tick(sender As Object, e As EventArgs) Handles UpdateStatusMessageTimer.Tick
@@ -761,6 +592,162 @@ Public Class mainAppLayoutForm
         End If
     End Sub
 #End Region
+
+#Region "selction clicks"
+    Private Sub panelLateral_Click(sender As Object, e As EventArgs) Handles panelSideMenuContainer.Click, panelSideMenuContainer.Click
+        If (panelLeftSide.Width.Equals(enVars.layoutDesign.MENU_OPEN_STATE)) Then '' is open 
+            MenuUpdate(False)
+        Else
+            MenuUpdate(True)
+        End If
+    End Sub
+
+    Private Sub menuIconPic_Click_1(sender As Object, e As EventArgs) Handles menuIconPic.Click
+        If menuIconPic.Location.X.Equals(5) Then
+            MenuUpdate(True)
+        Else
+            MenuUpdate(False)
+        End If
+    End Sub
+
+
+
+#Region "Icon quick settings side panel"
+    Private optionsIsOnpen As Boolean = False
+    Private Sub iconMenuSettings_Click_1(sender As Object, e As EventArgs) Handles iconMenuSettings.Click
+        If optionsIsOnpen Then
+            optionsIsOnpen = False
+            If Not IsNothing(currentForm) Then
+                currentForm.Close()
+            End If
+            panelMenuOptionsContainer.Height = 0
+        Else
+            optionsIsOnpen = True
+
+            Dim formToLoad As FormCustomized = loadFormFromAssembly("settings.layout.widget.dll", "lateralSettingsForm", enVars, updateMainApp)
+
+            panelMenuOptionsContainer.Height = formToLoad.Height
+            openChildForm(panelMenuOptionsContainer, formToLoad)
+        End If
+    End Sub
+#End Region
+
+
+
+    Private Sub panelLateralMenuContainer_Paint(sender As Object, e As PaintEventArgs) Handles panelSideMenuContainer.Paint
+
+    End Sub
+
+#End Region
+
+
+
+
+
+
+
+    Private Sub panelLateralWrapper_Resize(sender As Object, e As System.EventArgs) Handles panelLeftSide.Resize
+        panelSideMenuContainer.Width = panelLeftSide.Width + 30
+        panelSideMenuContainer.Height = panelLeftSide.Height
+    End Sub
+
+    Private Sub resizeMenuElementsByOrder(previous As Control, current As Control)
+        If previous Is Nothing Then
+            current.Location = New Point(0, 0)
+        Else
+            current.Location = New Point(0, previous.Location.Y + previous.Height)
+        End If
+        current.Width = panelLeftSide.Width
+        current.Dock = DockStyle.None
+    End Sub
+
+
+    Private currentForm As Form = Nothing
+    Private Sub openChildForm(targetPanel As PanelDoubleBuffer, childForm As Form)
+        SuspendLayout()
+        If currentForm IsNot Nothing Then currentForm.Close()
+        currentForm = childForm
+        childForm.TopLevel = False
+        childForm.FormBorderStyle = FormBorderStyle.None
+        childForm.Dock = DockStyle.Fill
+        childForm.Parent = targetPanel
+        childForm.Width = targetPanel.Width
+        targetPanel.Height = childForm.Height
+        targetPanel.Controls.Add(childForm)
+        targetPanel.Tag = childForm
+        childForm.BringToFront()
+        childForm.BackgroundImage = cropImage(Me.BackgroundImage, targetPanel.Location, targetPanel.Size, Me.Size)
+        childForm.BackgroundImageLayout = ImageLayout.Stretch
+        childForm.Show()
+        ResumeLayout()
+    End Sub
+
+
+    Private Sub doLogin()
+        If Not loaded Then
+            Exit Sub
+        End If
+        'TODO clear session vars
+        enVars.successLogin = False
+        If (WindowState.Equals(FormWindowState.Minimized)) Then
+            Exit Sub
+        End If
+
+        ''If Application.OpenForms().OfType(Of SplashScreen).Any Then
+        ''Exit Sub
+        ''End If
+
+        ''Me.Hide()
+        '' If splashScreenLogin.ShowDialog() = DialogResult.OK Then
+        ''Me.Show()
+        ''Else
+        ''Application.Exit()
+        ''Close()
+        ''End If
+    End Sub
+
+    Public Sub NoNetwork()
+        If Not IsNothing(CurrentWrapperForm) Then
+            CurrentWrapperForm.Close()
+            CurrentWrapperForm.Dispose()
+        End If
+
+        Dim mask As PictureBox = New PictureBox
+        mask.Dock = DockStyle.Fill
+        mask.Top = TopMost
+        mask.Image = Image.FromFile(enVars.imagesPath & Convert.ToString("noNetwork.png"))
+        mask.SizeMode = PictureBoxSizeMode.CenterImage
+        mask.Parent = panelMain
+        panelMain.Controls.Clear()
+        panelMain.Controls.Add(mask)
+        mask.BringToFront()
+        panelMain.Refresh()
+    End Sub
+
+    Public Sub UnloadForms()
+        If Not IsNothing(CurrentWrapperForm) Then
+            CurrentWrapperForm.Close()
+            CurrentWrapperForm.Dispose()
+        End If
+
+        panelMain.Refresh()
+        Exit Sub
+
+        If Me.panelMain.Controls.Count > 0 Then
+            Dim ctrl As Control = Nothing
+            For i As Integer = Me.panelMain.Controls.Count - 1 To 0 Step -1
+                ctrl = Me.panelMain.Controls(i)
+                Try
+                    'MISSING - BUGS HERE EVEN INSIDE THE TRY BLOCK
+                    Me.panelMain.Controls.Remove(ctrl)
+                Catch ex As Exception
+                    statusMessage = "Error unloading form"
+                End Try
+            Next
+            ctrl.Dispose()
+        End If
+    End Sub
+
 
 
 
@@ -808,54 +795,6 @@ Public Class mainAppLayoutForm
 
     End Sub
 
-#Region "selction clicks"
-    Private Sub panelLateral_Click(sender As Object, e As EventArgs) Handles panelSideMenuContainer.Click, panelSideMenuContainer.Click
-        If (panelLeftSide.Width.Equals(enVars.layoutDesign.MENU_OPEN_STATE)) Then '' is open 
-            MenuUpdate(False)
-        Else
-            MenuUpdate(True)
-        End If
-    End Sub
 
-    Private Sub menuIconPic_Click_1(sender As Object, e As EventArgs) Handles menuIconPic.Click
-        If menuIconPic.Location.X.Equals(5) Then
-            MenuUpdate(True)
-        Else
-            MenuUpdate(False)
-        End If
-    End Sub
-
-    Private Sub iconMenuSettings_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private optionsIsOnpen As Boolean = False
-    Private Sub iconMenuSettings_Click_1(sender As Object, e As EventArgs) Handles iconMenuSettings.Click
-        If optionsIsOnpen Then
-            optionsIsOnpen = False
-            If Not IsNothing(currentForm) Then
-                currentForm.Close()
-            End If
-            panelMenuOptionsContainer.Height = 0
-        Else
-            optionsIsOnpen = True
-            Dim formToLoad = New lateralSettingsForm(enVars, updateMainApp)
-            openChildForm(panelMenuOptionsContainer, formToLoad)
-            panelMenuOptionsContainer.Height = formToLoad.Height
-        End If
-    End Sub
-
-    Private Sub panelMain_Paint(sender As Object, e As PaintEventArgs) Handles panelMain.Paint
-
-    End Sub
-
-    Private Sub panelLateralMenuContainer_Paint(sender As Object, e As PaintEventArgs) Handles panelSideMenuContainer.Paint
-
-    End Sub
-
-    Private Sub lateralPanelMenuWrapper_Paint(sender As Object, e As PaintEventArgs)
-
-    End Sub
-#End Region
 
 End Class

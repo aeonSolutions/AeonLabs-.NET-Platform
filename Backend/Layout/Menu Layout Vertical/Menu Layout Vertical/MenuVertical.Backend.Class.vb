@@ -2,6 +2,7 @@
 Imports System.Net
 Imports AeonLabs.Environment
 Imports AeonLabs.Environment.Assembly.assemblyEnvironmentVarsClass
+Imports AeonLabs.Environment.menuEnvironmentVarsClass
 
 Public Class MenuVerticalClass
 
@@ -34,6 +35,11 @@ Public Class MenuVerticalClass
     Public Sub New(_mainform As Form, _envars As environmentVarsCore)
         mainForm = _mainform
         enVars = _envars
+
+        If enVars.layoutDesign.fontTitle.Families.count < 1 Then
+            Microsoft.VisualBasic.msgbox("Font files not loaded properly:" & Me.ToString)
+            Exit Sub
+        End If
 
         Dim fontToMeasure As New Font(enVars.layoutDesign.fontTitle.Families(0), enVars.layoutDesign.subMenuTitleFontSize, Drawing.FontStyle.Regular)
         Dim g As Graphics = mainForm.CreateGraphics

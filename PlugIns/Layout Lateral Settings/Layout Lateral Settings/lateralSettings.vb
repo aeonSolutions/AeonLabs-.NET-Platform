@@ -14,8 +14,8 @@ Public Class lateralSettingsForm
         End Get
     End Property
 
-    Private envars As environmentVarsCore
-    Private updateMainApp As environmentVarsCore.updateMainLayoutDelegate
+    Public Property envars As environmentVarsCore
+    Public Property updateMainApp As environmentVarsCore.updateMainLayoutDelegate
 
     Private backGroundImageToolTip As New ToolTip()
     Private colorPalleteToolTip As New ToolTip()

@@ -181,7 +181,7 @@ Public Class startupBackgroundTasksClass
         'TODO: send encryped and auth crach reports plus add latency time on more
         Dim crashFile = New FileInfo(Path.Combine(state.basePath, "crash.log"))
         crashFile.Refresh()
-        If crashFile.Exists And state.SendDiagnosticData AndAlso AeonLabs.BasicLibraries.FileInUse(Path.Combine(state.basePath, "crash.log")) Then
+        If crashFile.Exists And state.SendDiagnosticData AndAlso BasicLibraries.FileInUse(Path.Combine(state.basePath, "crash.log")) Then
             RaiseEvent updateStatusMessage(Me, "sending crash report data...")
 
             Dim report As String = My.Computer.FileSystem.ReadAllText(Path.Combine(state.basePath, "crash.log"), System.Text.Encoding.UTF8)

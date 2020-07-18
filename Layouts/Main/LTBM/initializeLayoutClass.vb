@@ -1,9 +1,8 @@
-﻿Imports AeonLabs.Environment.Assembly
+﻿Imports AeonLabs.Environment
 
-Public Class AuthorizedAssemblies
-#Region "LOAD STATIC ASSEMBLIES"
-    Public Shared Function loadStatic() As Dictionary(Of String, Dictionary(Of String, environmentLoadedAssembliesClass))
-        'TODO
+Public Class initializeLayoutClass
+
+    Public Shared Function AssembliesToLoadAtStart() As Dictionary(Of String, Dictionary(Of String, environmentLoadedAssembliesClass))
         Dim returnAssemblies As New Dictionary(Of String, Dictionary(Of String, environmentLoadedAssembliesClass))
         Dim assembliesTypes As Dictionary(Of String, environmentLoadedAssembliesClass)
         Dim assemblyDetails As environmentLoadedAssembliesClass
@@ -32,13 +31,5 @@ Public Class AuthorizedAssemblies
         'RETURN ASSEMBLIES DICT list
         Return returnAssemblies
     End Function
-#End Region
-
-#Region "LOAD DYNAMIC ASSEMBLIES"
-    Public Shared Function loadDynamic() As Dictionary(Of String, Dictionary(Of String, environmentLoadedAssembliesClass))
-        'TODO
-        Return Nothing
-    End Function
-
-#End Region
 End Class
+

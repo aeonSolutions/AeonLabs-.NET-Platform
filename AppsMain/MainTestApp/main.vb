@@ -1,15 +1,17 @@
 ﻿
 Imports System.Globalization
 Imports System.IO
+Imports System.Reflection
+Imports System.Runtime.Remoting
 Imports AeonLabs
 Imports AeonLabs.Environment
-Imports AeonLabs.Environment.Assembly
-Imports AeonLabs.Environment.Assembly.assemblyEnvironmentVarsClass
 Imports AeonLabs.Layouts
 Imports AeonLabs.Layouts.StartUp
 
 Module main
     Public enVars As New environmentVarsCore
+    Private mainForm As FormCustomized
+    Private typeMainLayout As Type
 
     Public Sub main()
         'set customization option
@@ -28,27 +30,45 @@ Module main
         Application.EnableVisualStyles()
         Application.SetCompatibleTextRenderingDefault(False)
 
-        'LOAD THE REQUIERED ASSEMBLY BY THE MAIN LAYOUT
-        enVars.assemblies = mainAppLayoutForm.AssembliesToLoadAtStart()
 
-        'LOAD THE BLANK INTRO PANE 
-        Dim loading As New Loading.loadingForm(enVars)
+        'LOAD MAIN LAYOUT ASSEMBLY
+        'LOAD DEFAULT LAYOUT
+        ''TODO LOAD custom layut in alternative to default layout // if previous got error dont load cusom, load default
+
+
+        Dim assembly As Reflection.Assembly = Nothing
+        Try
+            assembly = Reflection.Assembly.LoadFile(enVars.basePath & enVars.customization.designLayoutAssemblyFileName)
+
+            Dim typeMainLayoutIni = assembly.[GetType](enVars.customization.dessignLayoutAssemblyNameSpace & ".initializeLayoutClass")
+            Dim iniClass = Activator.CreateInstance(typeMainLayoutIni, True)
+            Dim methodInfo = typeMainLayoutIni.GetMethod("AssembliesToLoadAtStart")
+            enVars.assemblies = methodInfo.Invoke(iniClass, Nothing)
+        Catch ex As Exception
+            MsgBox("Error initializing main layout:" & ex.Message)
+            Application.Exit()
+            Exit Sub
+        End Try
+
+        'TODO REVIEW
+        'LOAD CONFIG API CALL IDS
+        loadAPItasksIDs()
+
+        'LOAD CONFIG STATIC ASSEMBLIES 
+        enVars.assemblies = enVars.assemblies.Union(AuthorizedAssemblies.loadStatic().Where(Function(k) Not enVars.assemblies.ContainsKey(k.Key))).ToDictionary(Function(k) k.Key, Function(v) v.Value)
+
+        'TODO review LOAD CONFIG DYNAMIC ASSEMBLIES 
+        'enVars.assemblies = AuthorizedAssemblies.loadDynamic()
+
+
+        'LOAD CONFIG STATIC TEMPLATE FILES AUTHORIZED
+        loadAuthorizedFileTemplates()
+
+        'LOAD THE BLANK INTRO LOADING PANE 
+        Dim loading As New loadingForm(enVars)
         Application.Run(loading)
         If enVars.settingsLoaded Then
             enVars = loading.enVars
-
-            'TODO REVIEW
-            'LOAD CONFIG API CALL IDS
-            loadAPItasksIDs()
-
-            'LOAD CONFIG STATIC ASSEMBLIES 
-            enVars.assemblies = AuthorizedAssemblies.loadStatic()
-
-            'TODO review LOAD CONFIG DYNAMIC ASSEMBLIES 
-            'enVars.assemblies = AuthorizedAssemblies.loadDynamic()
-
-            'LOAD CONFIG STATIC TEMPLATE FILES AUTHORIZED
-            loadAuthorizedFileTemplates()
 
             'LOAD CONFIG MENU TREE
             Dim loadMenu As menuOptions = New menuOptions
@@ -66,10 +86,20 @@ Module main
             enVars.layoutDesign.loadDefaults(enVars)
         End If
 
-        'LOAD DEFAULT LAYOUT
-        ''TODO LOAD custom layut in alternative to default layout // if previous got error dont load cusom, load default
-        Dim mainLayout = New mainAppLayoutForm(enVars)
-        Application.Run(mainLayout)
+        'load main layout form
+        Dim typeMainLayout As Type = Nothing
+        Dim mainForm As FormCustomized = Nothing
+        Try
+            typeMainLayout = assembly.[GetType](enVars.customization.dessignLayoutAssemblyNameSpace & ".mainAppLayoutForm")
+            mainForm = TryCast(Activator.CreateInstance(typeMainLayout), FormCustomized)
+        Catch ex As Exception
+            MsgBox("Error loading main layout:" & ex.Message)
+            Application.Exit()
+            Exit Sub
+        End Try
+
+        'start the main layout
+        Application.Run(mainForm)
     End Sub
 
 #Region "loadMainLayoutAssemblies"

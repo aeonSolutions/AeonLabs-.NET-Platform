@@ -35,7 +35,6 @@ Partial Class mainAppLayoutForm
         Me.panelMenuOptions = New PanelDoubleBuffer()
         Me.panelMain = New PanelDoubleBuffer()
         Me.panelTop = New PanelDoubleBuffer()
-        Me.ColorWithAlpha1 = New BlueActivity.ColorWithAlpha()
         Me.panelSideMenuContainer = New PanelDoubleBuffer()
         Me.panelBottom.SuspendLayout()
         CType(Me.iconMenuSettings, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -154,12 +153,7 @@ Partial Class mainAppLayoutForm
         Me.panelTop.PANEL_OPEN_STATE_DIM = 400
         Me.panelTop.Size = New System.Drawing.Size(713, 33)
         Me.panelTop.TabIndex = 5
-        '
-        'ColorWithAlpha1
-        '
-        Me.ColorWithAlpha1.Alpha = 80
-        Me.ColorWithAlpha1.Color = System.Drawing.Color.White
-        Me.ColorWithAlpha1.Parent = Nothing
+
         '
         'panelSideMenuContainer
         '
@@ -210,6 +204,5 @@ Partial Class mainAppLayoutForm
     Friend WithEvents iconMenuSettings As FontAwesome.Sharp.IconPictureBox
     Friend WithEvents panelMenuOptions As PanelDoubleBuffer
     Friend WithEvents panelMenuOptionsContainer As PanelDoubleBuffer
-    Friend WithEvents ColorWithAlpha1 As BlueActivity.ColorWithAlpha
     Friend WithEvents panelSideMenuContainer As PanelDoubleBuffer
 End Class

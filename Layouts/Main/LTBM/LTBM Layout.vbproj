@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\ILMerge.3.0.41\build\ILMerge.props" Condition="Exists('packages\ILMerge.3.0.41\build\ILMerge.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,13 +10,15 @@
     <StartupObject>
     </StartupObject>
     <RootNamespace>AeonLabs.Layouts</RootNamespace>
-    <AssemblyName>medieval</AssemblyName>
+    <AssemblyName>ltbm.layout</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -23,8 +26,8 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\</OutputPath>
-    <DocumentationFile>medieval.xml</DocumentationFile>
+    <OutputPath>..\..\..\AppsMain\builds\debug\</OutputPath>
+    <DocumentationFile>ltbm.layout.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -33,8 +36,8 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
-    <OutputPath>bin\</OutputPath>
-    <DocumentationFile>medieval.xml</DocumentationFile>
+    <OutputPath>..\..\..\AppsMain\builds\release\</OutputPath>
+    <DocumentationFile>ltbm.layout.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -54,7 +57,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x64\Debug\</OutputPath>
-    <DocumentationFile>medieval.xml</DocumentationFile>
+    <DocumentationFile>ltbm.layout.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -63,7 +66,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x64\Release\</OutputPath>
-    <DocumentationFile>medieval.xml</DocumentationFile>
+    <DocumentationFile>ltbm.layout.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -75,7 +78,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\..\..\BUILD FILES\</OutputPath>
-    <DocumentationFile>medieval.xml</DocumentationFile>
+    <DocumentationFile>ltbm.layout.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -84,7 +87,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\..\..\BUILD FILES\</OutputPath>
-    <DocumentationFile>medieval.xml</DocumentationFile>
+    <DocumentationFile>ltbm.layout.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -92,8 +95,24 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BasicLibraries, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\AppsMain\builds\release\BasicLibraries.dll</HintPath>
+    </Reference>
+    <Reference Include="customControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\AppsMain\builds\debug\customControls.dll</HintPath>
+    </Reference>
+    <Reference Include="environment, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\AppsMain\builds\debug\environment.dll</HintPath>
+    </Reference>
     <Reference Include="FontAwesome.Sharp, Version=5.13.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\Apps\remoteAttendance.systems\packages\FontAwesome.Sharp.5.13.0\lib\net472\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="MessageBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\AppsMain\builds\debug\MessageBox.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
@@ -127,10 +146,11 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="layoutForm.Designer.vb">
-      <DependentUpon>layoutForm.vb</DependentUpon>
+    <Compile Include="initializeLayoutClass.vb" />
+    <Compile Include="mainAppLayoutForm.Designer.vb">
+      <DependentUpon>mainAppLayoutForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="layoutForm.vb">
+    <Compile Include="mainAppLayoutForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="layoutSettings.vb" />
@@ -157,8 +177,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="layoutForm.resx">
-      <DependentUpon>layoutForm.vb</DependentUpon>
+    <EmbeddedResource Include="mainAppLayoutForm.resx">
+      <DependentUpon>mainAppLayoutForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -186,50 +206,23 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Backend\Environment\EnvironmentAssembly\assemblyEnvironment\assemblyEnvironment.vbproj">
-      <Project>{DB6F9048-2A83-4BC3-B29E-36F185E2F4C8}</Project>
-      <Name>assemblyEnvironment</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Backend\Environment\environmentLoading\environmentLoading\environmentLoading.vbproj">
-      <Project>{C2FF0762-AA5D-4C42-8249-339EB1D2D5F0}</Project>
-      <Name>environmentLoading</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Backend\Environment\environment\environment\environment.vbproj">
-      <Project>{82ad9932-5319-4ce8-a398-75b91133feec}</Project>
-      <Name>environment</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Backend\Environment\Settings\settings\settings.vbproj">
-      <Project>{dd0029c3-11c2-4dc9-9ed6-ee49bd9ef999}</Project>
-      <Name>settings</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Backend\Layout\Menu Layout Vertical\Menu Layout Vertical\Menu Layout Vertical.vbproj">
       <Project>{91d6b342-9cb0-4e6b-b3d9-9a84b1d7ffb7}</Project>
       <Name>Menu Layout Vertical</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Backend\Network\network\network.vbproj">
-      <Project>{27ee122c-a84c-408a-b8e4-f42586b13124}</Project>
-      <Name>network</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Backend\Security\security\security.vbproj">
-      <Project>{4d13834b-a75b-4737-bc37-f520d12a69d0}</Project>
-      <Name>security</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GUI\AlphaGradientPanel\AlphaGradientPanel.vbproj">
-      <Project>{a65d2f89-5203-411b-8111-cd0b17b8a642}</Project>
-      <Name>AlphaGradientPanel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GUI\Custom Controls\Custom Controls.vbproj">
-      <Project>{139894e5-2335-4583-b449-dc1d2a94937a}</Project>
-      <Name>Custom Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GUI\MessageBox\MessageBox.vbproj">
-      <Project>{19a34a5b-0354-408d-af53-6b852bb0ab25}</Project>
-      <Name>MessageBox</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\PlugIns\Layout Lateral Settings\Layout Lateral Settings\Layout Lateral Settings.vbproj">
-      <Project>{ee881e82-47e9-498e-b6ca-776106b52bcc}</Project>
-      <Name>Layout Lateral Settings</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\ILMerge.3.0.41\build\ILMerge.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\ILMerge.3.0.41\build\ILMerge.props'))" />
+  </Target>
+  <ItemGroup>
+    <PackageReference Include="ILMerge" Version="3.0.29" />
+  </ItemGroup>
+  <Target Name="ILMerge">
+    <!-- the ILMergePath property points to the location of ILMerge.exe console application -->
+    <Exec Command="$(ILMergeConsolePath) Bin\x64\Release\myapp.exe ^&#xD;&#xA;    /out:myapp.exe ^&#xD;&#xA;    ..\..\..\Backend\Management Coding Tasks\bin\Debug\tasksManager.dll ^&#xD;&#xA;    ..\..\..\..\Apps\remoteAttendance.systems\packages\FontAwesome.Sharp.5.13.0\lib\net472\FontAwesome.Sharp.dll ^ " />
+  </Target>
 </Project>

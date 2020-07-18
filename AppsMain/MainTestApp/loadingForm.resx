@@ -117,25 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="errorDataFileNotFound" xml:space="preserve">
-    <value>DataFile not found</value>
-  </data>
-  <data name="menuHelpTitle" xml:space="preserve">
-    <value>Help</value>
-  </data>
-  <data name="menuItemAbout" xml:space="preserve">
-    <value>About</value>
-  </data>
-  <data name="menuItemCheckUpdate" xml:space="preserve">
-    <value>Check for Updates</value>
-  </data>
-  <data name="menuItemLogout" xml:space="preserve">
-    <value>Logout</value>
-  </data>
-  <data name="menuItemMyProfile" xml:space="preserve">
-    <value>Profile</value>
-  </data>
-  <data name="menuItemSettings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
 </root>

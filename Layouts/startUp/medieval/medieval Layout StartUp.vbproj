@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\AppsMain\builds\debug\</OutputPath>
     <DocumentationFile>medieval.startup.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
@@ -33,7 +33,7 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\AppsMain\builds\release\</OutputPath>
     <DocumentationFile>medieval.startup.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
@@ -64,6 +64,14 @@
     </Reference>
     <Reference Include="contactless.smartcards">
       <HintPath>..\..\..\Connectivity\RFID NFC\contactless.smartcards\bin\contactless.smartcards.dll</HintPath>
+    </Reference>
+    <Reference Include="customControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\AppsMain\builds\release\customControls.dll</HintPath>
+    </Reference>
+    <Reference Include="MessageBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\AppsMain\builds\release\MessageBox.dll</HintPath>
     </Reference>
     <Reference Include="Quote of the Day">
       <HintPath>..\..\..\Backend\PlugIns\Quote of the Day\Quote of the Day\bin\Debug\Quote of the Day.dll</HintPath>
@@ -161,14 +169,6 @@
     <ProjectReference Include="..\..\..\Backend\Startup\startup.vbproj">
       <Project>{dad992f4-ffde-4ecc-8fd5-1556fde556bf}</Project>
       <Name>startup</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GUI\Custom Controls\Custom Controls.vbproj">
-      <Project>{139894e5-2335-4583-b449-dc1d2a94937a}</Project>
-      <Name>Custom Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GUI\MessageBox\MessageBox.vbproj">
-      <Project>{19a34a5b-0354-408d-af53-6b852bb0ab25}</Project>
-      <Name>MessageBox</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

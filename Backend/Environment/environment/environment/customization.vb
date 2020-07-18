@@ -4,6 +4,9 @@ Public Class customization
     Public Property ApplicationBrandNAme As String = "Missing brand"
     Public Property businessname As String = "missing business name"
 
+    Public Property designLayoutAssemblyFileName As String = ""
+    Public Property dessignLayoutAssemblyNameSpace As String = ""
+
     Public Property hasCodedCustomizationSettings As Boolean = False
 
     Public Property hasLogin As Boolean = False

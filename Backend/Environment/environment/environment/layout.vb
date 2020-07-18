@@ -1,6 +1,6 @@
 ﻿Imports System.Drawing.Text
 Imports System.IO
-Imports AeonLabs.Environment.Assembly.assemblyEnvironmentVarsClass
+Imports AeonLabs.Environment.menuEnvironmentVarsClass
 
 Public Class environmentLayoutClass
 

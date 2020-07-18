@@ -6,6 +6,9 @@ Module AppCustomization
         With enVars.customization
             .ApplicationBrandNAme = "MainTestApp"
 
+            .designLayoutAssemblyFileName = "ltbm.layout.dll"
+            .dessignLayoutAssemblyNameSpace = "AeonLabs.Layouts"
+
             .hasLogin = True
             .hasSetup = True
 

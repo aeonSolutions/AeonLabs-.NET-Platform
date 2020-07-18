@@ -43,7 +43,7 @@ Namespace My.Resources
         Friend Shared ReadOnly Property ResourceManager() As Global.System.Resources.ResourceManager
             Get
                 If Object.ReferenceEquals(resourceMan, Nothing) Then
-                    Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("AeonLabs.RemoteAttendanceLogistics.strings", GetType(strings).Assembly)
+                    Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("AeonLabs.MainTestApp.strings", GetType(strings).Assembly)
                     resourceMan = temp
                 End If
                 Return resourceMan
@@ -70,6 +70,15 @@ Namespace My.Resources
         Friend Shared ReadOnly Property errorDataFileNotFound() As String
             Get
                 Return ResourceManager.GetString("errorDataFileNotFound", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to loading....
+        '''</summary>
+        Friend Shared ReadOnly Property loading() As String
+            Get
+                Return ResourceManager.GetString("loading", resourceCulture)
             End Get
         End Property
         

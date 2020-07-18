@@ -7,8 +7,8 @@
     <ProjectGuid>{B78F0EE6-F9A3-4B7B-BB59-62E41EF59743}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <StartupObject>Sub Main</StartupObject>
-    <RootNamespace>AeonLabs.RemoteAttendanceLogistics</RootNamespace>
-    <AssemblyName>remote Attendance Logistics</AssemblyName>
+    <RootNamespace>AeonLabs.MainTestApp</RootNamespace>
+    <AssemblyName>mainTestApp</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -22,8 +22,8 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>remote Attendance Logistics.xml</DocumentationFile>
+    <OutputPath>..\builds\debug\</OutputPath>
+    <DocumentationFile>mainTestApp.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -32,8 +32,8 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>remote Attendance Logistics.xml</DocumentationFile>
+    <OutputPath>..\builds\release\</OutputPath>
+    <DocumentationFile>mainTestApp.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -53,7 +53,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x64\Debug\</OutputPath>
-    <DocumentationFile>remote Attendance Logistics.xml</DocumentationFile>
+    <DocumentationFile>mainTestApp.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -63,7 +63,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x64\Release\</OutputPath>
-    <DocumentationFile>remote Attendance Logistics.xml</DocumentationFile>
+    <DocumentationFile>mainTestApp.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -76,7 +76,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DocumentationFile>remote Attendance Logistics.xml</DocumentationFile>
+    <DocumentationFile>mainTestApp.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -86,7 +86,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DocumentationFile>remote Attendance Logistics.xml</DocumentationFile>
+    <DocumentationFile>mainTestApp.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -98,6 +98,21 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CircularProgressBar, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\builds\debug\CircularProgressBar.dll</HintPath>
+    </Reference>
+    <Reference Include="customControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\builds\debug\customControls.dll</HintPath>
+    </Reference>
+    <Reference Include="environment, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\builds\debug\environment.dll</HintPath>
+    </Reference>
+    <Reference Include="FontAwesome.Sharp, Version=5.13.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\FontAwesome.Sharp.5.13.0\lib\net472\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>packages\RESXManager.1.7\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -106,6 +121,10 @@
     </Reference>
     <Reference Include="Microsoft.PowerShell.Commands.Utility, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\RESXManager.1.7\lib\Microsoft.PowerShell.Commands.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="network, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\builds\debug\network.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -129,6 +148,10 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="tasksManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\builds\debug\tasksManager.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -147,6 +170,12 @@
     <Compile Include="config\AuthorizedAssemblies.vb" />
     <Compile Include="config\menuOptions.vb" />
     <Compile Include="config\AppCustomization.vb" />
+    <Compile Include="loadingForm.Designer.vb">
+      <DependentUpon>loadingForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="loadingForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="main.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -188,6 +217,9 @@
     <EmbeddedResource Include="Controls\RESXManager\Labels\App_LocalResources\LabelsSearchResult.ascx.resx" />
     <EmbeddedResource Include="Controls\RESXManager\Labels\App_LocalResources\LabelsSearchResultItem.ascx.resx" />
     <EmbeddedResource Include="Controls\RESXManager\Labels\App_LocalResources\LabelsSearchResultList.ascx.resx" />
+    <EmbeddedResource Include="loadingForm.resx">
+      <DependentUpon>loadingForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -229,44 +261,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="library\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Platform\Backend\Environment\EnvironmentAssembly\assemblyEnvironment\assemblyEnvironment.vbproj">
-      <Project>{db6f9048-2a83-4bc3-b29e-36f185e2f4c8}</Project>
-      <Name>assemblyEnvironment</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Platform\Backend\Environment\environmentLoading\environmentLoading\environmentLoading.vbproj">
-      <Project>{C2FF0762-AA5D-4C42-8249-339EB1D2D5F0}</Project>
-      <Name>environmentLoading</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Platform\Backend\Environment\environment\environment\environment.vbproj">
-      <Project>{82AD9932-5319-4CE8-A398-75B91133FEEC}</Project>
-      <Name>environment</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Platform\Backend\Network\network\network.vbproj">
-      <Project>{27ee122c-a84c-408a-b8e4-f42586b13124}</Project>
-      <Name>network</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Platform\Backend\Security\security\security.vbproj">
-      <Project>{4d13834b-a75b-4737-bc37-f520d12a69d0}</Project>
-      <Name>security</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Platform\Functionalities\loading\loading\loading intro.vbproj">
-      <Project>{58529c40-9665-4ad7-ad1a-70bd2c3e8c45}</Project>
-      <Name>loading intro</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Platform\GUI\Custom Controls\Custom Controls.vbproj">
-      <Project>{139894e5-2335-4583-b449-dc1d2a94937a}</Project>
-      <Name>Custom Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Platform\Layouts\main\medieval\medieval Layout.vbproj">
-      <Project>{1413d8ab-9254-4e42-8f73-319fa58c7742}</Project>
-      <Name>medieval Layout</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Platform\Layouts\startUp\medieval\medieval Layout StartUp.vbproj">
-      <Project>{7852c39b-137b-48e2-b064-8b6612323383}</Project>
-      <Name>medieval Layout StartUp</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Controls\RESXManager\FileManagement.ascx" />
@@ -389,6 +383,16 @@
     <Content Include="scripts\resxmanager\jquery.spellchecker.js" />
     <Content Include="scripts\resxmanager\jquery.textarea-expander.js" />
     <Content Include="scripts\resxmanager\jquery.watermark.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Backend\Environment\environmentLoading\environmentLoading\environmentLoading.vbproj">
+      <Project>{C2FF0762-AA5D-4C42-8249-339EB1D2D5F0}</Project>
+      <Name>environmentLoading</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Layouts\StartUp\medieval\medieval Layout StartUp.vbproj">
+      <Project>{7852c39b-137b-48e2-b064-8b6612323383}</Project>
+      <Name>medieval Layout StartUp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

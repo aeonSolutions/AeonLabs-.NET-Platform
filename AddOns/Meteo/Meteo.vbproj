@@ -167,10 +167,6 @@
       <Project>{a65d2f89-5203-411b-8111-cd0b17b8a642}</Project>
       <Name>AlphaGradientPanel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Layouts\main\medieval\medieval Layout.vbproj">
-      <Project>{1413D8AB-9254-4E42-8F73-319FA58C7742}</Project>
-      <Name>medieval Layout</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

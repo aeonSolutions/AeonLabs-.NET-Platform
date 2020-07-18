@@ -1,5 +1,5 @@
 ﻿Imports AeonLabs.Environment
-Imports AeonLabs.Environment.Assembly.assemblyEnvironmentVarsClass
+Imports AeonLabs.Environment.menuEnvironmentVarsClass
 
 Public Class menuOptions
     Private enVars As New environmentVarsCore

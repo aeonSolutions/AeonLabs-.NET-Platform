@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>..\..\..\..\AppsMain\builds\debug\</OutputPath>
     <DocumentationFile>environmentLoading.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
@@ -33,7 +33,7 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>..\..\..\..\AppsMain\builds\release\</OutputPath>
     <DocumentationFile>environmentLoading.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
@@ -50,8 +50,16 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="network, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\AppsMain\builds\release\network.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="security, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\AppsMain\builds\release\security.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -119,14 +127,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Network\network\network.vbproj">
-      <Project>{27ee122c-a84c-408a-b8e4-f42586b13124}</Project>
-      <Name>network</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Security\security\security.vbproj">
-      <Project>{4d13834b-a75b-4737-bc37-f520d12a69d0}</Project>
-      <Name>security</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\environment\environment\environment.vbproj">
       <Project>{82AD9932-5319-4CE8-A398-75B91133FEEC}</Project>
       <Name>environment</Name>
