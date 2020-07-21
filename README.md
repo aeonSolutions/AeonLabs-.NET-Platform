@@ -7,4 +7,4 @@ Build Status
 - rapid develpment of custom grid layouts (90%)
 
 current layout
-![alt text](http://www.aeonlabs.solutions/images/github/layout.jpg)
+![alt text](http://www.aeonlabs.solutions/images/github/layout2.jpg)
