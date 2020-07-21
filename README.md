@@ -2,6 +2,7 @@
 Home of AeonLabs .NET Platform
 
 Build Status
+
 UI
 - rapid develpment of custom grid layouts (90%)
 - Transparency UI - 100%
@@ -16,5 +17,6 @@ Menu Builder
 Packages and Widgets
 - load assemblies and prepare for rapid deployment (60%)
 
-current layout
+
+current layout (example)
 ![alt text](http://www.aeonlabs.solutions/images/github/layout2.jpg)
