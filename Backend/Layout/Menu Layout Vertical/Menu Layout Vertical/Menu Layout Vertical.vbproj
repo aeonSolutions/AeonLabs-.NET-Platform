@@ -50,11 +50,18 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Basic libraries, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\AppsMain\builds\debug\Basic libraries.dll</HintPath>
+    </Reference>
     <Reference Include="customControls">
       <HintPath>..\..\..\..\AppsMain\builds\release\customControls.dll</HintPath>
     </Reference>
     <Reference Include="environment">
       <HintPath>..\..\..\..\AppsMain\builds\release\environment.dll</HintPath>
+    </Reference>
+    <Reference Include="FontAwesome.Sharp, Version=5.13.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\Layouts\Main\LTBM\packages\FontAwesome.Sharp.5.13.0\lib\net472\FontAwesome.Sharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -131,6 +138,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

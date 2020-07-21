@@ -4,6 +4,11 @@ Imports System.Drawing.Text
 Imports System.IO
 
 Public Class environmentVarsCore
+#Region "constructors"
+    Public Sub New()
+        layoutDesign.loadDefaults(Me)
+    End Sub
+#End Region
 
 #Region "Interfaces, Events and delegates"
     Public Event dataChanged(sender As Object, envars As environmentVarsCore)
@@ -45,7 +50,7 @@ Public Class environmentVarsCore
 #End Region
 
 #Region "APP DESIGN"
-    Public Property layoutDesign As New environmentLayoutClass
+    Public WithEvents layoutDesign As New environmentLayoutClass
 #End Region
 
 #Region "FOLDER PATHS"
@@ -71,6 +76,7 @@ Public Class environmentVarsCore
     Public Property stateErrorFound As Boolean = False
     Public Property stateErrorMessage As String = ""
 #End Region
+    Public Property externalFilesToLoad As New Dictionary(Of String, String) 'TODO remove entries when assembly is unloaded
 
     'TO BE CLASSIF. and SORTED
     Public Property ServerBaseAddr As String = "" ' base path without final slash

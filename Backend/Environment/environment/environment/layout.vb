@@ -4,18 +4,19 @@ Imports AeonLabs.Environment.menuEnvironmentVarsClass
 
 Public Class environmentLayoutClass
 
-    Public Property menu As New menuClass
+    Public WithEvents menu As New menuClass
 
     'MAIN LAYOUT design scheme
     Public Property MENU_BACK_COLOR As Color = Color.Black
     Public Property MENU_CLOSED_STATE As Integer = 40
     Public Property MENU_OPEN_STATE As Integer = 400
+    Public Property PANEL_SCROOL_UNDERLAY As Integer = 30
 
     'widgets & plugIns design scheme
-    Public Property labelForeColor As Color
-    Public Property linkLabelForeColor As Color
-    Public Property buttonForecolor As Color
-    Public Property editTextBackColor As Color
+    Public Property labelForeColor As Color = Color.White
+    Public Property linkLabelForeColor As Color = Color.White
+    Public Property buttonForecolor As Color = Color.White
+    Public Property editTextBackColor As Color = Color.White
     Public Property controlWithSelectionBackcolor As Color
     Public Property buttonBackcolor As Color
 

@@ -2,12 +2,13 @@
 Imports System.Windows.Forms
 
 Public Class menuEnvironmentVarsClass
-
-    Public Property MenuPanelBackColor As Color
     'duplicate on layout env
     Public Property menu As New menuClass
 
     Public Class menuClass
+        Public Property menuPanelContainer As New PanelDoubleBuffer
+        Public Property MenuPanelBackColor As Color
+
         Public Property items As New List(Of menuItemClass) 'menu items
         Public Property menuSort As New List(Of Integer)
         Public Property properties As New menuDesignPropertiesClass
@@ -17,6 +18,8 @@ Public Class menuEnvironmentVarsClass
             Public Property ClosedStateSize As Integer
             Public Property backColor As Color
             Public Property border As Boolean
+            Public Property activeBarWidth As Integer
+            Public Property activeBarColor As Color
         End Class
     End Class
 
@@ -41,11 +44,12 @@ Public Class menuEnvironmentVarsClass
         Public Property notifications As Integer          ' number of notification pending on menu item
         Public Property icon As String
 
-        Public Property menuItemPanel As Panel
-        Public Property iconPicHolder As List(Of PictureBox)
+        Public Property menuItemPanel As PanelDoubleBuffer
+        Public Property iconPicHolder As New List(Of PictureBox)(New PictureBox() {Nothing, Nothing})
+        Public Property iconPicHolderFontAwesome As New List(Of FontAwesome.Sharp.IconPictureBox)(New FontAwesome.Sharp.IconPictureBox() {Nothing, Nothing})
 
         'menu wrapper
-        Public Property menuWrapperPanel As Panel
+        Public Property menuWrapperPanel As PanelDoubleBuffer
         Public Property isOpen As Boolean
         Public Property menuWrapperOpenHeight As Integer
     End Class

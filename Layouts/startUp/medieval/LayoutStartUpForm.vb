@@ -1,18 +1,19 @@
 ﻿Imports System.ComponentModel
 Imports AeonLabs.Connectivity.SmartCards
 Imports AeonLabs.Environment
-Imports AeonLabs.StartUp
 Imports AeonLabs.Backend.PlugIns.quoteOfTheDayLib
 Imports AeonLabs.BasicLibraries
 Imports AeonLabs.Connectivity.SmartCards.Interface
 Imports AeonLabs.environmentLoading
+Imports AeonLabs.StartUp
 
 Public NotInheritable Class LayoutStartUpForm
 
     Public WithEvents enVars As environmentVarsCore
     Private WithEvents loadEnVars As environmentLoading.loadEnvironment
+    Private WithEvents startupBackgroundTasks As startupBackgroundTasksClass
 
-    Public WithEvents startupBackgroundTasks As startupBackgroundTasksClass
+    Private updateMainApp As environmentVarsCore.updateMainLayoutDelegate
 
     Private showPass As Boolean
     Private msgbox As messageBoxForm
@@ -35,13 +36,14 @@ Public NotInheritable Class LayoutStartUpForm
         End Get
     End Property
 
-    Public Sub New(_envarsCore As environmentVarsCore)
+    Public Sub New(_envarsCore As environmentVarsCore, ByRef _updateMainApp As environmentVarsCore.updateMainLayoutDelegate)
         ' This call is required by the designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
         enVars = _envarsCore
-        startupBackgroundTasks = New startupBackgroundTasksClass(enVars)
+        updateMainApp = _updateMainApp
 
+        startupBackgroundTasks = New startupBackgroundTasksClass(enVars)
     End Sub
     Private Sub SplashScreen1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Me.SuspendLayout()
@@ -352,6 +354,12 @@ Public NotInheritable Class LayoutStartUpForm
 
     Private Sub startupBackgroundTasks_startUpTasksCompleted(sender As Object, enVarsResult As environmentVarsCore) Handles startupBackgroundTasks.startUpTasksCompleted
         enVars = enVarsResult
+
+        Dim dataUpdate As New updateMainAppClass
+        dataUpdate.envars = enVars
+        dataUpdate.updateTask = updateMainAppClass.UPDATE_MAIN
+        updateMainApp.Invoke(Me, dataUpdate)
+
         Me.Close()
     End Sub
 
@@ -360,6 +368,11 @@ Public NotInheritable Class LayoutStartUpForm
     End Sub
 
     Private Sub cancelCard_lbl_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles cancelCard_lbl.LinkClicked
+        Dim dataUpdate As New updateMainAppClass
+        dataUpdate.envars = enVars
+        dataUpdate.updateTask = updateMainAppClass.UPDATE_MAIN
+        updateMainApp.Invoke(Me, dataUpdate)
+
         Me.DialogResult = DialogResult.Cancel
         Me.Close()
     End Sub

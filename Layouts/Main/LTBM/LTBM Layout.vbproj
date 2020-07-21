@@ -6,13 +6,12 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1413D8AB-9254-4E42-8F73-319FA58C7742}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <StartupObject>
-    </StartupObject>
-    <RootNamespace>AeonLabs.Layouts</RootNamespace>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>AeonLabs.Layouts.Main.My.MyApplication</StartupObject>
+    <RootNamespace>AeonLabs.Layouts.Main</RootNamespace>
     <AssemblyName>ltbm.layout</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>Windows</MyType>
+    <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -99,10 +98,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\AppsMain\builds\release\BasicLibraries.dll</HintPath>
     </Reference>
-    <Reference Include="customControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\AppsMain\builds\debug\customControls.dll</HintPath>
-    </Reference>
     <Reference Include="environment, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\AppsMain\builds\debug\environment.dll</HintPath>
@@ -154,6 +149,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="layoutSettings.vb" />
+    <Compile Include="TestingVars.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -209,6 +205,10 @@
     <ProjectReference Include="..\..\..\Backend\Layout\Menu Layout Vertical\Menu Layout Vertical\Menu Layout Vertical.vbproj">
       <Project>{91d6b342-9cb0-4e6b-b3d9-9a84b1d7ffb7}</Project>
       <Name>Menu Layout Vertical</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GUI\Custom Controls\Custom Controls.vbproj">
+      <Project>{139894e5-2335-4583-b449-dc1d2a94937a}</Project>
+      <Name>Custom Controls</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

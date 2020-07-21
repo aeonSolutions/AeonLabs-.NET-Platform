@@ -5,7 +5,10 @@ Public Class customization
     Public Property businessname As String = "missing business name"
 
     Public Property designLayoutAssemblyFileName As String = ""
-    Public Property dessignLayoutAssemblyNameSpace As String = ""
+    Public Property designLayoutAssemblyNameSpace As String = ""
+
+    Public Property designStartupLayoutAssemblyFileName As String = ""
+    Public Property designStartupLayoutAssemblyNameSpace As String = ""
 
     Public Property hasCodedCustomizationSettings As Boolean = False
 

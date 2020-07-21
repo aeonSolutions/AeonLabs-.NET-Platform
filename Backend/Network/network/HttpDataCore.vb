@@ -46,15 +46,15 @@ Public Class HttpDataCore
     Public Event requestCompleted(sender As Object, requestData As String) 'TODO add misc vars
 
     Private sendToQueue As Boolean
-    Public Sub New(ByVal Optional _state As environmentVarsCore = Nothing, ByVal Optional _url As String = "")
+    Public Sub New(ByVal Optional _state As environmentVarsCore = Nothing, ByVal Optional _overrideUrl As String = "")
         queue = New List(Of _queue_data_struct)
         dataStatistics = New List(Of _data_statistics)
         loadingCounter = 0
         sendToQueue = False
-        If _state IsNot Nothing AndAlso _url.Equals("") Then
+        If _state IsNot Nothing AndAlso _overrideUrl.Equals("") Then
             url = _state.ServerBaseAddr & _state.ApiServerAddrPath
-        ElseIf Not _url.Equals("") Then
-            url = _url
+        ElseIf Not _overrideUrl.Equals("") Then
+            url = _overrideUrl
         Else
             Throw New System.Exception("Initialization err: state and url cannot be both null at same time")
         End If

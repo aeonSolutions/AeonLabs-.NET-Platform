@@ -9,7 +9,7 @@
     <StartupObject>
     </StartupObject>
     <RootNamespace>AeonLabs.Layouts.StartUp</RootNamespace>
-    <AssemblyName>medieval.startup</AssemblyName>
+    <AssemblyName>medieval.startup.layout.dll</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -24,7 +24,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\..\..\AppsMain\builds\debug\</OutputPath>
-    <DocumentationFile>medieval.startup.xml</DocumentationFile>
+    <DocumentationFile>medieval.startup.layout.dll.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -34,7 +34,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>..\..\..\AppsMain\builds\release\</OutputPath>
-    <DocumentationFile>medieval.startup.xml</DocumentationFile>
+    <DocumentationFile>medieval.startup.layout.dll.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -163,7 +163,7 @@
       <Name>environmentLoading</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Backend\Environment\environment\environment\environment.vbproj">
-      <Project>{82AD9932-5319-4CE8-A398-75B91133FEEC}</Project>
+      <Project>{82ad9932-5319-4ce8-a398-75b91133feec}</Project>
       <Name>environment</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Backend\Startup\startup.vbproj">

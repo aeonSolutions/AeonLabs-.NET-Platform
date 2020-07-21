@@ -14,7 +14,7 @@ Partial Public Class FormCustomized
     ''' <summary>
     ''' The time it takes to fade from 0 to 1 or the other way around.
     ''' </summary>
-    Private f_FadeTime = 0.35
+    Private f_FadeTime = 0.5
 
     ''' <summary>
     ''' The opacity that the form will transition to when the form gets focus.
@@ -46,6 +46,7 @@ Partial Public Class FormCustomized
     Private WithEvents timerInactivity As New Timer
     Public Property InactivityTimeOut As New TimeSpan(0, 15, 0)
     Public Event InactivityDetected(sender As Object)
+    Private isFormLoading As Boolean = True
 
 #End Region
 
@@ -70,7 +71,6 @@ Partial Public Class FormCustomized
             Return f_FadeTime
         End Get
         Set(ByVal value As Double)
-
             If value > 0 Then
                 f_FadeTime = value
             Else
@@ -94,7 +94,9 @@ Partial Public Class FormCustomized
                 Throw New ArgumentOutOfRangeException("The ActiveOpacity must be a positive value")
             End If
 
-            If ContainsFocus Then TargetOpacity = f_ActiveOpacity
+            If ContainsFocus Then
+                TargetOpacity = f_ActiveOpacity
+            End If
         End Set
     End Property
 
@@ -113,7 +115,9 @@ Partial Public Class FormCustomized
                 Throw New ArgumentOutOfRangeException("The InactiveOpacity must be a positive value")
             End If
 
-            If Not ContainsFocus AndAlso WindowState <> FormWindowState.Minimized Then TargetOpacity = f_InactiveOpacity
+            If Not ContainsFocus AndAlso WindowState <> FormWindowState.Minimized Then
+                TargetOpacity = f_InactiveOpacity
+            End If
         End Set
     End Property
 
@@ -132,7 +136,9 @@ Partial Public Class FormCustomized
                 Throw New ArgumentOutOfRangeException("The MinimizedOpacity must be a positive value")
             End If
 
-            If Not ContainsFocus AndAlso WindowState <> FormWindowState.Minimized Then TargetOpacity = f_InactiveOpacity
+            If Not ContainsFocus AndAlso WindowState <> FormWindowState.Minimized Then
+                TargetOpacity = f_InactiveOpacity
+            End If
         End Set
     End Property
 
@@ -167,6 +173,7 @@ Partial Public Class FormCustomized
     ''' Creates a new FormCustomized.
     ''' </summary>
     Public Sub New()
+        isFormLoading = True
         SuspendLayout()
 
         SetStyle(ControlStyles.AllPaintingInWmPaint, True)
@@ -220,7 +227,7 @@ Partial Public Class FormCustomized
         f_ActiveOpacity = 1
         f_InactiveOpacity = 0.85
         f_MinimizedOpacity = 0
-        f_FadeTime = 0.000001
+        f_FadeTime = 0.1
     End Sub
 #End Region
 
@@ -327,7 +334,7 @@ Partial Public Class FormCustomized
         If Math.Abs(f_TargetOpacity - Opacity) < fadeChangePerTick Then
             'There is an ugly black flash if you set the Opacity to 1.0
             If f_TargetOpacity = 1 Then
-                Opacity = 0.999
+                Opacity = 0.99999999999
             Else
                 Opacity = f_TargetOpacity
             End If
@@ -335,6 +342,7 @@ Partial Public Class FormCustomized
             MyBase.WndProc(heldMessage)
             heldMessage = New Message()
             'Stop the timer to save processor.
+            isFormLoading = False
             FadeFxTimer.Stop()
         ElseIf f_TargetOpacity > Opacity Then
             Opacity += fadeChangePerTick
@@ -345,7 +353,7 @@ Partial Public Class FormCustomized
 
     'Fade out the form when it losses focus.
     Private Sub FormCustomized_Deactivate(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Deactivate
-        If Not FadeFxTimer.Enabled Then
+        If isFormLoading Then
             Exit Sub
         End If
         TargetOpacity = f_InactiveOpacity
@@ -353,7 +361,7 @@ Partial Public Class FormCustomized
 
     'Fade in the form when it gaines focus.
     Private Sub FormCustomized_Activated(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Activated
-        If Not FadeFxTimer.Enabled Then
+        If isFormLoading Then
             Exit Sub
         End If
         TargetOpacity = f_ActiveOpacity

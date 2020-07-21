@@ -15,8 +15,8 @@ Public Class HttpDataPostData
     Public Event updateProgress(sender As Object, misc As Dictionary(Of String, String))
     Public Event dataArrived(sender As Object, requestData As String, misc As Dictionary(Of String, String))
 
-    Public Sub New(ByVal Optional _state As environmentVarsCore = Nothing, ByVal Optional _url As String = "")
-        MyBase.New(_state, _url)
+    Public Sub New(ByVal Optional _state As environmentVarsCore = Nothing, ByVal Optional _overrideUrl As String = "")
+        MyBase.New(_state, _overrideUrl)
     End Sub
     Public Sub initialize(ByVal Optional _threadCount As Integer = 0)
         If Not _threadCount.Equals(0) Then

@@ -106,10 +106,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\builds\debug\customControls.dll</HintPath>
     </Reference>
-    <Reference Include="environment, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\builds\debug\environment.dll</HintPath>
-    </Reference>
     <Reference Include="FontAwesome.Sharp, Version=5.13.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\FontAwesome.Sharp.5.13.0\lib\net472\FontAwesome.Sharp.dll</HintPath>
     </Reference>
@@ -389,9 +385,9 @@
       <Project>{C2FF0762-AA5D-4C42-8249-339EB1D2D5F0}</Project>
       <Name>environmentLoading</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Layouts\StartUp\medieval\medieval Layout StartUp.vbproj">
-      <Project>{7852c39b-137b-48e2-b064-8b6612323383}</Project>
-      <Name>medieval Layout StartUp</Name>
+    <ProjectReference Include="..\..\Backend\Environment\environment\environment\environment.vbproj">
+      <Project>{82ad9932-5319-4ce8-a398-75b91133feec}</Project>
+      <Name>environment</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

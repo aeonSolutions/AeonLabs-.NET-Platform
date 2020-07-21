@@ -1,8 +1,6 @@
 ﻿
-
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class mainAppLayoutForm
-
     Inherits FormCustomized
 
     'Form overrides dispose to clean up the component list.
@@ -35,7 +33,6 @@ Partial Class mainAppLayoutForm
         Me.panelMenuOptions = New PanelDoubleBuffer()
         Me.panelMain = New PanelDoubleBuffer()
         Me.panelTop = New PanelDoubleBuffer()
-        Me.panelSideMenuContainer = New PanelDoubleBuffer()
         Me.panelBottom.SuspendLayout()
         CType(Me.iconMenuSettings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.menuIconPic, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -98,7 +95,6 @@ Partial Class mainAppLayoutForm
         Me.panelLeftSide.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.panelLeftSide.BackColor = System.Drawing.Color.Transparent
         Me.panelLeftSide.Controls.Add(Me.panelMenuOptionsContainer)
-        Me.panelLeftSide.Controls.Add(Me.panelSideMenuContainer)
         Me.panelLeftSide.Controls.Add(Me.panelMenuOptions)
         Me.panelLeftSide.Dock = System.Windows.Forms.DockStyle.Left
         Me.panelLeftSide.Location = New System.Drawing.Point(0, 0)
@@ -153,25 +149,12 @@ Partial Class mainAppLayoutForm
         Me.panelTop.PANEL_OPEN_STATE_DIM = 400
         Me.panelTop.Size = New System.Drawing.Size(713, 33)
         Me.panelTop.TabIndex = 5
-
-        '
-        'panelSideMenuContainer
-        '
-        Me.panelSideMenuContainer.AutoSize = True
-        Me.panelSideMenuContainer.BackColor = System.Drawing.Color.Transparent
-        Me.panelSideMenuContainer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.panelSideMenuContainer.Location = New System.Drawing.Point(0, 33)
-        Me.panelSideMenuContainer.Name = "panelSideMenuContainer"
-        Me.panelSideMenuContainer.PANEL_CLOSED_STATE_DIM = 40
-        Me.panelSideMenuContainer.PANEL_OPEN_STATE_DIM = 400
-        Me.panelSideMenuContainer.Size = New System.Drawing.Size(300, 528)
-        Me.panelSideMenuContainer.TabIndex = 2
         '
         'mainAppLayoutForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Silver
+        Me.BackColor = System.Drawing.Color.DarkRed
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1013, 561)
@@ -181,20 +164,20 @@ Partial Class mainAppLayoutForm
         Me.Controls.Add(Me.panelLeftSide)
         Me.MinimumSize = New System.Drawing.Size(950, 600)
         Me.Name = "mainAppLayoutForm"
-        Me.Opacity = 0.999R
+        Me.Opacity = 0.15000000000000002R
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.TargetOpacity = 1.0R
         Me.Text = "MainApp"
-        Me.TransparencyKey = System.Drawing.Color.Silver
         Me.panelBottom.ResumeLayout(False)
         CType(Me.iconMenuSettings, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.menuIconPic, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panelLeftSide.ResumeLayout(False)
-        Me.panelLeftSide.PerformLayout()
         Me.panelMenuOptions.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
+
+
     Friend WithEvents panelBottom As PanelDoubleBuffer
     Friend WithEvents statusText As LabelDoubleBuffer
     Friend WithEvents panelLeftSide As PanelDoubleBuffer
@@ -204,5 +187,4 @@ Partial Class mainAppLayoutForm
     Friend WithEvents iconMenuSettings As FontAwesome.Sharp.IconPictureBox
     Friend WithEvents panelMenuOptions As PanelDoubleBuffer
     Friend WithEvents panelMenuOptionsContainer As PanelDoubleBuffer
-    Friend WithEvents panelSideMenuContainer As PanelDoubleBuffer
 End Class

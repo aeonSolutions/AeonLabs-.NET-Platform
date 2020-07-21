@@ -1,15 +1,13 @@
 ﻿Public Class tasksManagerClass
-    Public Const TO_START As Boolean = -1
-    Public Const BUSY As Boolean = 1
-    Public Const FINISHED As Boolean = 0
+    Public Const TO_START As Integer = -1
+    Public Const BUSY As Integer = 1
+    Public Const FINISHED As Integer = 0
 
     Public Event tasksCompleted(sender As Object)
 
-
     Private tasks As Dictionary(Of String, Integer)
-    Private WithEvents timer As Timer
-
-
+    Private atimer As New System.Timers.Timer
+    Private taskEnded As Boolean = False
     Public Sub New()
         tasks = New Dictionary(Of String, Integer)
     End Sub
@@ -19,21 +17,24 @@
     End Sub
 
     Public Sub startListening()
-        timer = New Timer
-        timer.Interval = 100
-        timer.Start()
+        taskEnded = False
+        atimer.AutoReset = True
+        atimer.Interval = 100
+        AddHandler aTimer.Elapsed, AddressOf tick
+        atimer.Start()
 
     End Sub
 
     Public Sub unload()
-        If timer IsNot Nothing Then
-            timer.Stop()
+        If atimer IsNot Nothing Then
+            atimer.Stop()
         End If
     End Sub
-    Private Sub timer_tick(ByVal sender As Object, ByVal e As EventArgs) Handles timer.Tick
-        If getTasksStatus.Equals(FINISHED) Then
+    Private Sub tick(ByVal sender As Object, ByVal e As EventArgs)
+        If getTasksStatus.Equals(FINISHED) And Not taskEnded Then
+            taskEnded = True
             RaiseEvent tasksCompleted(Me)
-            timer.Stop()
+            atimer.Stop()
         End If
     End Sub
 

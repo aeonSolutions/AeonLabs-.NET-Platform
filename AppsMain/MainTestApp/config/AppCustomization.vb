@@ -7,7 +7,10 @@ Module AppCustomization
             .ApplicationBrandNAme = "MainTestApp"
 
             .designLayoutAssemblyFileName = "ltbm.layout.dll"
-            .dessignLayoutAssemblyNameSpace = "AeonLabs.Layouts"
+            .designLayoutAssemblyNameSpace = "AeonLabs.Layouts.Main"
+
+            .designStartupLayoutAssemblyFileName = "medieval.startup.layout.dll"
+            .designStartupLayoutAssemblyNameSpace = "AeonLabs.Layouts.StartUp"
 
             .hasLogin = True
             .hasSetup = True
@@ -24,7 +27,7 @@ Module AppCustomization
             'TODO: replace by API ACCESS KEY string : office435dfgjdn4235
             .softwareAccessMode = "humanResources"  'possible values: office, site, contractor, rh
             .expireDate = "01/01/2021"
-            .updateServerAddr = "http://www.sitelogistics.construction/shared/update/update.php"
+            .updateServerAddr = "http://www.store.aeonlabs.solutions/index.php"
             .crashReportServerAddr = "http://www.sitelogistics.construction/shared/crash/api.php?task=crash"
             .websiteToLoadProgram = "http://www.sitelogistics.construction"
         End With

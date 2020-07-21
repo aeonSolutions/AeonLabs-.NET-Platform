@@ -4,7 +4,6 @@ Imports System.Windows.Forms
 Imports AeonLabs.Environment
 
 Public Class lateralSettingsForm
-    Public Event RaiseEnventUpDateEnvironemnt(sender As Object, envars As environmentVarsCore)
 
     Protected Overloads Overrides ReadOnly Property CreateParams() As CreateParams
         Get
@@ -14,8 +13,8 @@ Public Class lateralSettingsForm
         End Get
     End Property
 
-    Public Property envars As environmentVarsCore
-    Public Property updateMainApp As environmentVarsCore.updateMainLayoutDelegate
+    Private envars As environmentVarsCore
+    Private updateMainApp As environmentVarsCore.updateMainLayoutDelegate
 
     Private backGroundImageToolTip As New ToolTip()
     Private colorPalleteToolTip As New ToolTip()
