@@ -19,4 +19,4 @@ Packages and Widgets
 
 
 current layout (example)
-![alt text](http://www.aeonlabs.solutions/images/github/layout2.jpg)
+![alt text](http://www.aeonlabs.solutions/images/github/layout3.jpg)
