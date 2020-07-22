@@ -141,8 +141,6 @@ Partial Public Class FormCustomized
             End If
         End Set
     End Property
-
-
 #End Region
 
 #Region "CustomMessageFilter"

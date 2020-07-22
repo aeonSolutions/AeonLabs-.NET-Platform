@@ -165,7 +165,7 @@ Public Class mainAppLayoutForm
     Private Sub addToolTips()
         'ADD TOOLTIPS 
         Dim menuToggleToolTip As New ToolTip()
-        menuToggleToolTip.SetToolTip(menuIconPic, My.Resources.strings.MenuToggle)
+        menuToggleToolTip.SetToolTip(menuToggleIcon, My.Resources.strings.MenuToggle)
 
         Dim settingsToolTip As New ToolTip()
         settingsToolTip.SetToolTip(iconMenuSettings, My.Resources.strings.settingsToggle)
@@ -252,24 +252,43 @@ Public Class mainAppLayoutForm
 
         loaded = False
 
-        panelLeftSide.Parent = Me
-        panelLeftSide.Width = enVars.layoutDesign.menu.properties.ClosedStateSize
-        panelLeftSide.BackColor = Color.Transparent
-
-        panelMenuOptionsContainer.Parent = panelLeftSide
-        panelMenuOptionsContainer.Height = 0
+        With panelLeftSide
+            .Parent = Me
+            .Width = enVars.layoutDesign.menu.properties.ClosedStateSize
+            .BackColor = Color.Transparent
+            .AutoScroll = True
+        End With
 
         'TOP OPTIONS ON SIDE PANEL
-        panelMenuOptions.Parent = panelLeftSide
+        With panelMenuOptions
+            .Parent = panelLeftSide
+            .Dock = DockStyle.Top
+            .BringToFront()
+        End With
+
         'lateralPanelMenuOptions.BackColor = Color.FromArgb(50, Color.Red)
 
-        menuIconPic.Parent = panelMenuOptions
-        menuIconPic.BackColor = Color.Transparent
-        menuIconPic.Width = enVars.layoutDesign.MENU_CLOSED_STATE - 3
-        menuIconPic.Height = enVars.layoutDesign.MENU_CLOSED_STATE - 3
+        menuToggleIcon.Parent = panelMenuOptions
+        menuToggleIcon.BackColor = Color.Transparent
+        menuToggleIcon.Width = enVars.layoutDesign.MENU_CLOSED_STATE - 3
+        menuToggleIcon.Height = enVars.layoutDesign.MENU_CLOSED_STATE - 3
 
         iconMenuSettings.Parent = panelMenuOptions
         iconMenuSettings.BackColor = Color.Transparent
+
+        With panelMenuOptionsContainer
+            .Parent = panelLeftSide
+            .Height = 0
+            .Dock = DockStyle.Top
+            .BringToFront()
+        End With
+
+        menuBuilder = New MenuBuilderClass(Me, panelLeftSide, enVars, MenuBuilderClass.MENU_VERTICAL)
+        enVars = menuBuilder.buildMenu()
+        panelLeftSide.Controls.Add(enVars.layoutDesign.menu.menuPanelContainer)
+
+        enVars.layoutDesign.menu.menuPanelContainer.BringToFront()
+        menuBuilder.MenuUpdate(False)
 
         'TOP PANEL
         panelTop.Parent = Me
@@ -282,12 +301,6 @@ Public Class mainAppLayoutForm
         statusMessage = "status message test"
 
         updateBkColorAndTransparency(Me, False, False)
-
-        menuBuilder = New MenuBuilderClass(Me, panelLeftSide, enVars, MenuBuilderClass.MENU_VERTICAL)
-        enVars = menuBuilder.buildMenu(0)
-        panelLeftSide.Controls.Add(enVars.layoutDesign.menu.menuPanelContainer)
-        enVars.layoutDesign.menu.menuPanelContainer.BringToFront()
-        menuBuilder.MenuUpdate(False)
 
         ResumeLayout()
     End Sub
@@ -473,13 +486,21 @@ Public Class mainAppLayoutForm
 
 #Region "side panel selction clicks"
     Private Sub menuStateUpdateLayout(sender As Object, menuState As Boolean) Handles menuBuilder.menuStateUpdateLayout
+        For Each ctrl As Control In panelMenuOptions.Controls
+            ctrl.Visible = False
+        Next
+        panelMenuOptions.Refresh()
         If menuState.Equals(True) Then
             panelLeftSide.Width = enVars.layoutDesign.MENU_OPEN_STATE
-            menuIconPic.Location = New Point(panelLeftSide.Width - menuIconPic.Width - 3 - 10, menuIconPic.Location.Y)
+            menuToggleIcon.Location = New Point(panelLeftSide.Width - menuToggleIcon.Width - 3 - 10, menuToggleIcon.Location.Y)
         Else
             panelLeftSide.Width = enVars.layoutDesign.MENU_CLOSED_STATE
-            menuIconPic.Location = New Point(5, menuIconPic.Location.Y)
+            menuToggleIcon.Location = New Point(5, menuToggleIcon.Location.Y)
         End If
+        For Each ctrl As Control In panelMenuOptions.Controls
+            ctrl.Visible = True
+        Next
+        panelMenuOptions.Refresh()
     End Sub
 
     Private Sub panelLateral_Click(sender As Object, e As EventArgs)
@@ -490,8 +511,8 @@ Public Class mainAppLayoutForm
         End If
     End Sub
 
-    Private Sub menuIconPic_Click_1(sender As Object, e As EventArgs) Handles menuIconPic.Click
-        If menuIconPic.Location.X.Equals(5) Then
+    Private Sub menuIconPic_Click_1(sender As Object, e As EventArgs) Handles menuToggleIcon.Click
+        If menuToggleIcon.Location.X.Equals(5) Then
             menuBuilder.MenuUpdate(True)
         Else
             menuBuilder.MenuUpdate(False)
@@ -523,8 +544,8 @@ Public Class mainAppLayoutForm
 
 
     Private Sub panelLateralWrapper_Resize(sender As Object, e As System.EventArgs) Handles panelLeftSide.Resize
-        enVars.layoutDesign.menu.menuPanelContainer.Width = panelLeftSide.Width + enVars.layoutDesign.PANEL_SCROOL_UNDERLAY
-        enVars.layoutDesign.menu.menuPanelContainer.Height = panelLeftSide.Height
+        'enVars.layoutDesign.menu.menuPanelContainer.Width = panelLeftSide.Width + enVars.layoutDesign.PANEL_SCROOL_UNDERLAY
+        'enVars.layoutDesign.menu.menuPanelContainer.Height = panelLeftSide.Height - enVars.layoutDesign.menu.menuPanelContainer.Location.Y
     End Sub
 
     Private Sub resizeMenuElementsByOrder(previous As Control, current As Control)
@@ -623,8 +644,6 @@ Public Class mainAppLayoutForm
             ctrl.Dispose()
         End If
     End Sub
-
-
 
 
     ''Private Sub sidebarWrapper_Paint(sender As Object, e As TableLayoutCellPaintEventArgs) 'Handles sidebarWrapperContents.Paint

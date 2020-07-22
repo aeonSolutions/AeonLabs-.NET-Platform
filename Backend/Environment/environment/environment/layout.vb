@@ -25,6 +25,8 @@ Public Class environmentLayoutClass
     Public Property PanelBackColor As Color
     Public Property PanelTransparencyIndex As Double
 
+    Public Property IconsDefaultSize As Integer
+
     ' Time interval to change background image on main form
     Public Property RandomBackgroundTimeInterval As New TimeSpan(0, 15, 0) '15 min timeout - integer (Hours, Minutes, Seconds) 
     'fonts

@@ -27,7 +27,7 @@ Partial Class mainAppLayoutForm
         Me.panelBottom = New PanelDoubleBuffer()
         Me.statusText = New LabelDoubleBuffer()
         Me.iconMenuSettings = New FontAwesome.Sharp.IconPictureBox()
-        Me.menuIconPic = New FontAwesome.Sharp.IconPictureBox()
+        Me.menuToggleIcon = New FontAwesome.Sharp.IconPictureBox()
         Me.panelLeftSide = New PanelDoubleBuffer()
         Me.panelMenuOptionsContainer = New PanelDoubleBuffer()
         Me.panelMenuOptions = New PanelDoubleBuffer()
@@ -35,7 +35,7 @@ Partial Class mainAppLayoutForm
         Me.panelTop = New PanelDoubleBuffer()
         Me.panelBottom.SuspendLayout()
         CType(Me.iconMenuSettings, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.menuIconPic, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.menuToggleIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelLeftSide.SuspendLayout()
         Me.panelMenuOptions.SuspendLayout()
         Me.SuspendLayout()
@@ -49,6 +49,12 @@ Partial Class mainAppLayoutForm
         Me.panelBottom.Name = "panelBottom"
         Me.panelBottom.PANEL_CLOSED_STATE_DIM = 40
         Me.panelBottom.PANEL_OPEN_STATE_DIM = 400
+        Me.panelBottom.SB_BOTH = 3
+        Me.panelBottom.SB_CTL = 2
+        Me.panelBottom.SB_HORZ = 0
+        Me.panelBottom.SB_VERT = 0
+        Me.panelBottom.ShowHorizontalScrolBar = False
+        Me.panelBottom.ShowVerticalScrolBar = False
         Me.panelBottom.Size = New System.Drawing.Size(713, 26)
         Me.panelBottom.TabIndex = 1
         '
@@ -77,18 +83,18 @@ Partial Class mainAppLayoutForm
         Me.iconMenuSettings.TabIndex = 1
         Me.iconMenuSettings.TabStop = False
         '
-        'menuIconPic
+        'menuToggleIcon
         '
-        Me.menuIconPic.BackColor = System.Drawing.Color.Transparent
-        Me.menuIconPic.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.menuIconPic.IconChar = FontAwesome.Sharp.IconChar.Bars
-        Me.menuIconPic.IconColor = System.Drawing.Color.White
-        Me.menuIconPic.IconSize = 30
-        Me.menuIconPic.Location = New System.Drawing.Point(262, 3)
-        Me.menuIconPic.Name = "menuIconPic"
-        Me.menuIconPic.Size = New System.Drawing.Size(30, 30)
-        Me.menuIconPic.TabIndex = 0
-        Me.menuIconPic.TabStop = False
+        Me.menuToggleIcon.BackColor = System.Drawing.Color.Transparent
+        Me.menuToggleIcon.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.menuToggleIcon.IconChar = FontAwesome.Sharp.IconChar.Bars
+        Me.menuToggleIcon.IconColor = System.Drawing.Color.White
+        Me.menuToggleIcon.IconSize = 25
+        Me.menuToggleIcon.Location = New System.Drawing.Point(262, 3)
+        Me.menuToggleIcon.Name = "menuToggleIcon"
+        Me.menuToggleIcon.Size = New System.Drawing.Size(25, 25)
+        Me.menuToggleIcon.TabIndex = 0
+        Me.menuToggleIcon.TabStop = False
         '
         'panelLeftSide
         '
@@ -101,6 +107,12 @@ Partial Class mainAppLayoutForm
         Me.panelLeftSide.Name = "panelLeftSide"
         Me.panelLeftSide.PANEL_CLOSED_STATE_DIM = 40
         Me.panelLeftSide.PANEL_OPEN_STATE_DIM = 400
+        Me.panelLeftSide.SB_BOTH = 3
+        Me.panelLeftSide.SB_CTL = 2
+        Me.panelLeftSide.SB_HORZ = 0
+        Me.panelLeftSide.SB_VERT = 0
+        Me.panelLeftSide.ShowHorizontalScrolBar = False
+        Me.panelLeftSide.ShowVerticalScrolBar = False
         Me.panelLeftSide.Size = New System.Drawing.Size(300, 561)
         Me.panelLeftSide.TabIndex = 3
         '
@@ -111,19 +123,31 @@ Partial Class mainAppLayoutForm
         Me.panelMenuOptionsContainer.Name = "panelMenuOptionsContainer"
         Me.panelMenuOptionsContainer.PANEL_CLOSED_STATE_DIM = 40
         Me.panelMenuOptionsContainer.PANEL_OPEN_STATE_DIM = 400
+        Me.panelMenuOptionsContainer.SB_BOTH = 3
+        Me.panelMenuOptionsContainer.SB_CTL = 2
+        Me.panelMenuOptionsContainer.SB_HORZ = 0
+        Me.panelMenuOptionsContainer.SB_VERT = 0
+        Me.panelMenuOptionsContainer.ShowHorizontalScrolBar = False
+        Me.panelMenuOptionsContainer.ShowVerticalScrolBar = False
         Me.panelMenuOptionsContainer.Size = New System.Drawing.Size(300, 54)
         Me.panelMenuOptionsContainer.TabIndex = 3
         '
         'panelMenuOptions
         '
         Me.panelMenuOptions.BackColor = System.Drawing.Color.Transparent
-        Me.panelMenuOptions.Controls.Add(Me.menuIconPic)
+        Me.panelMenuOptions.Controls.Add(Me.menuToggleIcon)
         Me.panelMenuOptions.Controls.Add(Me.iconMenuSettings)
         Me.panelMenuOptions.Dock = System.Windows.Forms.DockStyle.Top
         Me.panelMenuOptions.Location = New System.Drawing.Point(0, 0)
         Me.panelMenuOptions.Name = "panelMenuOptions"
         Me.panelMenuOptions.PANEL_CLOSED_STATE_DIM = 40
         Me.panelMenuOptions.PANEL_OPEN_STATE_DIM = 400
+        Me.panelMenuOptions.SB_BOTH = 3
+        Me.panelMenuOptions.SB_CTL = 2
+        Me.panelMenuOptions.SB_HORZ = 0
+        Me.panelMenuOptions.SB_VERT = 0
+        Me.panelMenuOptions.ShowHorizontalScrolBar = False
+        Me.panelMenuOptions.ShowVerticalScrolBar = False
         Me.panelMenuOptions.Size = New System.Drawing.Size(300, 33)
         Me.panelMenuOptions.TabIndex = 3
         '
@@ -136,6 +160,12 @@ Partial Class mainAppLayoutForm
         Me.panelMain.Name = "panelMain"
         Me.panelMain.PANEL_CLOSED_STATE_DIM = 40
         Me.panelMain.PANEL_OPEN_STATE_DIM = 400
+        Me.panelMain.SB_BOTH = 3
+        Me.panelMain.SB_CTL = 2
+        Me.panelMain.SB_HORZ = 0
+        Me.panelMain.SB_VERT = 0
+        Me.panelMain.ShowHorizontalScrolBar = False
+        Me.panelMain.ShowVerticalScrolBar = False
         Me.panelMain.Size = New System.Drawing.Size(713, 502)
         Me.panelMain.TabIndex = 4
         '
@@ -147,6 +177,12 @@ Partial Class mainAppLayoutForm
         Me.panelTop.Name = "panelTop"
         Me.panelTop.PANEL_CLOSED_STATE_DIM = 40
         Me.panelTop.PANEL_OPEN_STATE_DIM = 400
+        Me.panelTop.SB_BOTH = 3
+        Me.panelTop.SB_CTL = 2
+        Me.panelTop.SB_HORZ = 0
+        Me.panelTop.SB_VERT = 0
+        Me.panelTop.ShowHorizontalScrolBar = False
+        Me.panelTop.ShowVerticalScrolBar = False
         Me.panelTop.Size = New System.Drawing.Size(713, 33)
         Me.panelTop.TabIndex = 5
         '
@@ -170,7 +206,7 @@ Partial Class mainAppLayoutForm
         Me.Text = "MainApp"
         Me.panelBottom.ResumeLayout(False)
         CType(Me.iconMenuSettings, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.menuIconPic, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.menuToggleIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panelLeftSide.ResumeLayout(False)
         Me.panelMenuOptions.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -183,7 +219,7 @@ Partial Class mainAppLayoutForm
     Friend WithEvents panelLeftSide As PanelDoubleBuffer
     Friend WithEvents panelMain As PanelDoubleBuffer
     Friend WithEvents panelTop As PanelDoubleBuffer
-    Friend WithEvents menuIconPic As FontAwesome.Sharp.IconPictureBox
+    Friend WithEvents menuToggleIcon As FontAwesome.Sharp.IconPictureBox
     Friend WithEvents iconMenuSettings As FontAwesome.Sharp.IconPictureBox
     Friend WithEvents panelMenuOptions As PanelDoubleBuffer
     Friend WithEvents panelMenuOptionsContainer As PanelDoubleBuffer

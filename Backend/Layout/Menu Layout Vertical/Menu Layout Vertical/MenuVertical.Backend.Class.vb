@@ -52,7 +52,7 @@ Public Class MenuBuilderClass
 #End Region
 
 #Region "BUILD VERTICAL MENU"
-    Public Function buildMenu(positionY As Integer) As environmentVarsCore
+    Public Function buildMenu() As environmentVarsCore
         Dim menuItems As IList(Of menuItemClass) = (From s In enVars.layoutDesign.menu.items
                                                     Where s.subMenuIndex.Equals(0)
                                                     Select s).ToList()
@@ -83,7 +83,6 @@ Public Class MenuBuilderClass
             buildMenu(menuItems(i), 0, i, menuItemsCount)
             menuItemsCount += 1
 
-
             Dim subMenuItems As IList(Of menuItemClass) = (From s In enVars.layoutDesign.menu.items
                                                            Where Not s.subMenuIndex.Equals(0) And s.menuIndex.Equals(menuItems(d).menuIndex)
                                                            Select s).ToList()
@@ -101,6 +100,7 @@ Public Class MenuBuilderClass
             Dim index = enVars.layoutDesign.menu.items.FindIndex(Function(c) c.menuUID.Equals(menuItems(d).menuUID))
 
             Me.setup.menuPanel.Height = (subMenuItems.Count + 1) * enVars.layoutDesign.menu.properties.height
+            enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperOpenHeight = (subMenuItems.Count + 1) * enVars.layoutDesign.menu.properties.height
             enVars.layoutDesign.menu.items(index).menuWrapperPanel = Me.setup.menuPanel
             Me.setup.MenuContainer.Controls.Add(Me.setup.menuPanel)
         Next i
@@ -108,14 +108,13 @@ Public Class MenuBuilderClass
         With Me.setup.MenuContainer
             .Parent = menuPanel
             'hack to hide the scrool bars
-            .Dock = DockStyle.None
             .Width = menuPanel.Width + enVars.layoutDesign.PANEL_SCROOL_UNDERLAY
-            .Height = menuPanel.Height - positionY
-            .Location = New Point(0, positionY)
+            .Location = New Point(0, 0)
             .BackColor = Color.Transparent
-            .Dock = DockStyle.Top ' TODO: for a horizontal panel need to change heto to dockstyle.left
+            .Dock = DockStyle.Top
+            .AutoSize = True
+            .AutoScroll = False
         End With
-
         enVars.layoutDesign.menu.menuPanelContainer = Me.setup.MenuContainer
         Return enVars
     End Function
@@ -221,7 +220,7 @@ Public Class MenuBuilderClass
         If placeIndex > 0 Then
             Dim activeBar As New PanelDoubleBuffer With {
                .Width = enVars.layoutDesign.menu.properties.activeBarWidth,
-               .Height = subMenuPanel.Height,
+               .Height = subMenuPanel.Height - 1,
                .BackColor = enVars.layoutDesign.menu.properties.activeBarColor,
                .Location = New Point(0, 0),
                .Parent = subMenuPanel
@@ -292,13 +291,11 @@ Public Class MenuBuilderClass
         ''AddHandler menuPanel.MouseMove, AddressOf menuPanelLateral_mouseMove
         Me.setup.menuPanel.Controls.Add(subMenuPanel)
 
-
         enVars.layoutDesign.menu.items(index).menuListIndex = firstmenuItemListIndex
         enVars.layoutDesign.menu.items(index).menuItemPanel = subMenuPanel
         enVars.layoutDesign.menu.items(index).iconPicHolder = New List(Of PictureBox)
         enVars.layoutDesign.menu.items(index).iconPicHolder.Add(subMenuIcon)
         enVars.layoutDesign.menu.items(index).iconPicHolderFontAwesome(1) = subMenuExpandIcon
-
     End Sub
 #End Region
 
@@ -334,9 +331,11 @@ Public Class MenuBuilderClass
                     enVars.layoutDesign.menu.items.ElementAt(subMenuPos).isOpen = True
                     MenuUpdate(True)
                 Else
+                    MenuItemStateReset(False)
                     MenuUpdate(False)
                 End If
             Else
+                enVars.layoutDesign.menu.items.ElementAt(subMenuPos).isOpen = True
                 MenuUpdate(True)
             End If
             Exit Sub
@@ -352,7 +351,7 @@ Public Class MenuBuilderClass
         End If
 
         ''no content to load and is also menu title
-        If enVars.layoutDesign.menu.items.ElementAt(subMenuPos).formWithContentsToLoad Is Nothing And subMenuPos.Equals(0) Then
+        If enVars.layoutDesign.menu.items.ElementAt(subMenuPos).formWithContentsToLoad Is Nothing And enVars.layoutDesign.menu.items.ElementAt(subMenuPos).subMenuIndex.Equals(0) Then
             enVars.layoutDesign.menu.items.ElementAt(subMenuPos).isOpen = Not enVars.layoutDesign.menu.items.ElementAt(subMenuPos).isOpen
             ''leave lateral pane open
             MenuUpdate(True)
@@ -375,7 +374,7 @@ Public Class MenuBuilderClass
         Dim menuKey As String = menuPanel.Name.Substring(0, menuPanel.Name.IndexOf("-"))
         Dim submenuPos As Integer = CInt(menuPanel.Name.Substring(menuPanel.Name.IndexOf("-") + 1))
 
-        If submenuPos.Equals(0) Then
+        If enVars.layoutDesign.menu.items.ElementAt(submenuPos).subMenuIndex.Equals(0) Then
             enVars.layoutDesign.menu.items.ElementAt(submenuPos).isOpen = Not enVars.layoutDesign.menu.items.ElementAt(submenuPos).isOpen
             MenuUpdate(True)
             Exit Sub
@@ -397,12 +396,13 @@ Public Class MenuBuilderClass
 
 #Region "menu"
     Public Sub MenuUpdate(menuState As Boolean)
+
         RaiseEvent menuStateUpdateLayout(Me, menuState)
 
-        enVars.layoutDesign.menu.menuPanelContainer.SuspendLayout()
         Dim menuPosY As Integer = 0
-
         Dim menuItems As IList(Of menuItemClass) = (From s In enVars.layoutDesign.menu.items Where s.subMenuIndex.Equals(0) Select s).ToList()
+
+
         For i = 0 To menuItems.Count - 1
             Dim d = i
             Dim index = enVars.layoutDesign.menu.items.FindIndex(Function(c) c.menuUID.Equals(menuItems(d).menuUID))
@@ -410,7 +410,7 @@ Public Class MenuBuilderClass
             ''do opeing / closing of menu
             If enVars.layoutDesign.menu.items.ElementAt(index).isOpen Then
                 enVars.layoutDesign.menu.items.ElementAt(index).iconPicHolderFontAwesome(1).IconChar = FontAwesome.Sharp.IconChar.AngleUp
-                enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Height = enVars.layoutDesign.menu.items.ElementAt(i).menuWrapperOpenHeight
+                enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Height = enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperOpenHeight
             Else
                 enVars.layoutDesign.menu.items.ElementAt(index).iconPicHolderFontAwesome(1).IconChar = FontAwesome.Sharp.IconChar.AngleDown
                 enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Height = enVars.layoutDesign.menu.properties.height
@@ -421,10 +421,10 @@ Public Class MenuBuilderClass
                 enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Width = enVars.layoutDesign.MENU_CLOSED_STATE
             End If
             enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Location = New Point(enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Location.X, menuPosY)
-            menuPosY = menuPosY + enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Height + 1
+            menuPosY = menuPosY + enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Height
         Next i
 
-        enVars.layoutDesign.menu.menuPanelContainer.ResumeLayout()
+
     End Sub
 
     Public Sub MenuItemStateReset(menuState As Boolean)
@@ -433,6 +433,5 @@ Public Class MenuBuilderClass
         Next i
     End Sub
 #End Region
-
 
 End Class

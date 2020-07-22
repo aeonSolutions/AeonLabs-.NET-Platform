@@ -6,6 +6,7 @@ Module TestingVars
         Const PROFILE As Integer = 1
         Const HELP As Integer = 100
         Const PROFILE2 As Integer = 200
+        Const PROFILE3 As Integer = 300
 
         With envars.customization
             .ApplicationBrandNAme = "MainTestApp"
@@ -39,6 +40,8 @@ Module TestingVars
         With envars.layoutDesign
             .PanelBackColor = Color.Black
             .PanelTransparencyIndex = 70
+            .IconsDefaultSize = 40
+            .PANEL_SCROOL_UNDERLAY = 100
         End With
 
         'MENUS +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -182,6 +185,71 @@ Module TestingVars
         End With
         envars.layoutDesign.menu.items.Add(menuItem)
 
+        'MENU PRIFILE 3++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        menuItem = New menuItemClass
+        subMenuIdx = 0
+        With menuItem
+            .menuUID = Guid.NewGuid.ToString().Replace("-", "")
+            .menuTitle = "Profile"
+            .assemblyFilename = "profile.dll"
+            .formWithContentsToLoad = Nothing
+            .nameSpaceString = "usersProfileForm"
+            .showAsDialog = True
+            .icon = "icon.person.png"
+            .subMenuIndex = False
+            .menuIndex = PROFILE3
+        End With
+        envars.layoutDesign.menu.items.Add(menuItem)
+
+        'SUB MENU SETTINGS
+        menuItem = New menuItemClass
+        subMenuIdx += 1
+        With menuItem
+            .menuUID = Guid.NewGuid.ToString().Replace("-", "")
+            .menuTitle = "Settings"
+            .assemblyFilename = "settings.dll"
+            .formWithContentsToLoad = Nothing
+            .nameSpaceString = ""
+            .showAsDialog = True
+            .icon = ""
+            .subMenuIndex = subMenuIdx
+            .menuIndex = PROFILE3
+        End With
+        envars.layoutDesign.menu.items.Add(menuItem)
+
+        'SUB MENU LOGOUT 
+        menuItem = New menuItemClass
+        subMenuIdx += 1
+        With menuItem
+            .menuUID = Guid.NewGuid.ToString().Replace("-", "")
+            .menuTitle = "Logout"
+            .assemblyFilename = Nothing
+            .formWithContentsToLoad = Nothing
+            .nameSpaceString = ""
+            .showAsDialog = True
+            .icon = ""
+            .subMenuIndex = subMenuIdx
+            .menuIndex = PROFILE3
+            .tasks.Add(runInternalTask.LOGOUT)
+        End With
+        envars.layoutDesign.menu.items.Add(menuItem)
+
+        'SUB MENU EXIT APP
+        menuItem = New menuItemClass
+        subMenuIdx += 1
+        With menuItem
+            .menuUID = Guid.NewGuid.ToString().Replace("-", "")
+            .menuTitle = "Exit"
+            .assemblyFilename = Nothing
+            .formWithContentsToLoad = Nothing
+            .nameSpaceString = ""
+            .showAsDialog = Nothing
+            .icon = ""
+            .subMenuIndex = subMenuIdx
+            .menuIndex = PROFILE3
+            .tasks.Add(runInternalTask.EXITAPP)
+        End With
+        envars.layoutDesign.menu.items.Add(menuItem)
         'MENU HELP ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         subMenuIdx = 0
         menuItem = New menuItemClass
