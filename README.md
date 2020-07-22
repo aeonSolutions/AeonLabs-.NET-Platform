@@ -1,12 +1,13 @@
 # AeonLabs-.NET-Platform
 Home of AeonLabs .NET Platform
+(currently using .Net 4.7.2)
 
 Build Status
 
 UI
-- rapid develpment of custom grid layouts (90%)
+- Rapid develpment of custom grid layouts (90%)
 - Transparency UI - 100%
-- rapid customization of UI - 100%
+- Rapid customization of UI - 100%
 
 Menu Builder
 - Horizontal / Vertical Menus - 100% 
@@ -15,7 +16,8 @@ Menu Builder
 - Menu visual effects - 70%
 
 Packages and Widgets
-- load assemblies and prepare for rapid deployment (60%)
+- Load assemblies and prepare for rapid deployment (60%)
+- On demanad (live) load / unload of assemblies (50%)
 
 
 current layout (example)
