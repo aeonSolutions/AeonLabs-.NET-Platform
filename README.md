@@ -1,6 +1,6 @@
 # AeonLabs-.NET-Platform
 Home of AeonLabs .NET Platform
-(currently using .Net 4.7.2)
+(currently using .Net 4.7.2 - code is being upgraded to .Net 5 as you read this)
 
 Build Status
 
