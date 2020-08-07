@@ -4,8 +4,33 @@
     <OutputType>Library</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <RootNamespace>AeonLabs.Environment</RootNamespace>
+    <RootNamespace>AeonLabs.Environment.Core</RootNamespace>
     <AssemblyName>environment</AssemblyName>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>H:\DiskContents\Software\Code\AeonLabs Platform\Windows .NetCore\Platform\AppsMain\builds\debug\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>H:\DiskContents\Software\Code\AeonLabs Platform\Windows .NetCore\Platform\AppsMain\builds\release\</OutputPath>
+  </PropertyGroup>
+
+<PropertyGroup>            
+   <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+</PropertyGroup>
+
+<ItemGroup>
+  <PackageReference Include="FontAwesome.Sharp" Version="5.14.0" />
+</ItemGroup>
+
+<ItemGroup>
+  <ProjectReference Include="..\..\EnvironmentAssembly\EnvironmentAssembly\EnvironmentAssembly.csproj" />
+</ItemGroup>
+
+<ItemGroup>
+  <Reference Include="controls.gui">
+    <HintPath>..\..\..\..\AppsMain\builds\release\controls.gui.dll</HintPath>
+  </Reference>
+</ItemGroup>
 </Project>

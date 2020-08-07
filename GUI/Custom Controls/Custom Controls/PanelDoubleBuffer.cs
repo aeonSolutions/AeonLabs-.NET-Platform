@@ -11,6 +11,11 @@ public class PanelDoubleBuffer : Panel
     public bool ShowVerticalScrolBar { get; set; } = false;
     public bool ShowHorizontalScrolBar { get; set; } = false;
 
+    public int SB_HORZ { get; set; }
+    public int SB_VERT { get; set; }
+    public int SB_CTL { get; set; } = 2;
+    public int SB_BOTH { get; set; } = 3;
+
     public PanelDoubleBuffer()
     {
         SuspendLayout();
@@ -18,19 +23,16 @@ public class PanelDoubleBuffer : Panel
         SetStyle(ControlStyles.UserPaint, true);
         SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-        SetStyle(ControlStyles.ResizeRedraw, true);
+        //SetStyle(ControlStyles.RsizeRedraw, true); NOT WORKING
         UpdateStyles();
-        bool t = ShowHorizontalScrolBar;
         ResumeLayout();
-    }
+
+        SB_HORZ = ShowHorizontalScrolBar ? 1 : 0;
+        SB_VERT  = ShowVerticalScrolBar ? 1 : 0;
+}
 
     [DllImport("user32.dll")]
     private static extern bool ShowScrollBar(IntPtr hWnd, int wBar, bool bShow);
-
-    public int SB_HORZ { get; set; } = ShowHorizontalScrolBar;
-    public int SB_VERT { get; set; } = ShowVerticalScrolBar;
-    public int SB_CTL { get; set; } = 2;
-    public int SB_BOTH { get; set; } = 3;
 
     protected override void WndProc(ref Message m)
     {

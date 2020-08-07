@@ -1960,8 +1960,9 @@ namespace XComponent.SliderBar
                             }
                     }
                 }
-                catch (Exception e1)
+                catch (Exception)
                 {
+
                 }
                 finally
                 {

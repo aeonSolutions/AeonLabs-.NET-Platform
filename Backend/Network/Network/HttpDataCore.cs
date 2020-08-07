@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows.Forms;
+using AeonLabs.Environment;
 using Microsoft.VisualBasic.CompilerServices;
-using Newtonsoft.Json;
 
 namespace AeonLabs.Network
 {
@@ -58,6 +59,8 @@ namespace AeonLabs.Network
         public int loadingCounter { get; set; }
         public int CompletionPercentage { get; set; } // value range 0-100
         public bool IsBusy { get; set; }
+
+        public ResourceManager resources = new ResourceManager("strings", typeof(HttpDataCore).Assembly);
 
         public struct _queue_data_struct
         {
@@ -155,11 +158,12 @@ namespace AeonLabs.Network
                 return;
             }
 
+
             if (Conversions.ToBoolean(Operators.ConditionalCompareObjectGreaterEqual(retryAttempts.counter, numberOfRetryAttempts, false))) // ToDo a retry number of attempts before quits
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
                 messageBoxForm MsgBox;
-                MsgBox = new messageBoxForm(retryAttempts.errorMessage + ". " + My.Resources.strings.tryAgain + " ?", My.Resources.strings.question, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                MsgBox = new messageBoxForm(retryAttempts.errorMessage + ". " + resources.GetString("tryAgain") + " ?", resources.GetString("question"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (MsgBox.ShowDialog() == DialogResult.Yes)
                 {
                     _retry_attempts retry;

@@ -1,9 +1,10 @@
-﻿using System.Drawing;
+﻿using AeonLabs.Environment;
+using System;
+using System.Drawing;
 using System.Resources;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
-public partial class MessageBoxChild
+public partial class MessageBoxChild : FormCustomized 
 {
     public MessageBoxChild()
     {
@@ -26,7 +27,7 @@ public partial class MessageBoxChild
         messageText = _message;
         iconImage = _icon;
         buttons = _buttons;
-        if (IsNothing(_state))
+        if (_state==null)
         {
             enVars = new AeonLabs.Environment.environmentVarsCore();
             enVars.loadEnvironmentcoreDefaults();
@@ -36,57 +37,27 @@ public partial class MessageBoxChild
             enVars = _state;
         }
 
-        title.Font = new Font(enVars.layoutDesign.fontTitle.Families(0), enVars.layoutDesign.DialogTitleFontSize, FontStyle.Bold);
-        message.Font = new Font(enVars.layoutDesign.fontText.Families(0), enVars.layoutDesign.RegularTextFontSize, FontStyle.Regular);
-        ContinueBtn.Font = new Font(enVars.layoutDesign.fontTitle.Families(0), enVars.layoutDesign.buttonFontSize, FontStyle.Bold);
-        cancelBtn.Font = new Font(enVars.layoutDesign.fontTitle.Families(0), enVars.layoutDesign.buttonFontSize, FontStyle.Bold);
+        title.Font = new Font(enVars.layoutDesign.fontTitle.Families[0], enVars.layoutDesign.DialogTitleFontSize, FontStyle.Bold);
+        message.Font = new Font(enVars.layoutDesign.fontText.Families[0], enVars.layoutDesign.RegularTextFontSize, FontStyle.Regular);
+        ContinueBtn.Font = new Font(enVars.layoutDesign.fontTitle.Families[0], enVars.layoutDesign.buttonFontSize, FontStyle.Bold);
+        cancelBtn.Font = new Font(enVars.layoutDesign.fontTitle.Families[0], enVars.layoutDesign.buttonFontSize, FontStyle.Bold);
         ContinueBtn.BackColor = Color.FromArgb(200, Color.Black);
         ContinueBtn.Parent = AlphaGradientPanel1;
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
-
-        Input:
-                Me.ContinueBtn.Location = New Point(40, Me.Height - 10 - Me.ContinueBtn.Height)
-
-         */
+        ContinueBtn.Location = new Point(40, this.Height - 10 - this.ContinueBtn.Height);
         cancelBtn.BackColor = Color.FromArgb(200, Color.Black);
         cancelBtn.Parent = AlphaGradientPanel1;
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
+        cancelBtn.Location = new Point(this.Width - 40 - this.cancelBtn.Width, this.Height - 10 - this.cancelBtn.Height);
 
-        Input:
-                Me.cancelBtn.Location = New Point(Me.Width - 40 - Me.cancelBtn.Width, Me.Height - 10 - Me.cancelBtn.Height)
-
-         */
     }
 
     private global::System.String titleMsg;
     private global::System.String messageText;
     private MessageBoxIcon iconImage;
     private MessageBoxButtons buttons;
-    private AeonLabs.Environment.environmentVarsCore enVars = new AeonLabs.Environment.environmentVarsCore();
+    private environmentVarsCore enVars = new environmentVarsCore();
+    public ResourceManager resources = new ResourceManager("strings", typeof(MessageBoxChild ).Assembly);
 
-    protected new override CreateParams CreateParams
+    protected override CreateParams CreateParams
     {
         get
         {
@@ -96,94 +67,24 @@ public partial class MessageBoxChild
         }
     }
 
-    private void message_box_frm_load(global::System.Object sender, EventArgs e)
+    private void message_box_frm_load(global::System.Object sender, System.EventArgs e)
     {
         SuspendLayout();
         title.Text = titleMsg;
-        var fontToMeasure = new Font(enVars.layoutDesign.fontTitle.Families(0), enVars.layoutDesign.DialogTitleFontSize, Drawing.FontStyle.Regular);
-        var sizeOfString = new SizeF();
-        Graphics g = this.CreateGraphics;
-        sizeOfString = g.MeasureString(titleMsg, fontToMeasure);
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
+        var fontToMeasure = new Font(enVars.layoutDesign.fontTitle.Families[0], enVars.layoutDesign.DialogTitleFontSize, System.Drawing.FontStyle.Regular);
+        SizeF sizeOfString = new SizeF();
+        sizeOfString = TextRenderer.MeasureText(titleMsg, fontToMeasure);
+        title.Location = new Point(Convert.ToInt32(this.Width / 2 - sizeOfString.Width / 2), this.title.Location.Y);
 
-        Input:
-                Me.title.Location = New Point(Me.Width / 2 - sizeOfString.Width / 2, Me.title.Location.Y)
+        fontToMeasure = new Font(enVars.layoutDesign.fontTitle.Families[0], enVars.layoutDesign.RegularTextFontSize, System.Drawing.FontStyle.Regular);
+        sizeOfString = TextRenderer.MeasureText("_", fontToMeasure);
 
-         */
-        fontToMeasure = new Font(enVars.layoutDesign.fontTitle.Families(0), enVars.layoutDesign.RegularTextFontSize, Drawing.FontStyle.Regular);
-        sizeOfString = new SizeF();
-        g = this.CreateGraphics;
-        sizeOfString = g.MeasureString("_", fontToMeasure);
         message.Text = messageText;
-        ;
-#error Cannot convert LocalDeclarationStatementSyntax - see comment for details
-        /* Cannot convert LocalDeclarationStatementSyntax, System.ArgumentNullException: Value cannot be null.
-        Parameter name: destination
-           at Microsoft.CodeAnalysis.VisualBasic.VisualBasicCompilation.ClassifyConversion(ITypeSymbol source, ITypeSymbol destination)
-           at ICSharpCode.CodeConverter.CSharp.TypeConversionAnalyzer.TryAnalyzeCsConversion(ExpressionSyntax vbNode, ITypeSymbol csType, ITypeSymbol csConvertedType, Conversion vbConversion, ITypeSymbol vbConvertedType, ITypeSymbol vbType, VisualBasicCompilation vbCompilation, Boolean isConst, TypeConversionKind& typeConversionKind)
-           at ICSharpCode.CodeConverter.CSharp.TypeConversionAnalyzer.AnalyzeConversion(ExpressionSyntax vbNode, Boolean alwaysExplicit, Boolean isConst, ITypeSymbol forceSourceType, ITypeSymbol forceTargetType)
-           at ICSharpCode.CodeConverter.CSharp.TypeConversionAnalyzer.AddExplicitConversion(ExpressionSyntax vbNode, ExpressionSyntax csNode, Boolean addParenthesisIfNeeded, Boolean defaultToCast, Boolean isConst, ITypeSymbol forceSourceType, ITypeSymbol forceTargetType)
-           at ICSharpCode.CodeConverter.CSharp.CommonConversions.<ConvertEqualsValueClauseSyntaxAsync>d__24.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommonConversions.<SplitVariableDeclarationsAsync>d__22.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<SplitVariableDeclarationsAsync>d__59.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitLocalDeclarationStatement>d__31.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
 
-        Input:
+        int numLines = Convert.ToInt32(this.messageText.Length / (this.message.Width / sizeOfString.Width)) + 1;
+        this.message.Height = Convert.ToInt32(numLines * sizeOfString.Height);
 
-                Dim numLines As Integer = CInt(Me.messageText.Length / (Me.message.Width / sizeOfString.Width)) + 1
 
-         */
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.ArgumentNullException: Value cannot be null.
-        Parameter name: destination
-           at Microsoft.CodeAnalysis.VisualBasic.VisualBasicCompilation.ClassifyConversion(ITypeSymbol source, ITypeSymbol destination)
-           at ICSharpCode.CodeConverter.CSharp.TypeConversionAnalyzer.TryAnalyzeCsConversion(ExpressionSyntax vbNode, ITypeSymbol csType, ITypeSymbol csConvertedType, Conversion vbConversion, ITypeSymbol vbConvertedType, ITypeSymbol vbType, VisualBasicCompilation vbCompilation, Boolean isConst, TypeConversionKind& typeConversionKind)
-           at ICSharpCode.CodeConverter.CSharp.TypeConversionAnalyzer.AnalyzeConversion(ExpressionSyntax vbNode, Boolean alwaysExplicit, Boolean isConst, ITypeSymbol forceSourceType, ITypeSymbol forceTargetType)
-           at ICSharpCode.CodeConverter.CSharp.TypeConversionAnalyzer.AddExplicitConversion(ExpressionSyntax vbNode, ExpressionSyntax csNode, Boolean addParenthesisIfNeeded, Boolean defaultToCast, Boolean isConst, ITypeSymbol forceSourceType, ITypeSymbol forceTargetType)
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
-
-        Input:
-                Me.message.Height = numLines * sizeOfString.Height
-
-         */
         if (iconImage.Equals(MessageBoxIcon.Information))
         {
             try
@@ -236,48 +137,33 @@ public partial class MessageBoxChild
         }
 
         iconBox.SizeMode = PictureBoxSizeMode.StretchImage;
-        Threading.Thread.CurrentThread.CurrentUICulture = Globalization.CultureInfo.GetCultureInfo(enVars.currentLang);
+        System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(enVars.currentLang);
         if (buttons.Equals(MessageBoxButtons.OK))
         {
             ContinueBtn.Visible = true;
             cancelBtn.Visible = false;
-            ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-            /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-               at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-            --- End of stack trace from previous location where exception was thrown ---
-               at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-               at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-               at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-            --- End of stack trace from previous location where exception was thrown ---
-               at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-               at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-               at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
 
-            Input:
-                        Me.ContinueBtn.Location = New Point(Me.Width / 2 - Me.ContinueBtn.Width / 2, Me.ContinueBtn.Location.Y)
-
-             */
+            ContinueBtn.Location = new Point(Convert.ToInt32 (this.Width / 2 - this.ContinueBtn.Width / 2), this.ContinueBtn.Location.Y);
         }
         else if (buttons.Equals(MessageBoxButtons.OKCancel))
         {
-            ContinueBtn.Text = My.Resources.strings.ok;
+            ContinueBtn.Text = resources.GetString("ok");
             ContinueBtn.Visible = true;
-            cancelBtn.Text = My.Resources.strings.cancel;
+            cancelBtn.Text = resources.GetString("cancel");
             cancelBtn.Visible = true;
         }
         else if (buttons.Equals(MessageBoxButtons.YesNo))
         {
-            ContinueBtn.Text = My.Resources.strings.yes;
+            ContinueBtn.Text = resources.GetString("yes");
             ContinueBtn.Visible = true;
-            cancelBtn.Text = My.Resources.strings.no;
+            cancelBtn.Text = resources.GetString("no");
             cancelBtn.Visible = true;
         }
         else if (buttons.Equals(MessageBoxButtons.RetryCancel))
         {
-            ContinueBtn.Text = My.Resources.strings.retry;
+            ContinueBtn.Text = resources.GetString("retry");
             ContinueBtn.Visible = true;
-            cancelBtn.Text = My.Resources.strings.cancel;
+            cancelBtn.Text = resources.GetString("cancel");
             cancelBtn.Visible = true;
         }
 
@@ -293,19 +179,19 @@ public partial class MessageBoxChild
     {
         if (buttons.Equals(MessageBoxButtons.OK))
         {
-            this.DialogResult = Windows.Forms.DialogResult.Cancel;
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
         }
         else if (buttons.Equals(MessageBoxButtons.OKCancel))
         {
-            this.DialogResult = Windows.Forms.DialogResult.Cancel;
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
         }
         else if (buttons.Equals(MessageBoxButtons.YesNo))
         {
-            this.DialogResult = Windows.Forms.DialogResult.No;
+            this.DialogResult = System.Windows.Forms.DialogResult.No;
         }
         else if (buttons.Equals(MessageBoxButtons.RetryCancel))
         {
-            this.DialogResult = Windows.Forms.DialogResult.Cancel;
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
         }
 
         this.Close();
@@ -315,19 +201,19 @@ public partial class MessageBoxChild
     {
         if (buttons.Equals(MessageBoxButtons.OK))
         {
-            this.DialogResult = Windows.Forms.DialogResult.OK;
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
         else if (buttons.Equals(MessageBoxButtons.OKCancel))
         {
-            this.DialogResult = Windows.Forms.DialogResult.OK;
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
         else if (buttons.Equals(MessageBoxButtons.YesNo))
         {
-            this.DialogResult = Windows.Forms.DialogResult.Yes;
+            this.DialogResult = System.Windows.Forms.DialogResult.Yes;
         }
         else if (buttons.Equals(MessageBoxButtons.RetryCancel))
         {
-            this.DialogResult = Windows.Forms.DialogResult.Retry;
+            this.DialogResult = System.Windows.Forms.DialogResult.Retry;
         }
 
         this.Close();

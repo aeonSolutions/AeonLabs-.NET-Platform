@@ -1,3 +1,4 @@
+using AeonLabs.Environment;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -5,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MainTestApp
+namespace AeonLabs
 {
     static class Program
     {
@@ -161,17 +162,17 @@ namespace MainTestApp
             layoutFile.Refresh();
             if (!layoutFile.Exists)
             {
-                Microsoft.VisualBasic.MsgBox("Startup Layout file not found. You need to reinstall the program");
+                System.Windows.Forms.MsgBox("Startup Layout file not found. You need to reinstall the program");
                 Application.Exit();
                 return;
             }
 
             Type typeStartupLayout = default;
             FormCustomized startupLayout = default;
-            Reflection.Assembly assembly = default;
+            System.Reflection.Assembly assembly = default;
             try
             {
-                assembly = Reflection.Assembly.LoadFile(enVars.basePath + enVars.customization.designStartupLayoutAssemblyFileName);
+                assembly = System.Reflection.Assembly.LoadFile(enVars.basePath + enVars.customization.designStartupLayoutAssemblyFileName);
                 typeStartupLayout = assembly.GetType(enVars.customization.designLayoutAssemblyNameSpace + ".LayoutStartUpForm");
                 startupLayout = Activator.CreateInstance(typeStartupLayout, enVars, updateMainApp) as FormCustomized;
             }

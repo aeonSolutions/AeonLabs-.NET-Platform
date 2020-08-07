@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Windows.Forms.VisualStyles;
 using Microsoft.VisualBasic.CompilerServices;
 
 namespace AeonLabs.Environment
@@ -8,7 +9,7 @@ namespace AeonLabs.Environment
     {
         public static event UpDateEnvironemntEventHandler UpDateEnvironemnt;
 
-        public static delegate void UpDateEnvironemntEventHandler(object sender, environmentVarsCore envars);
+        public delegate void UpDateEnvironemntEventHandler(object sender, environmentVarsCore envars);
 
         public void RaiseEnventUpDateEnvironemnt(object sender, environmentVarsCore envars)
         {
@@ -25,12 +26,12 @@ namespace AeonLabs.Environment
             var assToLoad = new environmentAssembliesClass();
             if (assembly is Dictionary<string, string>)
             {
-                foreach (var ass in (IEnumerable)assembly)
+                foreach (KeyValuePair<string, string> ass in (IEnumerable)assembly)
                 {
                     assToLoad = new environmentAssembliesClass();
-                    assToLoad.friendlyUID = Conversions.ToString(ass.key);
-                    assToLoad.assemblyFileName = Conversions.ToString(ass.value);
-                    result.Add(Conversions.ToString(ass.key), assToLoad);
+                    assToLoad.friendlyUID = Conversions.ToString(ass.Key);
+                    assToLoad.assemblyFileName = Conversions.ToString(ass.Value);
+                    result.Add(Conversions.ToString(ass.Key), assToLoad);
                 }
             }
 

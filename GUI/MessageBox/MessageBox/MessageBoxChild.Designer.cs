@@ -1,330 +1,182 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using System;
 using Microsoft.VisualBasic.CompilerServices;
 
-[global::Microsoft.VisualBasic.CompilerServices.DesignerGenerated()]
-public partial class MessageBoxChild : System.Windows.Forms.Form
+public partial class MessageBoxChild : FormCustomized
 {
+    /// <summary>
+    /// Required designer variable.
+    /// </summary>
+    private System.ComponentModel.IContainer components = null;
 
-    // Form overrides dispose to clean up the component list.
-    [System.Diagnostics.DebuggerNonUserCode()]
-    protected override void Dispose(global::System.Boolean disposing)
+    /// <summary>
+    /// Clean up any resources being used.
+    /// </summary>
+    /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+    protected override void Dispose(bool disposing)
     {
-        try
+        if (disposing && (components != null))
         {
-            if (disposing && components is object)
-            {
-                components.Dispose();
-            }
+            components.Dispose();
         }
-        finally
-        {
-            base.Dispose(disposing);
-        }
+        base.Dispose(disposing);
     }
 
-    // Required by the Windows Form Designer
-    private System.ComponentModel.IContainer components;
+    #region Windows Form Designer generated code
 
-    // NOTE: The following procedure is required by the Windows Form Designer
-    // It can be modified using the Windows Form Designer.  
-    // Do not modify it using the code editor.
-    [System.Diagnostics.DebuggerStepThrough()]
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
     private void InitializeComponent()
     {
-        _AlphaGradientPanel1 = new BlueActivity.AlphaGradientPanel();
-        _AlphaGradientPanel1.Paint += AlphaGradientPanel1_Paint;
-        _ColorWithAlpha1 = new BlueActivity.ColorWithAlpha();
-        _cancelBtn = new System.Windows.Forms.Button();
-        _cancelBtn.Click += cancelBtn_Click;
-        _ContinueBtn = new System.Windows.Forms.Button();
-        _ContinueBtn.Click += ContinueBtn_Click;
-        _iconBox = new System.Windows.Forms.PictureBox();
-        _PanelMessage = new System.Windows.Forms.Panel();
-        _message = new System.Windows.Forms.Label();
-        _title = new System.Windows.Forms.Label();
-        _AlphaGradientPanel1.SuspendLayout();
-        ;
-#error Cannot convert ExpressionStatementSyntax - see comment for details
-        /* Cannot convert ExpressionStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitExpressionStatement>d__34.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
+        this.AlphaGradientPanel1 = new BlueActivity.AlphaGradientPanel();
+        this.ColorWithAlpha1 = new BlueActivity.ColorWithAlpha();
+        this.cancelBtn = new System.Windows.Forms.Button();
+        this.ContinueBtn = new System.Windows.Forms.Button();
+        this.iconBox = new System.Windows.Forms.PictureBox();
+        this.PanelMessage = new System.Windows.Forms.Panel();
+        this.message = new System.Windows.Forms.Label();
+        this.title = new System.Windows.Forms.Label();
+        this.AlphaGradientPanel1.SuspendLayout();
 
-        Input:
-                CType(Me.iconBox, System.ComponentModel.ISupportInitialize).BeginInit()
-
-         */
-        _PanelMessage.SuspendLayout();
+        this.PanelMessage.SuspendLayout();
         this.SuspendLayout();
         // 
         // AlphaGradientPanel1
         // 
-        _AlphaGradientPanel1.BackColor = System.Drawing.Color.Transparent;
-        _AlphaGradientPanel1.Border = false;
-        _AlphaGradientPanel1.BorderColor = System.Drawing.SystemColors.ActiveBorder;
-        _AlphaGradientPanel1.Colors.Add(_ColorWithAlpha1);
-        _AlphaGradientPanel1.ContentPadding = new System.Windows.Forms.Padding(0);
-        _AlphaGradientPanel1.Controls.Add(_cancelBtn);
-        _AlphaGradientPanel1.Controls.Add(_ContinueBtn);
-        _AlphaGradientPanel1.Controls.Add(_iconBox);
-        _AlphaGradientPanel1.Controls.Add(_PanelMessage);
-        _AlphaGradientPanel1.Controls.Add(_title);
-        _AlphaGradientPanel1.CornerRadius = 20;
-        _AlphaGradientPanel1.Corners = BlueActivity.Corner.None;
-        _AlphaGradientPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-        _AlphaGradientPanel1.Gradient = false;
-        _AlphaGradientPanel1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-        _AlphaGradientPanel1.GradientOffset = 1.0F;
-        _AlphaGradientPanel1.GradientSize = new System.Drawing.Size(0, 0);
-        _AlphaGradientPanel1.GradientWrapMode = System.Drawing.Drawing2D.WrapMode.Tile;
-        _AlphaGradientPanel1.Grayscale = false;
-        _AlphaGradientPanel1.Image = default;
-        _AlphaGradientPanel1.ImageAlpha = 75;
-        _AlphaGradientPanel1.ImagePadding = new System.Windows.Forms.Padding(5);
-        _AlphaGradientPanel1.ImagePosition = BlueActivity.ImagePosition.BottomRight;
-        _AlphaGradientPanel1.ImageSize = new System.Drawing.Size(48, 48);
-        _AlphaGradientPanel1.Location = new System.Drawing.Point(0, 0);
-        _AlphaGradientPanel1.Margin = new System.Windows.Forms.Padding(2);
-        _AlphaGradientPanel1.Name = "_AlphaGradientPanel1";
-        _AlphaGradientPanel1.Rounded = true;
-        _AlphaGradientPanel1.Size = new System.Drawing.Size(400, 160);
-        _AlphaGradientPanel1.TabIndex = 351;
+        this.AlphaGradientPanel1.BackColor = System.Drawing.Color.Transparent;
+        this.AlphaGradientPanel1.Border = false;
+        this.AlphaGradientPanel1.BorderColor = System.Drawing.SystemColors.ActiveBorder;
+        this.AlphaGradientPanel1.Colors.Add(this.ColorWithAlpha1);
+        this.AlphaGradientPanel1.ContentPadding = new System.Windows.Forms.Padding(0);
+        this.AlphaGradientPanel1.Controls.Add(this.cancelBtn);
+        this.AlphaGradientPanel1.Controls.Add(this.ContinueBtn);
+        this.AlphaGradientPanel1.Controls.Add(this.iconBox);
+        this.AlphaGradientPanel1.Controls.Add(this.PanelMessage);
+        this.AlphaGradientPanel1.Controls.Add(this.title);
+        this.AlphaGradientPanel1.CornerRadius = 20;
+        this.AlphaGradientPanel1.Corners = BlueActivity.Corner.None;
+        this.AlphaGradientPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+        this.AlphaGradientPanel1.Gradient = false;
+        this.AlphaGradientPanel1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+        this.AlphaGradientPanel1.GradientOffset = 1.0F;
+        this.AlphaGradientPanel1.GradientSize = new System.Drawing.Size(0, 0);
+        this.AlphaGradientPanel1.GradientWrapMode = System.Drawing.Drawing2D.WrapMode.Tile;
+        this.AlphaGradientPanel1.Grayscale = false;
+        this.AlphaGradientPanel1.Image = default;
+        this.AlphaGradientPanel1.ImageAlpha = 75;
+        this.AlphaGradientPanel1.ImagePadding = new System.Windows.Forms.Padding(5);
+        this.AlphaGradientPanel1.ImagePosition = BlueActivity.ImagePosition.BottomRight;
+        this.AlphaGradientPanel1.ImageSize = new System.Drawing.Size(48, 48);
+        this.AlphaGradientPanel1.Location = new System.Drawing.Point(0, 0);
+        this.AlphaGradientPanel1.Margin = new System.Windows.Forms.Padding(2);
+        this.AlphaGradientPanel1.Name = "this.AlphaGradientPanel1";
+        this.AlphaGradientPanel1.Rounded = true;
+        this.AlphaGradientPanel1.Size = new System.Drawing.Size(400, 160);
+        this.AlphaGradientPanel1.TabIndex = 351;
         // 
         // ColorWithAlpha1
         // 
-        _ColorWithAlpha1.Alpha = 0;
-        _ColorWithAlpha1.Color = System.Drawing.Color.YellowGreen;
+        this.ColorWithAlpha1.Alpha = 0;
+        this.ColorWithAlpha1.Color = System.Drawing.Color.YellowGreen;
         // 
         // cancelBtn
         // 
-        _ColorWithAlpha1.Parent = _AlphaGradientPanel1;
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
+        this.ColorWithAlpha1.Parent = this.AlphaGradientPanel1;
 
-        Input:
-                '
-                'cancelBtn
-                '
-                Me.cancelBtn.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-
-         */
-        _cancelBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-        _cancelBtn.FlatAppearance.BorderSize = 0;
-        _cancelBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-        _cancelBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-        _cancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
-
-        Input:
-                Me.cancelBtn.Font = New System.Drawing.Font("Trajan Pro", 8.999999!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-
-         */
-        _cancelBtn.ForeColor = System.Drawing.Color.White;
-        _cancelBtn.Location = new System.Drawing.Point(271, 127);
-        _cancelBtn.Margin = new System.Windows.Forms.Padding(2);
-        _cancelBtn.Name = "_cancelBtn";
-        _cancelBtn.Size = new System.Drawing.Size(105, 25);
-        _cancelBtn.TabIndex = 354;
-        _cancelBtn.Text = "Cancelar";
+        //cancelBtn
+        this.cancelBtn.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+        this.cancelBtn.Cursor = Cursors.Hand;
+        this.cancelBtn.FlatAppearance.BorderSize = 0;
+        this.cancelBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+        this.cancelBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+        this.cancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+        this.cancelBtn.Font = new System.Drawing.Font("Trajan Pro", 9, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+        this.cancelBtn.ForeColor = System.Drawing.Color.White;
+        this.cancelBtn.Location = new System.Drawing.Point(271, 127);
+        this.cancelBtn.Margin = new System.Windows.Forms.Padding(2);
+        this.cancelBtn.Name = "this.cancelBtn";
+        this.cancelBtn.Size = new System.Drawing.Size(105, 25);
+        this.cancelBtn.TabIndex = 354;
+        this.cancelBtn.Text = "Cancelar";
         // 
         // ContinueBtn
         // 
-        _cancelBtn.UseVisualStyleBackColor = true;
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
+        this.cancelBtn.UseVisualStyleBackColor = true;
 
-        Input:
-                '
-                'ContinueBtn
-                '
-                Me.ContinueBtn.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-
-         */
-        _ContinueBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-        _ContinueBtn.FlatAppearance.BorderSize = 0;
-        _ContinueBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
-
-        Input:
-                Me.ContinueBtn.Font = New System.Drawing.Font("Trajan Pro", 8.999999!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-
-         */
-        _ContinueBtn.ForeColor = System.Drawing.Color.White;
-        _ContinueBtn.Location = new System.Drawing.Point(15, 127);
-        _ContinueBtn.Margin = new System.Windows.Forms.Padding(2);
-        _ContinueBtn.Name = "_ContinueBtn";
-        _ContinueBtn.Size = new System.Drawing.Size(105, 25);
-        _ContinueBtn.TabIndex = 353;
-        _ContinueBtn.Text = "Continuar";
-        _ContinueBtn.UseVisualStyleBackColor = true;
+                
+       //ContinueBtn
+       this.ContinueBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+        this.ContinueBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+        this.ContinueBtn.FlatAppearance.BorderSize = 0;
+        this.ContinueBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+        this.ContinueBtn.Font = new System.Drawing.Font("Trajan Pro", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+        this.ContinueBtn.ForeColor = System.Drawing.Color.White;
+        this.ContinueBtn.Location = new System.Drawing.Point(15, 127);
+        this.ContinueBtn.Margin = new System.Windows.Forms.Padding(2);
+        this.ContinueBtn.Name = "this.ContinueBtn";
+        this.ContinueBtn.Size = new System.Drawing.Size(105, 25);
+        this.ContinueBtn.TabIndex = 353;
+        this.ContinueBtn.Text = "Continuar";
+        this.ContinueBtn.UseVisualStyleBackColor = true;
         // 
         // iconBox
         // 
-        _iconBox.BackColor = System.Drawing.Color.Transparent;
-        _iconBox.Location = new System.Drawing.Point(23, 54);
-        _iconBox.Name = "_iconBox";
-        _iconBox.Size = new System.Drawing.Size(53, 53);
-        _iconBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-        _iconBox.TabIndex = 0;
-        _iconBox.TabStop = false;
+        this.iconBox.BackColor = System.Drawing.Color.Transparent;
+        this.iconBox.Location = new System.Drawing.Point(23, 54);
+        this.iconBox.Name = "this.iconBox";
+        this.iconBox.Size = new System.Drawing.Size(53, 53);
+        this.iconBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+        this.iconBox.TabIndex = 0;
+        this.iconBox.TabStop = false;
         // 
         // PanelMessage
         // 
-        _PanelMessage.AutoScroll = true;
-        _PanelMessage.Controls.Add(_message);
-        _PanelMessage.Location = new System.Drawing.Point(103, 41);
-        _PanelMessage.Margin = new System.Windows.Forms.Padding(2);
-        _PanelMessage.Name = "_PanelMessage";
-        _PanelMessage.Size = new System.Drawing.Size(293, 77);
+        this.PanelMessage.AutoScroll = true;
+        this.PanelMessage.Controls.Add(this.message);
+        this.PanelMessage.Location = new System.Drawing.Point(103, 41);
+        this.PanelMessage.Margin = new System.Windows.Forms.Padding(2);
+        this.PanelMessage.Name = "this.PanelMessage";
+        this.PanelMessage.Size = new System.Drawing.Size(293, 77);
         // 
         // message
         // 
-        _PanelMessage.TabIndex = 350;
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
+        this.PanelMessage.TabIndex = 350;
 
-        Input:
-                '
-                'message
-                '
-                Me.message.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-
-         */
-        _message.BackColor = System.Drawing.Color.Transparent;
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
-
-        Input:
-                Me.message.Font = New System.Drawing.Font("Bookman Old Style", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-
-         */
-        _message.ForeColor = System.Drawing.Color.White;
-        _message.Location = new System.Drawing.Point(2, 1);
-        _message.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-        _message.Name = "_message";
-        _message.Size = new System.Drawing.Size(254, 77);
-        _message.TabIndex = 0;
+                
+                //message
+                
+        this.message.Anchor =(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right;
+        this.message.BackColor = System.Drawing.Color.Transparent;
+        this.message.Font = new System.Drawing.Font("Bookman Old Style", 11.0F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+        this.message.ForeColor = System.Drawing.Color.White;
+        this.message.Location = new System.Drawing.Point(2, 1);
+        this.message.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+        this.message.Name = "this.message";
+        this.message.Size = new System.Drawing.Size(254, 77);
+        this.message.TabIndex = 0;
         // 
         // title
         // 
-        _message.Text = "message";
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
+        this.message.Text = "message";
 
-        Input:
-                '
-                'title
-                '
-                Me.title.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
 
-         */
-        _title.AutoSize = true;
-        _title.BackColor = System.Drawing.Color.Transparent;
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
+        //title         
+        this.title.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right;
+        this.title.AutoSize = true;
+        this.title.BackColor = System.Drawing.Color.Transparent;
 
-        Input:
-                Me.title.Font = New System.Drawing.Font("Trajan Pro", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        this.title.Font = new System.Drawing.Font("Trajan Pro", 12, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 
-         */
-        _title.ForeColor = System.Drawing.Color.White;
-        _title.Location = new System.Drawing.Point(178, 11);
-        _title.Name = "_title";
-        _title.Size = new System.Drawing.Size(55, 20);
-        _title.TabIndex = 1;
-        _title.Text = "Title";
-        _title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+        this.title.ForeColor = System.Drawing.Color.White;
+        this.title.Location = new System.Drawing.Point(178, 11);
+        this.title.Name = "this.title";
+        this.title.Size = new System.Drawing.Size(55, 20);
+        this.title.TabIndex = 1;
+        this.title.Text = "Title";
+        this.title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
         // 
         // MessageBoxChild
         // 
@@ -334,25 +186,11 @@ public partial class MessageBoxChild : System.Windows.Forms.Form
         this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
         this.ClientSize = new System.Drawing.Size(400, 160);
         this.ControlBox = false;
-        this.Controls.Add(_AlphaGradientPanel1);
+        this.Controls.Add(this.AlphaGradientPanel1);
         this.DoubleBuffered = true;
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
 
-        Input:
-                Me.Font = New System.Drawing.Font("Microsoft Yi Baiti", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        this.Font = new System.Drawing.Font("Trajan Pro", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 
-         */
         this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
         this.Margin = new System.Windows.Forms.Padding(2);
         this.MaximizeBox = false;
@@ -363,224 +201,22 @@ public partial class MessageBoxChild : System.Windows.Forms.Form
         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
         this.Text = "Form1";
         this.TransparencyKey = System.Drawing.Color.Gainsboro;
-        _AlphaGradientPanel1.ResumeLayout(false);
-        _AlphaGradientPanel1.PerformLayout();
-        ;
-#error Cannot convert ExpressionStatementSyntax - see comment for details
-        /* Cannot convert ExpressionStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitExpressionStatement>d__34.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
+        this.AlphaGradientPanel1.ResumeLayout(false);
+        this.AlphaGradientPanel1.PerformLayout();
 
-        Input:
-                CType(Me.iconBox, System.ComponentModel.ISupportInitialize).EndInit()
-
-         */
-        _PanelMessage.ResumeLayout(false);
+        this.PanelMessage.ResumeLayout(false);
         this.ResumeLayout(false);
     }
 
-    private Windows.Forms.Panel _PanelMessage;
 
-    internal Windows.Forms.Panel PanelMessage
-    {
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        get
-        {
-            return _PanelMessage;
-        }
+    private System.Windows.Forms.Panel PanelMessage;
+    private Label message;
+    private System.Windows.Forms.PictureBox iconBox;
+    private Label title;
+    private BlueActivity.AlphaGradientPanel AlphaGradientPanel1;
+    private BlueActivity.ColorWithAlpha ColorWithAlpha1;
+    private System.Windows.Forms.Button ContinueBtn;
+    private System.Windows.Forms.Button cancelBtn;
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        set
-        {
-            if (_PanelMessage != null)
-            {
-            }
-
-            _PanelMessage = value;
-            if (_PanelMessage != null)
-            {
-            }
-        }
-    }
-
-    private Label _message;
-
-    internal Label message
-    {
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        get
-        {
-            return _message;
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        set
-        {
-            if (_message != null)
-            {
-            }
-
-            _message = value;
-            if (_message != null)
-            {
-            }
-        }
-    }
-
-    private Windows.Forms.PictureBox _iconBox;
-
-    internal Windows.Forms.PictureBox iconBox
-    {
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        get
-        {
-            return _iconBox;
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        set
-        {
-            if (_iconBox != null)
-            {
-            }
-
-            _iconBox = value;
-            if (_iconBox != null)
-            {
-            }
-        }
-    }
-
-    private Label _title;
-
-    internal Label title
-    {
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        get
-        {
-            return _title;
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        set
-        {
-            if (_title != null)
-            {
-            }
-
-            _title = value;
-            if (_title != null)
-            {
-            }
-        }
-    }
-
-    private BlueActivity.AlphaGradientPanel _AlphaGradientPanel1;
-
-    internal BlueActivity.AlphaGradientPanel AlphaGradientPanel1
-    {
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        get
-        {
-            return _AlphaGradientPanel1;
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        set
-        {
-            if (_AlphaGradientPanel1 != null)
-            {
-                _AlphaGradientPanel1.Paint -= AlphaGradientPanel1_Paint;
-            }
-
-            _AlphaGradientPanel1 = value;
-            if (_AlphaGradientPanel1 != null)
-            {
-                _AlphaGradientPanel1.Paint += AlphaGradientPanel1_Paint;
-            }
-        }
-    }
-
-    private BlueActivity.ColorWithAlpha _ColorWithAlpha1;
-
-    internal BlueActivity.ColorWithAlpha ColorWithAlpha1
-    {
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        get
-        {
-            return _ColorWithAlpha1;
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        set
-        {
-            if (_ColorWithAlpha1 != null)
-            {
-            }
-
-            _ColorWithAlpha1 = value;
-            if (_ColorWithAlpha1 != null)
-            {
-            }
-        }
-    }
-
-    private Windows.Forms.Button _ContinueBtn;
-
-    internal Windows.Forms.Button ContinueBtn
-    {
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        get
-        {
-            return _ContinueBtn;
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        set
-        {
-            if (_ContinueBtn != null)
-            {
-                _ContinueBtn.Click -= ContinueBtn_Click;
-            }
-
-            _ContinueBtn = value;
-            if (_ContinueBtn != null)
-            {
-                _ContinueBtn.Click += ContinueBtn_Click;
-            }
-        }
-    }
-
-    private Windows.Forms.Button _cancelBtn;
-
-    internal Windows.Forms.Button cancelBtn
-    {
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        get
-        {
-            return _cancelBtn;
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        set
-        {
-            if (_cancelBtn != null)
-            {
-                _cancelBtn.Click -= cancelBtn_Click;
-            }
-
-            _cancelBtn = value;
-            if (_cancelBtn != null)
-            {
-                _cancelBtn.Click += cancelBtn_Click;
-            }
-        }
-    }
+    #endregion 
 }

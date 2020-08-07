@@ -7,4 +7,15 @@
     <StartupObject>MainTestApp.Program</StartupObject>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Backend\Environment\environmentCore\environmentCore\environmentCore.csproj" />
+    <ProjectReference Include="..\..\..\Backend\Network\Network\Network.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="controls.gui">
+      <HintPath>..\..\builds\release\controls.gui.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -423,7 +423,7 @@ public partial class FormCustomized : Form, IMessageFilter
     // Performs fade increment.
     private void timer_Tick(object sender, EventArgs e)
     {
-        var fadeChangePerTick = Operators.DivideObject(FadeFxTimer.Interval * 1.0 / 1000, f_FadeTime);
+        double fadeChangePerTick = Convert.ToDouble(Operators.DivideObject(FadeFxTimer.Interval * 1.0 / 1000, f_FadeTime));
 
         // Check to see if it is time to stop the timer
         if (Conversions.ToBoolean(Operators.ConditionalCompareObjectLess(Math.Abs(f_TargetOpacity - Opacity), fadeChangePerTick, false)))

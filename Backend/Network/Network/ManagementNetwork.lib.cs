@@ -35,10 +35,10 @@ namespace AeonLabs.Network
 
         public static bool IsOnline(string url)
         {
+            System.Net.NetworkInformation.Ping p = new System.Net.NetworkInformation.Ping();
             try
             {
-                var objUrl = new Uri(url);
-                if (My.MyProject.Computer.Network.Ping(objUrl))
+                if (p.Send(url, 500).Status == System.Net.NetworkInformation.IPStatus.Success)
                 {
                     return true;
                 }
@@ -63,7 +63,7 @@ namespace AeonLabs.Network
             try
             {
                 var jsonResult = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
-                return Conversions.ToBoolean(!jsonResult[jsonVar]);
+                return !Conversions.ToBoolean(jsonResult[jsonVar]);
             }
             catch (Exception ex)
             {
