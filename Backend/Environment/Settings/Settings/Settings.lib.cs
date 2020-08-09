@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Web.Script.Serialization;
+using AeonLabs.Environment;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
 using Newtonsoft.Json;
@@ -67,8 +67,7 @@ namespace AeonLabs.Settings
             vars.Add("ApiEncryptionKey", ApiEncryptionKey);
             vars.Add("sendDiags", Conversions.ToString(sendDiags));
             vars.Add("sendCrash", Conversions.ToString(sendCrash));
-            var serializer = new JavaScriptSerializer();
-            string json = serializer.Serialize(vars);
+            string json = JsonConvert.SerializeObject(vars, Formatting.Indented);
             string encrypted = encryption.encrypt(json);
             var settingsFile = new FileInfo(Path.Combine(state.libraryPath, "ScrewDriver.eon"));
             settingsFile.Refresh();
@@ -123,8 +122,8 @@ namespace AeonLabs.Settings
                     state.ServerBaseAddr = data["serverAddress"].ToString();
                     state.ApiServerAddrPath = data["ApiServerAddrPath"].ToString();
                     state.secretKey = data["ApiEncryptionKey"].ToString();
-                    state.SendDiagnosticData = data["sendDiags"];
-                    state.SendCrashData = data["sendCrash"];
+                    state.SendDiagnosticData = Convert.ToBoolean(data["sendDiags"]);
+                    state.SendCrashData = Convert.ToBoolean(data["sendCrash"]);
                     return state;
                 }
                 catch (Exception ex)

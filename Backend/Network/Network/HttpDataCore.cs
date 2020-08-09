@@ -9,6 +9,9 @@ using System.Timers;
 using System.Windows.Forms;
 using AeonLabs.Environment;
 using Microsoft.VisualBasic.CompilerServices;
+using System.Text.Json;
+using System.Reflection;
+using System.Globalization;
 
 namespace AeonLabs.Network
 {
@@ -59,6 +62,7 @@ namespace AeonLabs.Network
         public int loadingCounter { get; set; }
         public int CompletionPercentage { get; set; } // value range 0-100
         public bool IsBusy { get; set; }
+        public ResourceManager rm = new ResourceManager("strings.resx", Assembly.GetExecutingAssembly());
 
         public ResourceManager resources = new ResourceManager("strings", typeof(HttpDataCore).Assembly);
 
@@ -280,19 +284,20 @@ namespace AeonLabs.Network
             if (ManagementNetwork.GetMessage(response).Equals("1001"))
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                errorMessage = "{'error':true,'message':'" + My.Resources.strings.errorNoRecordsFound + "'}";
+                errorMessage = "{'error':true,'message':'" + rm.GetString("errorNoRecordsFound", CultureInfo.CurrentCulture) + "'}";
                 return null;
             }
 
             try
             {
-                var jsonResult = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
+                var jsonResult = JsonSerializer.Deserialize<Dictionary<string, List<List<Object>>>>(response);
                 if (jsonResult.ContainsKey(key))
                 {
-                    if (!jsonResult[key].item(0).Count.Equals(fields.Length))
+
+                    if (!jsonResult[key].ElementAt(0).Count.Equals(fields.Length))
                     {
                         System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                        errorMessage = "{'error':true,'message':'" + My.Resources.strings.JsonFieldsMismatch + ". table(" + key + "'}";
+                        errorMessage = "{'error':true,'message':'" + rm.GetString("JsonFieldsMismatch", CultureInfo.CurrentCulture) + ". table(" + key + "'}";
                         return null;
                     }
                     else
@@ -303,7 +308,7 @@ namespace AeonLabs.Network
                             var fieldValues = new List<string>();
                             var loopTo1 = Conversions.ToInteger(Operators.SubtractObject(jsonResult[key].Count, 1));
                             for (int i = 0; i <= Conversions.ToInteger(loopTo1); i++)
-                                fieldValues.Add(jsonResult[key].item(i).item(k).ToString());
+                                fieldValues.Add(jsonResult[key].ElementAt(i).ElementAt(k).ToString());
                             results.Add(fields[k], fieldValues);
                         }
 
@@ -313,7 +318,7 @@ namespace AeonLabs.Network
                 else
                 {
                     System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                    errorMessage = "{'error':true,'message':'" + My.Resources.strings.JsonkeyNotFound + " (" + key + "'}";
+                    errorMessage = "{'error':true,'message':'" + rm.GetString("JsonkeyNotFound", CultureInfo.CurrentCulture) + " (" + key + "'}";
                     return null;
                 }
             }

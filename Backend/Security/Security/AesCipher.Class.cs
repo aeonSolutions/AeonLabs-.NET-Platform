@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using AeonLabs.Environment;
 using Microsoft.VisualBasic;
 
 namespace AeonLabs.Security
@@ -31,7 +32,7 @@ namespace AeonLabs.Security
                 throw new ArgumentNullException("plainText");
             }
 
-            if (stateCore.secretKey is null || stateCore.secretKey.Length <= 0)
+            if (stateCore.secretKey is null || stateCore.secretKey.ToString().Length <= 0)
             {
                 throw new ArgumentNullException("Invalid Key");
             }
@@ -46,7 +47,7 @@ namespace AeonLabs.Security
             myAes.KeySize = 128;
             myAes.Mode = CipherMode.CBC;
             myAes.IV = iv;
-            myAes.Key = Encoding.ASCII.GetBytes(stateCore.secretKey);
+            myAes.Key = Encoding.ASCII.GetBytes(stateCore.secretKey.ToString() );
             using (myAes)
             {
                 // Create an encryptor to perform the stream transform.
@@ -80,7 +81,7 @@ namespace AeonLabs.Security
                 throw new ArgumentNullException("plainText");
             }
 
-            if (stateCore.secretKey is null || stateCore.secretKey.Length <= 0)
+            if (stateCore.secretKey is null || stateCore.secretKey.ToString().Length <= 0)
             {
                 throw new ArgumentNullException("Invalid Key");
             }
@@ -102,7 +103,7 @@ namespace AeonLabs.Security
             Algo.KeySize = 128;
             Algo.Mode = CipherMode.CBC;
             Algo.IV = arrSaltAndCipherText.Take(16).ToArray();
-            Algo.Key = Encoding.ASCII.GetBytes(stateCore.secretKey);
+            Algo.Key = Encoding.ASCII.GetBytes(stateCore.secretKey.ToString());
             using (var Decryptor = Algo.CreateDecryptor())
             {
                 using (var MemStream = new MemoryStream(arrSaltAndCipherText.Skip(16).ToArray()))

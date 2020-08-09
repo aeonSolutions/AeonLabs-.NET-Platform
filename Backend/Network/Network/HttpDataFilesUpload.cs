@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Web;
 using AeonLabs.Environment;
+using AeonLabs.Security;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
+using Newtonsoft.Json;
 
 namespace AeonLabs.Network
 {
@@ -75,7 +80,7 @@ namespace AeonLabs.Network
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                responseBytes = Encoding.UTF8.GetBytes("{'error':true,'message':'" + My.Resources.strings.errorNoNetwork + "'}");
+                responseBytes = Encoding.UTF8.GetBytes("{'error':true,'message':'" + rm.GetString("errorNoNetwork", CultureInfo.CurrentCulture) + "'}");
                 return;
             }
 
@@ -91,7 +96,7 @@ namespace AeonLabs.Network
             if (!vars.ContainsKey("pid"))
             {
                 var appId = new FingerPrint();
-                vars.Add("pid", appId.Value);
+                vars.Add("pid", appId.Value());
             }
 
             if (!vars.ContainsKey("language"))
@@ -99,8 +104,7 @@ namespace AeonLabs.Network
                 vars.Add("language", state.currentLang);
             }
 
-            var serializer = new JavaScriptSerializer();
-            string json = serializer.Serialize(vars);
+            string json = JsonConvert.SerializeObject(vars, Formatting.Indented);
             var encryption = new AesCipher(state);
             string encrypted = HttpUtility.UrlEncode(encryption.encrypt(json));
             var PostData = new Dictionary<string, string>();
@@ -137,7 +141,7 @@ namespace AeonLabs.Network
             var speedtimer = new Stopwatch();
             _data_statistics dataStatisticsItem;
             System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-            dataStatisticsItem.filesize = Conversions.ToDouble(My.Resources.strings.size + ": " + Math.Round(fileStream.Length / (double)1024, 0) + " " + My.Resources.strings.bytes);
+            dataStatisticsItem.filesize = Conversions.ToDouble(rm.GetString("size", CultureInfo.CurrentCulture) + ": " + Math.Round(fileStream.Length / (double)1024, 0) + " " + rm.GetString("bytes", CultureInfo.CurrentCulture));
             dataStatisticsItem.bytesSentReceived = 0;
             dataStatisticsItem.speed = 0;
             dataStatistics[queueBWorker[Index]] = dataStatisticsItem;
@@ -175,7 +179,7 @@ namespace AeonLabs.Network
             catch (Exception ex)
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                responseBytes = Encoding.UTF8.GetBytes("{'error':true,'message':'" + My.Resources.strings.contactingCommServer + ":" + ex.Message + "'}");
+                responseBytes = Encoding.UTF8.GetBytes("{'error':true,'message':'" + rm.GetString("contactingCommServer", CultureInfo.CurrentCulture) + ":" + ex.Message + "'}");
                 if (wresp is object)
                 {
                     wresp.Close();
@@ -215,7 +219,7 @@ namespace AeonLabs.Network
                 else
                 {
                     System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                    decrypted = "{'error':true,'message':'" + My.Resources.strings.contactingCommServer + " |" + responseFromServer + "|'}";
+                    decrypted = "{'error':true,'message':'" + rm.GetString("contactingCommServer", CultureInfo.CurrentCulture) + " |" + responseFromServer + "|'}";
                 }
             }
             catch (Exception ex)
@@ -236,7 +240,7 @@ namespace AeonLabs.Network
                 retry.previousPattern = retryAttempts.previousPattern;
                 retry.pattern = retryAttempts.pattern;
                 retry.errorMessage = retryAttempts.errorMessage;
-                retry.errorMessage = retryAttempts.errorMessage.IndexOf(errorMsg) > -1 ? retryAttempts.errorMessage : retryAttempts.errorMessage + Environment.NewLine + errorMsg;
+                retry.errorMessage = retryAttempts.errorMessage.IndexOf(errorMsg) > -1 ? retryAttempts.errorMessage : retryAttempts.errorMessage + System.Environment.NewLine + errorMsg;
                 retry.pattern = QueuesMultiHash(queue);
                 if (retry.previousPattern.Equals(retry.pattern))
                 {

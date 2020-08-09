@@ -1,8 +1,10 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 using Microsoft.VisualBasic.CompilerServices;
+using WinFormAnimation;
 
 [global::Microsoft.VisualBasic.CompilerServices.DesignerGenerated()]
-public partial class loadingForm : System.Windows.Forms.Form
+public partial class loadingForm : FormCustomized 
 {
 
     // Form overrides dispose to clean up the component list.
@@ -31,7 +33,7 @@ public partial class loadingForm : System.Windows.Forms.Form
     [System.Diagnostics.DebuggerStepThrough()]
     private void InitializeComponent()
     {
-        _progressbar = new CircularProgressBar.CircularProgress.CircularProgressBar();
+        _progressbar = new CircularProgressBar.CircularProgressBar();
         _Label1 = new System.Windows.Forms.Label();
         _exitAppLink = new System.Windows.Forms.LinkLabel();
         _exitAppLink.LinkClicked += exitAppLink_LinkClicked;
@@ -39,76 +41,41 @@ public partial class loadingForm : System.Windows.Forms.Form
         // 
         // progressbar
         // 
-        _progressbar.AutoSize = true;
-        _progressbar.BackColor = System.Drawing.Color.WhiteSmoke;
-        _progressbar.Bar1.ActiveColor = System.Drawing.Color.White;
-        _progressbar.Bar1.BorderColor = System.Drawing.Color.DarkRed;
-        _progressbar.Bar1.Enabled = true;
-        _progressbar.Bar1.FinishColor = System.Drawing.Color.Honeydew;
-        _progressbar.Bar1.InactiveColor = System.Drawing.Color.DarkGray;
-        _progressbar.Bar2.ActiveColor = System.Drawing.Color.LightSeaGreen;
-        _progressbar.Bar2.BorderColor = System.Drawing.Color.Black;
-        _progressbar.Bar2.FinishColor = System.Drawing.Color.LightGreen;
-        _progressbar.Bar2.InactiveColor = System.Drawing.Color.LightGray;
-        _progressbar.Bar3.ActiveColor = System.Drawing.Color.LightSeaGreen;
-        _progressbar.Bar3.BorderColor = System.Drawing.Color.Black;
-        _progressbar.Bar3.FinishColor = System.Drawing.Color.LightGreen;
-        _progressbar.Bar3.InactiveColor = System.Drawing.Color.LightGray;
-        _progressbar.Bar4.ActiveColor = System.Drawing.Color.LightSeaGreen;
-        _progressbar.Bar4.BorderColor = System.Drawing.Color.Black;
-        _progressbar.Bar4.FinishColor = System.Drawing.Color.LightGreen;
-        _progressbar.Bar4.InactiveColor = System.Drawing.Color.LightGray;
-        _progressbar.Bar5.ActiveColor = System.Drawing.Color.LightSeaGreen;
-        _progressbar.Bar5.BorderColor = System.Drawing.Color.Black;
-        _progressbar.Bar5.FinishColor = System.Drawing.Color.LightGreen;
-        _progressbar.Bar5.InactiveColor = System.Drawing.Color.LightGray;
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
-
-        Input:
-                Me.progressbar.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-
-         */
-        _progressbar.ForeColor = System.Drawing.Color.Black;
-        _progressbar.Image = default;
-        _progressbar.Location = new System.Drawing.Point(350, 175);
-        _progressbar.MaximumSize = new System.Drawing.Size(100, 100);
-        _progressbar.MinimumSize = new System.Drawing.Size(20, 20);
-        _progressbar.Name = "_progressbar";
-        _progressbar.Size = new System.Drawing.Size(100, 100);
-        _progressbar.TabIndex = 352;
-        _progressbar.TextShadowColor = System.Drawing.Color.White;
+        this.progressbar.AnimationFunction = KnownAnimationFunctions.Liner;
+        this.progressbar.Anchor = System.Windows.Forms.AnchorStyles.None;
+        this.progressbar.AnimationSpeed = 500;
+        this.progressbar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+        this.progressbar.Font = new System.Drawing.Font("Arial", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+        this.progressbar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+        this.progressbar.InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+        this.progressbar.InnerMargin = 2;
+        this.progressbar.InnerWidth = -1;
+        this.progressbar.Location = new System.Drawing.Point(12, 12);
+        this.progressbar.MarqueeAnimationSpeed = 2000;
+        this.progressbar.Name = "progressbar";
+        this.progressbar.OuterColor = System.Drawing.Color.Gray;
+        this.progressbar.OuterMargin = -25;
+        this.progressbar.OuterWidth = 26;
+        this.progressbar.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+        this.progressbar.ProgressWidth = 25;
+        this.progressbar.SecondaryFont = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+        this.progressbar.Size = new System.Drawing.Size(320, 320);
+        this.progressbar.StartAngle = 270;
+        this.progressbar.SubscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+        this.progressbar.SubscriptMargin = new System.Windows.Forms.Padding(10, -35, 0, 0);
+        this.progressbar.SubscriptText = ".23";
+        this.progressbar.SuperscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+        this.progressbar.SuperscriptMargin = new System.Windows.Forms.Padding(10, 35, 0, 0);
+        this.progressbar.SuperscriptText = "°C";
+        this.progressbar.TabIndex = 3;
+        this.progressbar.Text = "32";
+        this.progressbar.TextMargin = new System.Windows.Forms.Padding(-8, 8, 0, 0);
+        this.progressbar.Value = 68;
         // 
         // Label1
         // 
         _Label1.AutoSize = true;
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
-
-        Input:
-                Me.Label1.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-
-         */
+        _Label1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
         _Label1.Location = new System.Drawing.Point(382, 278);
         _Label1.Name = "_Label1";
         _Label1.Size = new System.Drawing.Size(44, 13);
@@ -117,43 +84,12 @@ public partial class loadingForm : System.Windows.Forms.Form
         // exitAppLink
         // 
         _Label1.Text = "Label1";
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
 
-        Input:
-                '
-                'exitAppLink
-                '
-                Me.exitAppLink.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-
-         */
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
-
-        Input:
-                Me.exitAppLink.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-
-         */
+        //
+        //exitAppLink
+        //
+        _exitAppLink.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+        _exitAppLink.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
         _exitAppLink.LinkColor = System.Drawing.Color.LightGray;
         _exitAppLink.Location = new System.Drawing.Point(645, 418);
         _exitAppLink.Name = "_exitAppLink";
@@ -184,9 +120,9 @@ public partial class loadingForm : System.Windows.Forms.Form
         this.PerformLayout();
     }
 
-    private CircularProgressBar.CircularProgress.CircularProgressBar _progressbar;
+    private CircularProgressBar.CircularProgressBar _progressbar;
 
-    internal CircularProgressBar.CircularProgress.CircularProgressBar progressbar
+    internal CircularProgressBar.CircularProgressBar progressbar
     {
         [MethodImpl(MethodImplOptions.Synchronized)]
         get

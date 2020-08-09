@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -90,7 +91,7 @@ namespace AeonLabs.Network
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                e.Result = "{'error':true,'message':'" + My.Resources.strings.errorNoNetwork + "'}";
+                e.Result = "{'error':true,'message':'" + rm.GetString("errorNoNetwork", CultureInfo.CurrentCulture)  + "'}";
                 return;
             }
 
@@ -131,7 +132,7 @@ namespace AeonLabs.Network
             catch (Exception ex)
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                e.Result = "{'error':true,'message':'" + My.Resources.strings.contactingCommServer + " (" + ex.Message.ToString() + Environment.NewLine + url + ")'}";
+                e.Result = "{'error':true,'message':'" + rm.GetString("contactingCommServer", CultureInfo.CurrentCulture)  + " (" + ex.Message.ToString() + System.Environment.NewLine + url + ")'}";
                 return;
             }
 

@@ -28,5 +28,8 @@
   <Reference Include="MessageBox">
     <HintPath>..\..\..\AppsMain\builds\debug\MessageBox.dll</HintPath>
   </Reference>
+  <Reference Include="security">
+    <HintPath>..\..\..\AppsMain\builds\debug\security.dll</HintPath>
+  </Reference>
 </ItemGroup>
 </Project>

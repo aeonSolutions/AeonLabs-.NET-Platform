@@ -8,13 +8,30 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Backend\Environment\environmentCore\environmentCore\environmentCore.csproj" />
-    <ProjectReference Include="..\..\..\Backend\Network\Network\Network.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="WinFormAnimation" Version="1.6.0.4" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Backend\Environment\environmentCore\environmentCore\environmentCore.csproj" />
+    <ProjectReference Include="..\..\..\Backend\Environment\EnvironmentLoading\EnvironmentLoading\EnvironmentLoading.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CircularProgressBar">
+      <HintPath>..\..\builds\debug\CircularProgressBar.dll</HintPath>
+    </Reference>
     <Reference Include="controls.gui">
       <HintPath>..\..\builds\release\controls.gui.dll</HintPath>
+    </Reference>
+    <Reference Include="management">
+      <HintPath>..\..\builds\debug\management.dll</HintPath>
+    </Reference>
+    <Reference Include="MessageBox">
+      <HintPath>..\..\builds\debug\MessageBox.dll</HintPath>
+    </Reference>
+    <Reference Include="Network">
+      <HintPath>..\..\builds\debug\Network.dll</HintPath>
     </Reference>
   </ItemGroup>
 

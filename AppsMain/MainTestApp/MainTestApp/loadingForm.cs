@@ -1,11 +1,15 @@
-﻿using System.IO;
+﻿using System;
+using System.Drawing;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 using AeonLabs.Environment;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using AeonLabs.environmentLoading;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
-public partial class loadingForm
+public partial class loadingForm : FormCustomized
 {
     public loadingForm()
     {
@@ -27,9 +31,9 @@ public partial class loadingForm
 
     public environmentVarsCore enVars { get; set; }
 
-    private Network.HttpDataFilesDownload _getFiles;
+    private AeonLabs.Network.HttpDataFilesDownload _getFiles;
 
-    private Network.HttpDataFilesDownload getFiles
+    private AeonLabs.Network.HttpDataFilesDownload getFiles
     {
         [MethodImpl(MethodImplOptions.Synchronized)]
         get
@@ -53,9 +57,9 @@ public partial class loadingForm
         }
     }
 
-    private Network.HttpDataPostData _getUpdates;
+    private AeonLabs.Network.HttpDataPostData _getUpdates;
 
-    private Network.HttpDataPostData getUpdates
+    private AeonLabs.Network.HttpDataPostData getUpdates
     {
         [MethodImpl(MethodImplOptions.Synchronized)]
         get
@@ -81,9 +85,9 @@ public partial class loadingForm
         }
     }
 
-    private tasksManager.tasksManagerClass _taskManager;
+    private AeonLabs.tasksManager.tasksManagerClass _taskManager;
 
-    private tasksManager.tasksManagerClass taskManager
+    private AeonLabs.tasksManager.tasksManagerClass taskManager
     {
         [MethodImpl(MethodImplOptions.Synchronized)]
         get
@@ -111,42 +115,12 @@ public partial class loadingForm
     private void loadingForm_Load(global::System.Object sender, EventArgs e)
     {
         Label1.Text = My.Resources.strings.loading;
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
 
-        Input:
-                Me.progressbar.Location = New Point(Me.Width / 2 - Me.progressbar.Width / 2, Me.Height / 2 - Me.progressbar.Height / 2)
+        progressbar.Location = new Point(this.Width / 2 - progressbar.Width / 2, this.Height / 2 - progressbar.Height / 2);
+        Label1.Location = new Point(this.Width / 2 - Label1.Width / 2, progressbar.Location.Y + progressbar.Height);
 
-         */
-        ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-        /* Cannot convert AssignmentStatementSyntax, System.InvalidCastException: Unable to cast object of type 'Microsoft.CodeAnalysis.CSharp.Syntax.EmptyStatementSyntax' to type 'Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax'.
-           at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-        --- End of stack trace from previous location where exception was thrown ---
-           at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-           at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-           at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
-
-        Input:
-                Me.Label1.Location = New Point(Me.Width / 2 - Me.Label1.Width / 2, Me.progressbar.Location.Y + Me.progressbar.Height)
-
-         */
         progressbar.Visible = false;
-        taskManager = new tasksManager.tasksManagerClass();
+        taskManager = new AeonLabs.tasksManager.tasksManagerClass();
     }
 
     private void loadingForm_shown(global::System.Object sender, EventArgs e)
@@ -185,13 +159,13 @@ public partial class loadingForm
             // 'DEFINE TASKS TO DO
             {
                 var withBlock = taskManager;
-                withBlock.registerTask("loadLocalSettings", tasksManager.tasksManagerClass.TO_START);
+                withBlock.registerTask("loadLocalSettings", AeonLabs.tasksManager.tasksManagerClass.TO_START);
                 if (enVars.checkForUpdatesIsEnabled & enVars.userSettings.checkForUpdatesIsEnabled)
                 {
-                    withBlock.registerTask("checkUpdates", tasksManager.tasksManagerClass.TO_START);
+                    withBlock.registerTask("checkUpdates", AeonLabs.tasksManager.tasksManagerClass.TO_START);
                 }
 
-                withBlock.registerTask("checkPackages", tasksManager.tasksManagerClass.TO_START);
+                withBlock.registerTask("checkPackages", AeonLabs.tasksManager.tasksManagerClass.TO_START);
             }
 
             taskManager.startListening();
@@ -203,13 +177,13 @@ public partial class loadingForm
                 // CHECK CORE FILES UPDATES
                 var dlVars = enVars;
                 dlVars.ApiServerAddrPath = enVars.customization.updateServerAddr;
-                getUpdates = new Network.HttpDataPostData(dlVars);
+                getUpdates = new AeonLabs.Network.HttpDataPostData(dlVars);
                 getUpdates.initialize();
                 // add DLLS to queue 
-                global::System.Object vars = new Dictionary<string, string>();
+                var vars = new Dictionary<string, string>();
                 vars.Add("task", "update");
                 getUpdates.loadQueue(vars, default, default);
-                taskManager.setStatus("checkUpdates", tasksManager.tasksManagerClass.BUSY);
+                taskManager.setStatus("checkUpdates", AeonLabs.tasksManager.tasksManagerClass.BUSY);
                 getUpdates.startRequest();
             }
 
@@ -237,13 +211,15 @@ public partial class loadingForm
     private void checkPackages()
     {
         // check if there are packages installed 
-        taskManager.setStatus("checkPackages", tasksManager.tasksManagerClass.BUSY);
+        taskManager.setStatus("checkPackages", AeonLabs.tasksManager.tasksManagerClass.BUSY);
         FileInfo setupFile;
         var di = new DirectoryInfo(Path.Combine(enVars.packagesPath));
+
         var packagesToDownloadAndSetup = new Dictionary<string, string>();
-        var packagesToConfig = new Dictionary<string, string>();
+        var packagesToConfig = new Dictionary <string, string>();
         var packagesInstalled = new Dictionary<string, string>();
-        foreach (var folder in di.GetDirectories)
+
+        foreach (var folder in di.GetDirectories())
         {
             DirectoryInfo addToPackToSDownloadAndSetup = default;
             DirectoryInfo addToPackToConfig = default;
@@ -303,16 +279,16 @@ public partial class loadingForm
                 // LOAD STORE
                 try
                 {
-                    Reflection.Assembly assembly = Reflection.Assembly.LoadFile(enVars.libraryPath + "store.dll");
+                    System.Reflection.Assembly assembly = System.Reflection.Assembly.LoadFile(enVars.libraryPath + "store.dll");
                     Type type = assembly.GetType("AeonLabs.storeMainForm");
                     Form SetupForm = Activator.CreateInstance(type) as Form;
-                    Reflection.PropertyInfo TypesOnAssemblies = SetupForm.GetType().GetProperty("TypesOnAssemblies");
+                    System.Reflection.PropertyInfo TypesOnAssemblies = SetupForm.GetType().GetProperty("TypesOnAssemblies");
                     TypesOnAssemblies.SetValue(SetupForm, type);
-                    Reflection.PropertyInfo enVarsSetup = SetupForm.GetType().GetProperty("ExternalLoadEnVars");
+                    System.Reflection.PropertyInfo enVarsSetup = SetupForm.GetType().GetProperty("ExternalLoadEnVars");
                     enVarsSetup.SetValue(SetupForm, enVars);
                     this.Hide();
                     SetupForm.ShowDialog();
-                    taskManager.setStatus("downloadSetup", tasksManager.tasksManagerClass.FINISHED);
+                    taskManager.setStatus("downloadSetup", AeonLabs.tasksManager.tasksManagerClass.FINISHED);
                     if (enVars.customization.hasLocalSettings)
                     {
                         loadLocalSettings();
@@ -334,21 +310,22 @@ public partial class loadingForm
             }
         }
 
-        taskManager.setStatus("checkPackages", tasksManager.tasksManagerClass.FINISHED);
+        taskManager.setStatus("checkPackages", AeonLabs.tasksManager.tasksManagerClass.FINISHED);
     }
 
     private void getUpdates_requestCompleted(global::System.Object sender, global::System.String responseData)
     {
         try
         {
-            global::System.Object jsonLatResult = JsonConvert.DeserializeObject<Dictionary<string, object>>(responseData);
+            var jsonLatResult = JsonConvert.DeserializeObject<Dictionary<string, object>>(responseData);
             if (jsonLatResult.ContainsKey("update"))
             {
-                JArray Jupdates = JArray.Parse(jsonLatResult.Item("update").ToString);
+
+                JArray Jupdates = JsonConvert.SerializeObject(jsonLatResult["update"].ToString, Formatting.Indented);
                 foreach (var Jupdate in Jupdates)
                 {
                     var notif = new notificationsClass();
-                    notif.title = Jupdate.Item("title");
+                    notif.title = Jupdate["title"];
                     notif.message = Jupdate.Item("message");
                     notif.autoTaskExecute = Jupdate.Item("autotask");
                     notif.status = NOTIFICATIONS_UNREADED;
@@ -360,29 +337,29 @@ public partial class loadingForm
         {
         }
 
-        taskManager.setStatus("checkUpdates", tasksManager.tasksManagerClass.FINISHED);
+        taskManager.setStatus("checkUpdates", AeonLabs.tasksManager.tasksManagerClass.FINISHED);
     }
     /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
 
     /* TODO ERROR: Skipped RegionDirectiveTrivia */
     private void loadSetupfile()
     {
-        progressbar.Bar1.Value = 0;
+        progressbar.Value = 0;
         progressbar.Visible = true;
         var dlVars = enVars;
         dlVars.ApiServerAddrPath = enVars.customization.updateServerAddr;
-        getFiles = new Network.HttpDataFilesDownload(dlVars);
+        getFiles = new AeonLabs.Network.HttpDataFilesDownload(dlVars);
         getFiles.initialize();
         // add DLLS to queue 
-        global::System.Object vars = new Dictionary<string, string>();
+        var vars = new Dictionary<string, string>();
         vars.Add("task", "download");
         vars.Add("file", "setup.dll");
         getFiles.loadQueue(vars, default, enVars.libraryPath);
-        taskManager.setStatus("downloadSetup", tasksManager.tasksManagerClass.BUSY);
+        taskManager.setStatus("downloadSetup", AeonLabs.tasksManager.tasksManagerClass.BUSY);
         getFiles.startRequest();
     }
 
-    private void updateProgressStatistics(global::System.Object sender, Network.HttpDataFilesDownload._data_statistics dataStatistics, Dictionary misc)
+    private void updateProgressStatistics(global::System.Object sender, AeonLabs.Network.HttpDataFilesDownload._data_statistics dataStatistics, Dictionary misc)
     {
         if (!this.IsHandleCreated)
         {
@@ -391,28 +368,7 @@ public partial class loadingForm
 
         progressbar.Invoke(() =>
         {
-            ;
-#error Cannot convert AssignmentStatementSyntax - see comment for details
-            /* Cannot convert AssignmentStatementSyntax, System.ArgumentNullException: Value cannot be null.
-            Parameter name: destination
-               at Microsoft.CodeAnalysis.VisualBasic.VisualBasicCompilation.ClassifyConversion(ITypeSymbol source, ITypeSymbol destination)
-               at ICSharpCode.CodeConverter.CSharp.TypeConversionAnalyzer.TryAnalyzeCsConversion(ExpressionSyntax vbNode, ITypeSymbol csType, ITypeSymbol csConvertedType, Conversion vbConversion, ITypeSymbol vbConvertedType, ITypeSymbol vbType, VisualBasicCompilation vbCompilation, Boolean isConst, TypeConversionKind& typeConversionKind)
-               at ICSharpCode.CodeConverter.CSharp.TypeConversionAnalyzer.AnalyzeConversion(ExpressionSyntax vbNode, Boolean alwaysExplicit, Boolean isConst, ITypeSymbol forceSourceType, ITypeSymbol forceTargetType)
-               at ICSharpCode.CodeConverter.CSharp.TypeConversionAnalyzer.AddExplicitConversion(ExpressionSyntax vbNode, ExpressionSyntax csNode, Boolean addParenthesisIfNeeded, Boolean defaultToCast, Boolean isConst, ITypeSymbol forceSourceType, ITypeSymbol forceTargetType)
-               at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitAssignmentStatement>d__35.MoveNext()
-            --- End of stack trace from previous location where exception was thrown ---
-               at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-               at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-               at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-            --- End of stack trace from previous location where exception was thrown ---
-               at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-               at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-               at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
-
-            Input:
-                                           Me.progressbar.Bar1.Value = dataStatistics.bytesSentReceived / dataStatistics.filesize
-
-             */
+            progressbar.Value = dataStatistics.bytesSentReceived / dataStatistics.filesize;
         });
     }
 
@@ -420,16 +376,16 @@ public partial class loadingForm
     {
         try
         {
-            Reflection.Assembly assembly = Reflection.Assembly.LoadFile(enVars.libraryPath + "setup.dll");
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.LoadFile(enVars.libraryPath + "setup.dll");
             Type type = assembly.GetType("AeonLabs.setupWizardMainForm");
             Form SetupForm = Activator.CreateInstance(type) as Form;
-            Reflection.PropertyInfo TypesOnAssemblies = SetupForm.GetType().GetProperty("TypesOnAssemblies");
+            System.Reflection.PropertyInfo TypesOnAssemblies = SetupForm.GetType().GetProperty("TypesOnAssemblies");
             TypesOnAssemblies.SetValue(SetupForm, type);
-            Reflection.PropertyInfo enVarsSetup = SetupForm.GetType().GetProperty("ExternalLoadEnVars");
+            System.Reflection.PropertyInfo enVarsSetup = SetupForm.GetType().GetProperty("ExternalLoadEnVars");
             enVarsSetup.SetValue(SetupForm, enVars);
             this.Hide();
             SetupForm.ShowDialog();
-            taskManager.setStatus("downloadSetup", tasksManager.tasksManagerClass.FINISHED);
+            taskManager.setStatus("downloadSetup", AeonLabs.tasksManager.tasksManagerClass.FINISHED);
             if (enVars.customization.hasLocalSettings)
             {
                 loadLocalSettings();
@@ -449,7 +405,7 @@ public partial class loadingForm
     /* TODO ERROR: Skipped RegionDirectiveTrivia */
     private void loadLocalSettings()
     {
-        taskManager.setStatus("loadLocalSettings", tasksManager.tasksManagerClass.BUSY);
+        taskManager.setStatus("loadLocalSettings", AeonLabs.tasksManager.tasksManagerClass.BUSY);
         global::System.Object loadEnv = new loadEnvironment(enVars, loadEnvironment.LOAD_SETTINGS);
         enVars = loadEnv.GetEnviroment();
         if (!enVars.stateLoaded)
@@ -462,7 +418,7 @@ public partial class loadingForm
             return;
         }
 
-        taskManager.setStatus("loadLocalSettings", tasksManager.tasksManagerClass.FINISHED);
+        taskManager.setStatus("loadLocalSettings", AeonLabs.tasksManager.tasksManagerClass.FINISHED);
     }
 
     private void taskmanager_completed(global::System.Object sender)

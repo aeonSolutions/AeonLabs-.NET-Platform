@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
 using AeonLabs.Environment;
+using AeonLabs.Security;
 using Microsoft.VisualBasic;
+using Newtonsoft.Json;
 
 namespace AeonLabs.Network
 {
@@ -78,7 +81,7 @@ namespace AeonLabs.Network
             {
                 e.Result = false;
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                fileExtension[queueBWorker[Index]] = "{'error':true,'message':'" + My.Resources.strings.errorNoNetwork + "'}";
+                fileExtension[queueBWorker[Index]] = "{'error':true,'message':'" + rm.GetString("errorNoNetwork", CultureInfo.CurrentCulture) + "'}";
                 return;
             }
 
@@ -94,7 +97,7 @@ namespace AeonLabs.Network
             if (!vars.ContainsKey("pid"))
             {
                 var appId = new FingerPrint();
-                vars.Add("pid", appId.Value);
+                vars.Add("pid", appId.Value());
             }
 
             if (!vars.ContainsKey("language"))
@@ -102,8 +105,7 @@ namespace AeonLabs.Network
                 vars.Add("language", state.currentLang);
             }
 
-            var serializer = new JavaScriptSerializer();
-            string json = serializer.Serialize(vars);
+            string json = JsonConvert.SerializeObject(vars, Formatting.Indented);
             var encryption = new AesCipher(state);
             string encrypted = HttpUtility.UrlEncode(encryption.encrypt(json));
             var PostData = new Dictionary<string, string>();
@@ -178,14 +180,14 @@ namespace AeonLabs.Network
                                 else
                                 {
                                     System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                                    fileExtension[queueBWorker[Index]] = "{'error':true,'message':'" + My.Resources.strings.contactingCommServer + " (" + ((int)response.StatusCode).ToString() + ")'}";
+                                    fileExtension[queueBWorker[Index]] = "{'error':true,'message':'" + rm.GetString("contactingCommServer", CultureInfo.CurrentCulture)  + " (" + ((int)response.StatusCode).ToString() + ")'}";
                                     e.Result = false;
                                 }
                             }
                             else
                             {
                                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                                fileExtension[queueBWorker[Index]] = "{'error':true,'message':'" + My.Resources.strings.contactingCommServer + " (" + ((int)response.StatusCode).ToString() + ")', 'statuscode':'" + ((int)response.StatusCode).ToString() + "'}";
+                                fileExtension[queueBWorker[Index]] = "{'error':true,'message':'" + rm.GetString("contactingCommServer", CultureInfo.CurrentCulture)  + " (" + ((int)response.StatusCode).ToString() + ")', 'statuscode':'" + ((int)response.StatusCode).ToString() + "'}";
                                 e.Result = false;
                             }
                         }
@@ -228,7 +230,7 @@ namespace AeonLabs.Network
                 retry.pattern = retryAttempts.pattern;
                 retry.errorMessage = retryAttempts.errorMessage;
                 errorMsg = ManagementNetwork.GetMessage(fileExtension[Index]);
-                retry.errorMessage = retryAttempts.errorMessage.IndexOf(errorMsg) > -1 ? retryAttempts.errorMessage : retryAttempts.errorMessage + Environment.NewLine + errorMsg;
+                retry.errorMessage = retryAttempts.errorMessage.IndexOf(errorMsg) > -1 ? retryAttempts.errorMessage : retryAttempts.errorMessage + System.Environment.NewLine + errorMsg;
                 retry.pattern = QueuesMultiHash(queue);
                 if (retry.previousPattern.Equals(retry.pattern))
                 {
