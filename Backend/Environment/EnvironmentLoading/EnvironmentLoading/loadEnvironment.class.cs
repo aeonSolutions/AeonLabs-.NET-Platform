@@ -5,8 +5,10 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using AeonLabs.Environment;
 using AeonLabs.Network;
 using AeonLabs.Security;
+using AeonLabs.Settings;
 using Microsoft.VisualBasic.CompilerServices;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -137,7 +139,7 @@ namespace AeonLabs.environmentLoading
         private AeonLabs.Environment.environmentVarsCore enVars;
 
         /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        public object GetEnviroment()
+        public environmentVarsCore GetEnviroment()
         {
             return enVars;
         }

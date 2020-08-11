@@ -1,5 +1,5 @@
 ﻿using AeonLabs.Environment;
-using AeonLabs.Environment.menuEnvironmentVarsClass;
+using static AeonLabs.Environment.menuEnvironmentVarsClass;
 
 public class menuOptions
 {
@@ -7,7 +7,7 @@ public class menuOptions
     private const global::System.Int32 PROFILE = 1;
     private const global::System.Int32 HELP = 1000;
 
-    public environmentVarsCore Load(global::System.Object _enVars)
+    public environmentVarsCore Load(environmentVarsCore _enVars)
     {
         enVars = _enVars;
         load_profile_menu();
@@ -27,7 +27,7 @@ public class menuOptions
         menuItem.nameSpaceString = "usersProfileForm";
         menuItem.showAsDialog = true;
         menuItem.icon = "";
-        menuItem.subMenuIndex = false;
+        menuItem.subMenuIndex = 0;
         menuItem.menuIndex = PROFILE;
         enVars.layoutDesign.menu.items.Add(menuItem);
 
@@ -55,7 +55,7 @@ public class menuOptions
         menuItem.icon = "";
         menuItem.subMenuIndex = subMenuIdx;
         menuItem.menuIndex = PROFILE;
-        menuItem.tasks.Add(runInternalTask.LOGOUT);
+        menuItem.tasks.Add(constants.runInternalTask.LOGOUT.ToString() );
         enVars.layoutDesign.menu.items.Add(menuItem);
 
         // SUB MENU EXIT APP
@@ -69,7 +69,7 @@ public class menuOptions
         menuItem.icon = "";
         menuItem.subMenuIndex = subMenuIdx;
         menuItem.menuIndex = PROFILE;
-        menuItem.tasks.Add(runInternalTask.EXITAPP);
+        menuItem.tasks.Add(constants.runInternalTask.EXITAPP.ToString() );
         enVars.layoutDesign.menu.items.Add(menuItem);
     }
     /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
@@ -85,7 +85,7 @@ public class menuOptions
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = true;
         menuItem.icon = "help.icon.png";
-        menuItem.subMenuIndex = false;
+        menuItem.subMenuIndex = 0;
         menuItem.menuIndex = HELP;
         enVars.layoutDesign.menu.items.Add(menuItem);
 

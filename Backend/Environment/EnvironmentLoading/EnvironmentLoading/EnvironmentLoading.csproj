@@ -19,6 +19,9 @@
   <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
 </ItemGroup>
 <ItemGroup>
+  <ProjectReference Include="..\..\Settings\Settings\Settings.csproj" />
+</ItemGroup>
+<ItemGroup>
   <Reference Include="environment">
     <HintPath>..\..\..\..\AppsMain\builds\debug\environment.dll</HintPath>
   </Reference>

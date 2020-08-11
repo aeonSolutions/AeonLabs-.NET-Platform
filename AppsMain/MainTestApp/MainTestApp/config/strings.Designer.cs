@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 
 using System;
+using System.Globalization;
+using System.Resources;
 
 namespace My.Resources
 {
@@ -25,8 +27,8 @@ namespace My.Resources
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class strings
     {
-        private static Global.System.Resources.ResourceManager resourceMan;
-        private static Global.System.Globalization.CultureInfo resourceCulture;
+        private static ResourceManager resourceMan;
+        private static CultureInfo resourceCulture;
 
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal strings() : base()

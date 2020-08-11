@@ -1,9 +1,12 @@
 using AeonLabs.Environment;
+using AeonLabs.environmentLoading;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+using System.Resources;
 using System.Windows.Forms;
 
 namespace AeonLabs
@@ -11,7 +14,7 @@ namespace AeonLabs
     static class Program
     {
 
-        #region "vriables"
+        #region Variables
         public static environmentVarsCore enVars = new environmentVarsCore();
         public static environmentVarsCore.updateMainLayoutDelegate updateMainApp;
         private static Network.HttpDataPostData _getUpdates;
@@ -34,9 +37,14 @@ namespace AeonLabs
         private static updateEnvironmentClass updateEnv = new updateEnvironmentClass();
         #endregion
 
-        #region "Main"
-        public static void main()
+        #region Main
+        /// <summary>
+        ///  The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
         {
+
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -99,7 +107,7 @@ namespace AeonLabs
                 mainForm = loadLayout(enVars.customization.designLayoutAssemblyFileName, enVars.customization.designLayoutAssemblyNameSpace);
                 if (mainForm is null)
                 {
-                    MsgBox("Error initializing main layout:");
+                    MessageBox.Show("Error initializing main layout:");
                     Application.Exit();
                     return;
                 }
@@ -107,9 +115,9 @@ namespace AeonLabs
 
             // start the main layout
             Application.Run(mainForm);
+
         }
         #endregion
-
 
         #region "load layout"
         private static FormCustomized loadLayout(global::System.String layout, global::System.String layoutNameSpace)
@@ -122,17 +130,17 @@ namespace AeonLabs
             if (!layoutFile.Exists)
             {
                 return default;
-                Microsoft.VisualBasic.MsgBox("Layout file not found. You need to reinstall the program");
+                MessageBox.Show("Layout file not found. You need to reinstall the program");
             }
 
             System.Reflection.Assembly assembly = default;
             try
             {
                 assembly = System.Reflection.Assembly.LoadFile(layout);
-                global::System.Object typeMainLayoutIni = assembly.GetType(layoutNameSpace + ".initializeLayoutClass");
-                global::System.Object iniClass = Activator.CreateInstance(typeMainLayoutIni, true);
-                global::System.Object methodInfo = typeMainLayoutIni.GetMethod("AssembliesToLoadAtStart");
-                enVars.assemblies = methodInfo.Invoke(iniClass, default);
+                Type typeMainLayoutIni = assembly.GetType(layoutNameSpace + ".initializeLayoutClass");
+                Object iniClass = Activator.CreateInstance(typeMainLayoutIni, true);
+                MethodInfo methodInfo = typeMainLayoutIni.GetMethod("AssembliesToLoadAtStart");
+                enVars.assemblies = (Dictionary<string, Environment.environmentAssembliesClass>)methodInfo.Invoke(iniClass, default);
                 typeMainLayout = assembly.GetType(layoutNameSpace + ".mainAppLayoutForm");
                 mainForm = Activator.CreateInstance(typeMainLayout, enVars) as FormCustomized;
             }
@@ -153,7 +161,7 @@ namespace AeonLabs
             dataUpdate.envars = enVars;
             dataUpdate.envars.successLogin = true;
             dataUpdate.updateTask = updateMainAppClass.UPDATE_LAYOUT;
-            updateMainApp.Invoke(default, dataUpdate);
+            updateMainApp.Invoke(default, ref dataUpdate);
             return;
 
             // LOAD STARTUP & LOGIN DLG
@@ -162,7 +170,7 @@ namespace AeonLabs
             layoutFile.Refresh();
             if (!layoutFile.Exists)
             {
-                System.Windows.Forms.MsgBox("Startup Layout file not found. You need to reinstall the program");
+                MessageBox.Show("Startup Layout file not found. You need to reinstall the program");
                 Application.Exit();
                 return;
             }
@@ -178,7 +186,7 @@ namespace AeonLabs
             }
             catch (Exception ex)
             {
-                MsgBox("Error loading main layout:" + ex.Message);
+                MessageBox.Show("Error loading main layout:" + ex.Message);
                 Application.Exit();
                 return;
             }
@@ -220,14 +228,14 @@ namespace AeonLabs
         #region "load API tasks ID"
         private static void loadAPItasksIDs()
         {
-            global::System.Object apiTasksSet = My.Resources.apiTasks.ResourceManager.GetResourceSet(CultureInfo.CurrentCulture, true, true);
+            ResourceSet apiTasksSet = My.Resources.apiTasks.ResourceManager.GetResourceSet(CultureInfo.CurrentCulture, true, true);
             {
                 var withBlock = enVars;
-                foreach (var task in apiTasksSet)
+                foreach (DictionaryEntry task in apiTasksSet)
                 {
-                    if (!task.value.Equals(""))
+                    if (!task.Value.Equals(""))
                     {
-                        withBlock.taskId.Add(task.value, task.key);
+                        withBlock.taskId.Add(task.Value.ToString(), task.Key.ToString());
                     }
                 }
             }
@@ -237,7 +245,7 @@ namespace AeonLabs
         #region "Load Local Settings"
         private static void loadLocalSettings()
         {
-            global::System.Object loadEnv = new loadEnvironment(enVars, loadEnvironment.LOAD_SETTINGS);
+            loadEnvironment loadEnv = new loadEnvironment(enVars, loadEnvironment.LOAD_SETTINGS);
             enVars = loadEnv.GetEnviroment();
             if (!enVars.stateLoaded)
             {
@@ -253,7 +261,7 @@ namespace AeonLabs
         #region "Load customization File"
         private static global::System.Boolean LoadCustomizationFile()
         {
-            global::System.Object custom = new FileInfo(enVars.libraryPath + "custom.eon");
+            FileInfo custom = new FileInfo(enVars.libraryPath + "custom.eon");
             custom.Refresh();
             if (custom.Exists & !enVars.customization.hasCodedCustomizationSettings)
             {
@@ -284,12 +292,6 @@ namespace AeonLabs
             return true;
         }
         #endregion
-
-
-
-
-
-
 
     }
 }

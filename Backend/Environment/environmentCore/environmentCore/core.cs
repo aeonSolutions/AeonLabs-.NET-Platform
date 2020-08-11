@@ -99,7 +99,6 @@ namespace AeonLabs.Environment
         public string stateErrorMessage { get; set; } = "";
         #endregion
 
-
         public Dictionary<string, string> externalFilesToLoad { get; set; } = new Dictionary<string, string>(); // TODO remove entries when assembly is unloaded
 
         // TO BE CLASSIF. and SORTED

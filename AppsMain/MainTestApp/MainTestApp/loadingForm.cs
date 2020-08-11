@@ -5,9 +5,9 @@ using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using AeonLabs.Environment;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 using AeonLabs.environmentLoading;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public partial class loadingForm : FormCustomized
 {
@@ -317,18 +317,18 @@ public partial class loadingForm : FormCustomized
     {
         try
         {
-            var jsonLatResult = JsonConvert.DeserializeObject<Dictionary<string, object>>(responseData);
+            Dictionary<string, object> jsonLatResult = JsonConvert.DeserializeObject<Dictionary<string, object>>(responseData);
             if (jsonLatResult.ContainsKey("update"))
             {
 
-                JArray Jupdates = JsonConvert.SerializeObject(jsonLatResult["update"].ToString, Formatting.Indented);
-                foreach (var Jupdate in Jupdates)
+                JArray Jupdates = JsonConvert.DeserializeObject <JArray>(jsonLatResult["update"].ToString());
+                foreach (JObject Jupdate in Jupdates)
                 {
                     var notif = new notificationsClass();
-                    notif.title = Jupdate["title"];
-                    notif.message = Jupdate.Item("message");
-                    notif.autoTaskExecute = Jupdate.Item("autotask");
-                    notif.status = NOTIFICATIONS_UNREADED;
+                    notif.title = Jupdate.GetValue("title").ToString();
+                    notif.message = Jupdate.GetValue("message").ToString();
+                    notif.autoTaskExecute = Jupdate.GetValue("autotask").ToString();
+                    notif.status = constants.NOTIFICATIONS_UNREADED;
                     enVars.notifications.Add(notif);
                 }
             }
@@ -359,17 +359,17 @@ public partial class loadingForm : FormCustomized
         getFiles.startRequest();
     }
 
-    private void updateProgressStatistics(global::System.Object sender, AeonLabs.Network.HttpDataFilesDownload._data_statistics dataStatistics, Dictionary misc)
+    private void updateProgressStatistics(global::System.Object sender, AeonLabs.Network.HttpDataFilesDownload._data_statistics dataStatistics, Dictionary<string,string> misc)
     {
         if (!this.IsHandleCreated)
         {
             return;
         }
 
-        progressbar.Invoke(() =>
+        progressbar.Invoke(new Action(() =>
         {
-            progressbar.Value = dataStatistics.bytesSentReceived / dataStatistics.filesize;
-        });
+            progressbar.Value = Convert.ToInt16 ( dataStatistics.bytesSentReceived / dataStatistics.filesize);
+        }));
     }
 
     private void getfiles_requestCompleted(global::System.Object sender, global::System.String responseData)
@@ -406,7 +406,7 @@ public partial class loadingForm : FormCustomized
     private void loadLocalSettings()
     {
         taskManager.setStatus("loadLocalSettings", AeonLabs.tasksManager.tasksManagerClass.BUSY);
-        global::System.Object loadEnv = new loadEnvironment(enVars, loadEnvironment.LOAD_SETTINGS);
+        loadEnvironment loadEnv = new loadEnvironment(enVars, loadEnvironment.LOAD_SETTINGS);
         enVars = loadEnv.GetEnviroment();
         if (!enVars.stateLoaded)
         {

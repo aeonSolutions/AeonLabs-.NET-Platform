@@ -4,7 +4,7 @@ public class assembliesToLoadClass
 {
     private environmentVarsCore enVars = new environmentVarsCore();
 
-    public environmentVarsCore Load(global::System.Object _enVars)
+    public environmentVarsCore Load(environmentVarsCore _enVars)
     {
         enVars = _enVars;
         load_profile_menu();
