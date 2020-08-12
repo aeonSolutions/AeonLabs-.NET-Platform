@@ -1,6 +1,6 @@
 # AeonLabs-.NET-Platform
 Home of AeonLabs .NET Platform
-(currently using .Net 4.7.2 - code is being upgraded to .Net 5 as you read this)
+(code is being upgraded to .Net 5 as you read this)
 
 Build Status
 
@@ -12,7 +12,7 @@ UI
 Menu Builder
 - Horizontal / Vertical Menus - 100% 
 - Dynamic Menu Builder (80%)
-- Load packqages and widgets - 0%
+- Load packages and widgets - 0%
 - Menu visual effects - 70%
 
 Packages and Widgets
