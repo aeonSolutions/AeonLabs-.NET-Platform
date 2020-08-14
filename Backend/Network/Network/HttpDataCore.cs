@@ -62,9 +62,9 @@ namespace AeonLabs.Network
         public int loadingCounter { get; set; }
         public int CompletionPercentage { get; set; } // value range 0-100
         public bool IsBusy { get; set; }
-        public ResourceManager rm = new ResourceManager("strings.resx", Assembly.GetExecutingAssembly());
 
-        public ResourceManager resources = new ResourceManager("strings", typeof(HttpDataCore).Assembly);
+
+        public ResourceManager resources = new ResourceManager(Assembly.GetExecutingAssembly().EntryPoint.DeclaringType.Namespace + ".config.strings", Assembly.GetExecutingAssembly());
 
         public struct _queue_data_struct
         {
@@ -284,7 +284,7 @@ namespace AeonLabs.Network
             if (ManagementNetwork.GetMessage(response).Equals("1001"))
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                errorMessage = "{'error':true,'message':'" + rm.GetString("errorNoRecordsFound", CultureInfo.CurrentCulture) + "'}";
+                errorMessage = "{'error':true,'message':'" + resources.GetString("errorNoRecordsFound", CultureInfo.CurrentCulture) + "'}";
                 return null;
             }
 
@@ -297,7 +297,7 @@ namespace AeonLabs.Network
                     if (!jsonResult[key].ElementAt(0).Count.Equals(fields.Length))
                     {
                         System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                        errorMessage = "{'error':true,'message':'" + rm.GetString("JsonFieldsMismatch", CultureInfo.CurrentCulture) + ". table(" + key + "'}";
+                        errorMessage = "{'error':true,'message':'" + resources.GetString("JsonFieldsMismatch", CultureInfo.CurrentCulture) + ". table(" + key + "'}";
                         return null;
                     }
                     else
@@ -318,7 +318,7 @@ namespace AeonLabs.Network
                 else
                 {
                     System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                    errorMessage = "{'error':true,'message':'" + rm.GetString("JsonkeyNotFound", CultureInfo.CurrentCulture) + " (" + key + "'}";
+                    errorMessage = "{'error':true,'message':'" + resources.GetString("JsonkeyNotFound", CultureInfo.CurrentCulture) + " (" + key + "'}";
                     return null;
                 }
             }

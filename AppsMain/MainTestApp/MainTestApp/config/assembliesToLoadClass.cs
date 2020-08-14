@@ -27,7 +27,7 @@ public class assembliesToLoadClass
             withBlock.spaceName = "";
         }
 
-        enVars.assemblies.Add("", assItem);
+        enVars.assemblies.Add("MyProfile", assItem);
         assItem = new environmentAssembliesClass();
         {
             var withBlock1 = assItem;
@@ -40,7 +40,7 @@ public class assembliesToLoadClass
             withBlock1.spaceName = "";
         }
 
-        enVars.assemblies.Add("", assItem);
+        enVars.assemblies.Add("MySettings", assItem);
         assItem = new environmentAssembliesClass();
         assItem.assemblyFileName = "settings.dll";
         assItem.friendlyUID = "MySettings";
@@ -67,7 +67,7 @@ public class assembliesToLoadClass
             withBlock.spaceName = "";
         }
 
-        enVars.assemblies.Add("", assItem);
+        enVars.assemblies.Add("checkUpdate", assItem);
         assItem = new environmentAssembliesClass();
         assItem.assemblyFileName = "about.dll";
         assItem.friendlyUID = "about";
@@ -76,7 +76,7 @@ public class assembliesToLoadClass
         assItem.assemblyFormToLoad = default;
         assItem.AssemblyObject = default;
         assItem.spaceName = "";
-        enVars.assemblies.Add("", assItem);
+        enVars.assemblies.Add("about", assItem);
     }
     /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
     /* TODO ERROR: Skipped EndRegionDirectiveTrivia */

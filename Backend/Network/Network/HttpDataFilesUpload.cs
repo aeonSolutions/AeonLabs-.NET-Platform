@@ -80,7 +80,7 @@ namespace AeonLabs.Network
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                responseBytes = Encoding.UTF8.GetBytes("{'error':true,'message':'" + rm.GetString("errorNoNetwork", CultureInfo.CurrentCulture) + "'}");
+                responseBytes = Encoding.UTF8.GetBytes("{'error':true,'message':'" + resources.GetString("errorNoNetwork", CultureInfo.CurrentCulture) + "'}");
                 return;
             }
 
@@ -141,7 +141,7 @@ namespace AeonLabs.Network
             var speedtimer = new Stopwatch();
             _data_statistics dataStatisticsItem;
             System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-            dataStatisticsItem.filesize = Conversions.ToDouble(rm.GetString("size", CultureInfo.CurrentCulture) + ": " + Math.Round(fileStream.Length / (double)1024, 0) + " " + rm.GetString("bytes", CultureInfo.CurrentCulture));
+            dataStatisticsItem.filesize = Conversions.ToDouble(resources.GetString("size", CultureInfo.CurrentCulture) + ": " + Math.Round(fileStream.Length / (double)1024, 0) + " " + resources.GetString("bytes", CultureInfo.CurrentCulture));
             dataStatisticsItem.bytesSentReceived = 0;
             dataStatisticsItem.speed = 0;
             dataStatistics[queueBWorker[Index]] = dataStatisticsItem;
@@ -179,7 +179,7 @@ namespace AeonLabs.Network
             catch (Exception ex)
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                responseBytes = Encoding.UTF8.GetBytes("{'error':true,'message':'" + rm.GetString("contactingCommServer", CultureInfo.CurrentCulture) + ":" + ex.Message + "'}");
+                responseBytes = Encoding.UTF8.GetBytes("{'error':true,'message':'" + resources.GetString("contactingCommServer", CultureInfo.CurrentCulture) + ":" + ex.Message + "'}");
                 if (wresp is object)
                 {
                     wresp.Close();
@@ -219,7 +219,7 @@ namespace AeonLabs.Network
                 else
                 {
                     System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                    decrypted = "{'error':true,'message':'" + rm.GetString("contactingCommServer", CultureInfo.CurrentCulture) + " |" + responseFromServer + "|'}";
+                    decrypted = "{'error':true,'message':'" + resources.GetString("contactingCommServer", CultureInfo.CurrentCulture) + " |" + responseFromServer + "|'}";
                 }
             }
             catch (Exception ex)

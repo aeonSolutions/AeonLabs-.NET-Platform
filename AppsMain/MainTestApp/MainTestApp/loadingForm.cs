@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using AeonLabs.environmentLoading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Resources;
+using System.Reflection;
+using System.Globalization;
 
 public partial class loadingForm : FormCustomized
 {
@@ -112,9 +115,12 @@ public partial class loadingForm : FormCustomized
         }
     }
 
+    private ResourceManager rm = new ResourceManager("strings.resx", Assembly.GetExecutingAssembly());
+
+
     private void loadingForm_Load(global::System.Object sender, EventArgs e)
     {
-        Label1.Text = My.Resources.strings.loading;
+        Label1.Text = rm.GetString("loading", CultureInfo.CurrentCulture);
 
         progressbar.Location = new Point(this.Width / 2 - progressbar.Width / 2, this.Height / 2 - progressbar.Height / 2);
         Label1.Location = new Point(this.Width / 2 - Label1.Width / 2, progressbar.Location.Y + progressbar.Height);

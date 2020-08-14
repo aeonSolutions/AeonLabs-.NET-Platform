@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Loader;
 using System.Windows.Forms;
 
 namespace AeonLabs.Environment
@@ -26,4 +31,81 @@ namespace AeonLabs.Environment
         public Control control { get; set; }
         public AnchorStyles anchor { get; set; }
     }
+
+    public class EnvironmentAssignedToControlClass
+    {
+        public int positionX { get; set; }
+        public int positionY { get; set; }
+        public Control control { get; set; }
+        public AnchorStyles anchor { get; set; }
+        public environmentAssembliesClass assembly { get; set; }
+    }
+
+
+    public class EnvironmentAssembliesLoadClass {
+
+        public Dictionary<string, Environment.environmentAssembliesClass> getAssemblies { get; set; }
+
+        private Dictionary<string, Environment.environmentAssembliesClass> enVarsAssemblies;
+
+        public EnvironmentAssembliesLoadClass(environmentVarsCore _enVars) {
+            enVarsAssemblies = _enVars.assemblies;
+        }
+
+
+        public string errorMessage {get; set;}
+
+
+        #region load Object from assembly
+        public Type LoadObjectTypeFromAssembly(string layoutFilename, string layoutNameSpace, string classNameToLoad)
+        {
+            Type typeToLoad = default;
+            FileInfo layoutFile;
+            try
+            {
+                layoutFile = new FileInfo(layoutFilename);
+                layoutFile.Refresh();
+                if (!layoutFile.Exists)
+                {
+                    errorMessage="Layout file not found. You need to reinstall the program";
+                    return null;
+                }
+            }
+            catch (Exception ex){
+                errorMessage = "Error Layout file (" + ex.Message.ToString() + "). You need to reinstall the program";
+                return null;
+            }
+
+
+            try
+            {
+                System.Reflection.Assembly assemblyRaw = System.Reflection.Assembly.LoadFrom(layoutFilename);
+                AssemblyLoadContext context = AssemblyLoadContext.Default;
+                System.Reflection.Assembly assembly = context.LoadFromAssemblyPath(layoutFilename);
+
+                // check if assembly has assemblies to load
+                Type typeMainLayoutIni = assembly.GetType(layoutNameSpace + ".initializeAssembly");
+                if (typeMainLayoutIni != null)
+                {
+                    Object iniClass = Activator.CreateInstance(typeMainLayoutIni, true);
+                    MethodInfo methodInfo = typeMainLayoutIni.GetMethod("AssembliesToLoadAtStart");
+                    if (methodInfo != null)
+                    {
+                        Dictionary<string, Environment.environmentAssembliesClass> assembliesOn = (Dictionary<string, Environment.environmentAssembliesClass>)methodInfo.Invoke(iniClass, default);
+                        getAssemblies = enVarsAssemblies.Union(assembliesOn.Where(k => !enVarsAssemblies.ContainsKey(k.Key))).ToDictionary(k => k.Key, v => v.Value);
+                    }
+                }
+
+                typeToLoad = assembly.GetType(layoutNameSpace + "." + classNameToLoad);
+            }
+
+            catch (Exception ex)
+            {
+                return null;
+            }
+            return typeToLoad;
+        }
+        #endregion
+    }
+
 }

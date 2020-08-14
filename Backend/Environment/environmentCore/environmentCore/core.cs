@@ -35,8 +35,9 @@ namespace AeonLabs.Environment
         public customization customization { get; set; } = new customization();
         #endregion
 
-        #region
+        #region Assemblies
         public Dictionary<string, environmentAssembliesClass> assemblies { get; set; } = new Dictionary<string, environmentAssembliesClass>();
+
         public Dictionary<string, List<EnvironmentAssignedToControlClass>> assignedAssembliesToControl { get; set; } = new Dictionary<string, List<EnvironmentAssignedToControlClass>>();
         #endregion
 

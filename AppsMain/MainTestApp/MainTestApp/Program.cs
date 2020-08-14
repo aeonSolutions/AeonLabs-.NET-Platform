@@ -8,6 +8,7 @@ using System.IO;
 using System.Reflection;
 using System.Resources;
 using System.Windows.Forms;
+using System.Runtime.Loader;
 
 namespace AeonLabs
 {
@@ -15,7 +16,7 @@ namespace AeonLabs
     {
 
         #region Variables
-        public static environmentVarsCore enVars = new environmentVarsCore();
+        public static environmentVarsCore enVars;
         public static environmentVarsCore.updateMainLayoutDelegate updateMainApp;
         private static Network.HttpDataPostData _getUpdates;
 
@@ -49,6 +50,7 @@ namespace AeonLabs
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            enVars = new environmentVarsCore();
 
             // Instantiating the delegate for update data from child forms
             updateMainApp = updateMain;
@@ -98,60 +100,29 @@ namespace AeonLabs
             loadStartupForm();
 
             // LOAD MAIN LAYOUT ASSEMBLY
-            // TODO LOAD custom layut in alternative to default layout // if previous got error dont load cusom, load default
-            // check if local settings files exists 
+            EnvironmentAssembliesLoadClass AssembliesLoader = new EnvironmentAssembliesLoadClass(enVars);
+
+            Type loadedType;
             FormCustomized mainForm;
-            mainForm = loadLayout(enVars.customization.designLayoutCustomAssemblyFileName, enVars.customization.designLayoutCustomAssemblyNameSpace);
-            if (mainForm is null)
+
+            loadedType =  AssembliesLoader.LoadObjectTypeFromAssembly(enVars.customization.designLayoutCustomAssemblyFileName, enVars.customization.designLayoutCustomAssemblyNameSpace, "mainLayoutForm");
+           if (loadedType is null)
             {
-                mainForm = loadLayout(enVars.customization.designLayoutAssemblyFileName, enVars.customization.designLayoutAssemblyNameSpace);
-                if (mainForm is null)
+                 loadedType = AssembliesLoader.LoadObjectTypeFromAssembly(enVars.customization.designLayoutAssemblyFileName, enVars.customization.designLayoutAssemblyNameSpace, "mainLayoutForm");
+                if (loadedType is null)
                 {
                     MessageBox.Show("Error initializing main layout:");
                     Application.Exit();
                     return;
                 }
             }
-
+            mainForm = Activator.CreateInstance(loadedType, enVars) as FormCustomized;
             // start the main layout
             Application.Run(mainForm);
 
         }
         #endregion
 
-        #region "load layout"
-        private static FormCustomized loadLayout(global::System.String layout, global::System.String layoutNameSpace)
-        {
-            FormCustomized mainForm = default;
-            Type typeMainLayout = default;
-            FileInfo layoutFile;
-            layoutFile = new FileInfo(enVars.basePath + enVars.customization.designLayoutAssemblyFileName);
-            layoutFile.Refresh();
-            if (!layoutFile.Exists)
-            {
-                return default;
-                MessageBox.Show("Layout file not found. You need to reinstall the program");
-            }
-
-            System.Reflection.Assembly assembly = default;
-            try
-            {
-                assembly = System.Reflection.Assembly.LoadFile(layout);
-                Type typeMainLayoutIni = assembly.GetType(layoutNameSpace + ".initializeLayoutClass");
-                Object iniClass = Activator.CreateInstance(typeMainLayoutIni, true);
-                MethodInfo methodInfo = typeMainLayoutIni.GetMethod("AssembliesToLoadAtStart");
-                enVars.assemblies = (Dictionary<string, Environment.environmentAssembliesClass>)methodInfo.Invoke(iniClass, default);
-                typeMainLayout = assembly.GetType(layoutNameSpace + ".mainAppLayoutForm");
-                mainForm = Activator.CreateInstance(typeMainLayout, enVars) as FormCustomized;
-            }
-            catch (Exception ex)
-            {
-                return default;
-            }
-
-            return default;
-        }
-        #endregion
 
         #region "load startup"
         private static void loadStartupForm()
@@ -228,17 +199,19 @@ namespace AeonLabs
         #region "load API tasks ID"
         private static void loadAPItasksIDs()
         {
-            ResourceSet apiTasksSet = My.Resources.apiTasks.ResourceManager.GetResourceSet(CultureInfo.CurrentCulture, true, true);
+            ResourceManager apiTasksSet = new ResourceManager(Assembly.GetExecutingAssembly().EntryPoint.DeclaringType.Namespace + ".config.apiTasks", Assembly.GetExecutingAssembly());
+
+            var withBlock = enVars;
+
+            IDictionaryEnumerator dictNumerator = apiTasksSet.GetResourceSet(CultureInfo.CurrentCulture,true, true).GetEnumerator();
+
+            while (dictNumerator.MoveNext())
             {
-                var withBlock = enVars;
-                foreach (DictionaryEntry task in apiTasksSet)
-                {
-                    if (!task.Value.Equals(""))
+                    if (!dictNumerator.Value.Equals(""))
                     {
-                        withBlock.taskId.Add(task.Value.ToString(), task.Key.ToString());
+                        withBlock.taskId.Add(dictNumerator.Value.ToString(), dictNumerator.Key.ToString());
                     }
                 }
-            }
         }
         #endregion
 

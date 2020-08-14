@@ -81,7 +81,7 @@ namespace AeonLabs.Network
             {
                 e.Result = false;
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                fileExtension[queueBWorker[Index]] = "{'error':true,'message':'" + rm.GetString("errorNoNetwork", CultureInfo.CurrentCulture) + "'}";
+                fileExtension[queueBWorker[Index]] = "{'error':true,'message':'" + resources.GetString("errorNoNetwork", CultureInfo.CurrentCulture) + "'}";
                 return;
             }
 
@@ -180,14 +180,14 @@ namespace AeonLabs.Network
                                 else
                                 {
                                     System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                                    fileExtension[queueBWorker[Index]] = "{'error':true,'message':'" + rm.GetString("contactingCommServer", CultureInfo.CurrentCulture)  + " (" + ((int)response.StatusCode).ToString() + ")'}";
+                                    fileExtension[queueBWorker[Index]] = "{'error':true,'message':'" + resources.GetString("contactingCommServer", CultureInfo.CurrentCulture)  + " (" + ((int)response.StatusCode).ToString() + ")'}";
                                     e.Result = false;
                                 }
                             }
                             else
                             {
                                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                                fileExtension[queueBWorker[Index]] = "{'error':true,'message':'" + rm.GetString("contactingCommServer", CultureInfo.CurrentCulture)  + " (" + ((int)response.StatusCode).ToString() + ")', 'statuscode':'" + ((int)response.StatusCode).ToString() + "'}";
+                                fileExtension[queueBWorker[Index]] = "{'error':true,'message':'" + resources.GetString("contactingCommServer", CultureInfo.CurrentCulture)  + " (" + ((int)response.StatusCode).ToString() + ")', 'statuscode':'" + ((int)response.StatusCode).ToString() + "'}";
                                 e.Result = false;
                             }
                         }

@@ -1,4 +1,7 @@
 ﻿using AeonLabs.Environment;
+using System.Globalization;
+using System.Reflection;
+using System.Resources;
 using static AeonLabs.Environment.menuEnvironmentVarsClass;
 
 public class menuOptions
@@ -6,6 +9,9 @@ public class menuOptions
     private environmentVarsCore enVars = new environmentVarsCore();
     private const global::System.Int32 PROFILE = 1;
     private const global::System.Int32 HELP = 1000;
+
+    private ResourceManager rm = new ResourceManager(Assembly.GetExecutingAssembly().EntryPoint.DeclaringType.Namespace + ".config.strings", Assembly.GetExecutingAssembly());
+
 
     public environmentVarsCore Load(environmentVarsCore _enVars)
     {
@@ -18,10 +24,17 @@ public class menuOptions
     /* TODO ERROR: Skipped RegionDirectiveTrivia */
     private void load_profile_menu()
     {
-        var menuItem = new menuItemClass();
+
+        //Assembly assembly = Assembly.GetExecutingAssembly();
+        //foreach (string s in assembly.GetManifestResourceNames())
+        //    System.Diagnostics.Debug.WriteLine(s);
+
+
+
+    var menuItem = new menuItemClass();
         global::System.Int32 subMenuIdx = 0;
         menuItem.menuUID = "MyProfile";
-        menuItem.menuTitle = My.Resources.strings.menuItemMyProfile;
+        menuItem.menuTitle = rm.GetString("menuItemMyProfile", CultureInfo.CurrentCulture);
         menuItem.friendlyUID = "profile.dll";
         menuItem.formWithContentsToLoad = default;
         menuItem.nameSpaceString = "usersProfileForm";
@@ -34,7 +47,7 @@ public class menuOptions
         // SUB MENU SETTINGS
         subMenuIdx += 1;
         menuItem.menuUID = "Settings";
-        menuItem.menuTitle = My.Resources.strings.menuItemSettings;
+        menuItem.menuTitle = rm.GetString("menuItemSettings", CultureInfo.CurrentCulture); 
         menuItem.friendlyUID = "settings.dll";
         menuItem.formWithContentsToLoad = default;
         menuItem.nameSpaceString = "";
@@ -47,7 +60,7 @@ public class menuOptions
         // SUB MENU LOGOUT 
         subMenuIdx += 1;
         menuItem.menuUID = "Logout";
-        menuItem.menuTitle = My.Resources.strings.menuItemLogout;
+        menuItem.menuTitle = rm.GetString("menuItemLogout", CultureInfo.CurrentCulture);
         menuItem.friendlyUID = default;
         menuItem.formWithContentsToLoad = default;
         menuItem.nameSpaceString = "";
@@ -61,7 +74,7 @@ public class menuOptions
         // SUB MENU EXIT APP
         subMenuIdx += 1;
         menuItem.menuUID = "Exit";
-        menuItem.menuTitle = My.Resources.strings.menuItemLogout;
+        menuItem.menuTitle = rm.GetString("menuItemLogout", CultureInfo.CurrentCulture); 
         menuItem.friendlyUID = default;
         menuItem.formWithContentsToLoad = default;
         menuItem.nameSpaceString = "";
@@ -79,7 +92,7 @@ public class menuOptions
         global::System.Int32 subMenuIdx = 0;
         var menuItem = new menuItemClass();
         menuItem.menuUID = "Help";
-        menuItem.menuTitle = My.Resources.strings.menuHelpTitle;
+        menuItem.menuTitle = rm.GetString("menuHelpTitle", CultureInfo.CurrentCulture); 
         menuItem.friendlyUID = default;
         menuItem.formWithContentsToLoad = default;
         menuItem.nameSpaceString = "";
@@ -92,7 +105,7 @@ public class menuOptions
         // SUB MENU CHECK FOR UPDATES
         subMenuIdx += 1;
         menuItem.menuUID = "CheckUpdates";
-        menuItem.menuTitle = My.Resources.strings.menuItemCheckUpdate;
+        menuItem.menuTitle = rm.GetString("menuItemCheckUpdate", CultureInfo.CurrentCulture);
         menuItem.friendlyUID = "update.dll";
         menuItem.formWithContentsToLoad = default;
         menuItem.nameSpaceString = "";
@@ -105,7 +118,7 @@ public class menuOptions
         // SUB MENU ABOUT
         subMenuIdx += 1;
         menuItem.menuUID = "About";
-        menuItem.menuTitle = My.Resources.strings.menuItemAbout + " " + enVars.customization.ApplicationBrandNAme;
+        menuItem.menuTitle = rm.GetString("menuItemAbout", CultureInfo.CurrentCulture) + " " + enVars.customization.ApplicationBrandNAme;
         menuItem.friendlyUID = "about.dll";
         menuItem.formWithContentsToLoad = default;
         menuItem.nameSpaceString = "";

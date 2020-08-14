@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace AeonLabs.Layouts.Main
 {
-    public class initializeLayoutClass
+    public class initializeAssembly
     {
         public static Dictionary<string, Dictionary<string, environmentLoadedAssembliesClass>> AssembliesToLoadAtStart()
         {

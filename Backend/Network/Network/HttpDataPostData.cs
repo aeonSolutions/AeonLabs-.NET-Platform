@@ -81,7 +81,7 @@ namespace AeonLabs.Network
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                e.Result = "{'error':true,'message':'" + rm.GetString("errorNoNetwork", CultureInfo.CurrentCulture)  + "'}";
+                e.Result = "{'error':true,'message':'" + resources.GetString("errorNoNetwork", CultureInfo.CurrentCulture)  + "'}";
                 return;
             }
 
@@ -145,19 +145,19 @@ namespace AeonLabs.Network
                     else
                     {
                         System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                        decrypted = "{'error':true,'encrypted':false,'message':'" + rm.GetString("contactingCommServer", CultureInfo.CurrentCulture) + " |" + responseFromServer + "|'}";
+                        decrypted = "{'error':true,'encrypted':false,'message':'" + resources.GetString("contactingCommServer", CultureInfo.CurrentCulture) + " |" + responseFromServer + "|'}";
                     }
                 }
                 else
                 {
                     System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                    decrypted = "{'error':true,'message':'" + rm.GetString("contactingCommServer", CultureInfo.CurrentCulture) + " (" + ((int)response.StatusCode).ToString() + ")', 'statuscode':'" + ((int)response.StatusCode).ToString() + "'}";
+                    decrypted = "{'error':true,'message':'" + resources.GetString("contactingCommServer", CultureInfo.CurrentCulture) + " (" + ((int)response.StatusCode).ToString() + ")', 'statuscode':'" + ((int)response.StatusCode).ToString() + "'}";
                 }
             }
             catch (Exception ex)
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(state.currentLang);
-                decrypted = "{'error':true,'message':'" + rm.GetString("contactingCommServer", CultureInfo.CurrentCulture) + " (" + ex.Message.ToString().Replace("'", @"\'") + ")'}";
+                decrypted = "{'error':true,'message':'" + resources.GetString("contactingCommServer", CultureInfo.CurrentCulture) + " (" + ex.Message.ToString().Replace("'", @"\'") + ")'}";
             }
 
             e.Result = decrypted.Replace(@"\'", "'");
