@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using AeonLabs.Environment;
 using Microsoft.VisualBasic;
 
 namespace AeonLabs.Layouts.Main
@@ -22,7 +24,9 @@ namespace AeonLabs.Layouts.Main
             string testFilesExist = "";
             foreach (KeyValuePair<string, string> item in envars.externalFilesToLoad)
             {
-                if (!My.MyProject.Computer.FileSystem.FileExists(envars.imagesPath + item.Value))
+                FileInfo AssembFile = new FileInfo(envars.imagesPath + item.Value);
+                AssembFile.Refresh();
+                if (!AssembFile.Exists)
                 {
                     testFilesExist += item.Value + "; ";
                 }

@@ -5,5 +5,27 @@
     <TargetFramework>net5.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
-
+<PropertyGroup>            
+   <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+</PropertyGroup>
+<ItemGroup>
+  <Reference Include="AlphaGradientPanel">
+    <HintPath>..\..\..\..\AppsMain\builds\debug\AlphaGradientPanel.dll</HintPath>
+  </Reference>
+  <Reference Include="controls.gui">
+    <HintPath>..\..\..\..\AppsMain\builds\debug\controls.gui.dll</HintPath>
+  </Reference>
+  <Reference Include="environment">
+    <HintPath>..\..\..\..\AppsMain\builds\debug\environment.dll</HintPath>
+  </Reference>
+  <Reference Include="EnvironmentAssembly">
+    <HintPath>..\..\..\..\AppsMain\builds\debug\EnvironmentAssembly.dll</HintPath>
+  </Reference>
+  <Reference Include="FontAwesome.Sharp">
+    <HintPath>..\..\..\..\AppsMain\builds\debug\FontAwesome.Sharp.dll</HintPath>
+  </Reference>
+  <Reference Include="MessageBox">
+    <HintPath>..\..\..\..\AppsMain\builds\debug\MessageBox.dll</HintPath>
+  </Reference>
+</ItemGroup>
 </Project>

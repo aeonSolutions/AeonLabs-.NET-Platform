@@ -12,7 +12,7 @@ public class assembliesToLoadClass
         return enVars;
     }
 
-    /* TODO ERROR: Skipped RegionDirectiveTrivia *//* TODO ERROR: Skipped RegionDirectiveTrivia */
+#region Load Profile Menu
     private void load_profile_menu()
     {
         var assItem = new environmentAssembliesClass();
@@ -51,8 +51,10 @@ public class assembliesToLoadClass
         assItem.spaceName = "";
         enVars.assemblies.Add("", assItem);
     }
-    /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-    /* TODO ERROR: Skipped RegionDirectiveTrivia */
+#endregion
+
+#region Load Help Menu
+
     private void load_help_menu()
     {
         var assItem = new environmentAssembliesClass();
@@ -78,6 +80,5 @@ public class assembliesToLoadClass
         assItem.spaceName = "";
         enVars.assemblies.Add("about", assItem);
     }
-    /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-    /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
+    #endregion
 }

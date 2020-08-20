@@ -47,9 +47,11 @@ namespace AeonLabs.Environment
         public Dictionary<string, Environment.environmentAssembliesClass> getAssemblies { get; set; }
 
         private Dictionary<string, Environment.environmentAssembliesClass> enVarsAssemblies;
+        private environmentVarsCore enVars;
 
         public EnvironmentAssembliesLoadClass(environmentVarsCore _enVars) {
             enVarsAssemblies = _enVars.assemblies;
+            enVars = _enVars;
         }
 
 
@@ -63,7 +65,7 @@ namespace AeonLabs.Environment
             FileInfo layoutFile;
             try
             {
-                layoutFile = new FileInfo(layoutFilename);
+                layoutFile = new FileInfo(enVars.libraryPath + layoutFilename);
                 layoutFile.Refresh();
                 if (!layoutFile.Exists)
                 {
@@ -79,9 +81,9 @@ namespace AeonLabs.Environment
 
             try
             {
-                System.Reflection.Assembly assemblyRaw = System.Reflection.Assembly.LoadFrom(layoutFilename);
+                System.Reflection.Assembly assemblyRaw = System.Reflection.Assembly.LoadFrom(enVars.libraryPath + layoutFilename);
                 AssemblyLoadContext context = AssemblyLoadContext.Default;
-                System.Reflection.Assembly assembly = context.LoadFromAssemblyPath(layoutFilename);
+                System.Reflection.Assembly assembly = context.LoadFromAssemblyPath(enVars.libraryPath + layoutFilename);
 
                 // check if assembly has assemblies to load
                 Type typeMainLayoutIni = assembly.GetType(layoutNameSpace + ".initializeAssembly");

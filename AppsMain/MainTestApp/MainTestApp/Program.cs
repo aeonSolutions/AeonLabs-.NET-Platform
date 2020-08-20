@@ -111,7 +111,7 @@ namespace AeonLabs
                  loadedType = AssembliesLoader.LoadObjectTypeFromAssembly(enVars.customization.designLayoutAssemblyFileName, enVars.customization.designLayoutAssemblyNameSpace, "mainLayoutForm");
                 if (loadedType is null)
                 {
-                    MessageBox.Show("Error initializing main layout:");
+                    MessageBox.Show("Error initializing main layout:" + AssembliesLoader.errorMessage);
                     Application.Exit();
                     return;
                 }

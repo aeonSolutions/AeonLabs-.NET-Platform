@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using AeonLabs.Environment;
 using Microsoft.VisualBasic;
 
 namespace AeonLabs.Layouts.Main
@@ -372,7 +373,7 @@ namespace AeonLabs.Layouts.Main
                 {
                     if (registeredPanels.Contains(ctrl.Name.ToString()))
                     {
-                        ctrl.BackColor = Color.FromArgb(enVars.layoutDesign.PanelTransparencyIndex, enVars.layoutDesign.PanelBackColor);
+                        ctrl.BackColor = Color.FromArgb(Convert.ToInt32(enVars.layoutDesign.PanelTransparencyIndex), enVars.layoutDesign.PanelBackColor);
                         if (ctrl.HasChildren)
                         {
                             updateBkColorAndTransparency(ctrl, true, false);
@@ -385,7 +386,7 @@ namespace AeonLabs.Layouts.Main
                 }
                 else if (ctrl is PanelDoubleBuffer & isOnChildren & isOnForm)
                 {
-                    ctrl.BackColor = Color.FromArgb(enVars.layoutDesign.PanelTransparencyIndex, enVars.layoutDesign.PanelBackColor);
+                    ctrl.BackColor = Color.FromArgb(Convert.ToInt32(enVars.layoutDesign.PanelTransparencyIndex), enVars.layoutDesign.PanelBackColor);
                 }
                 else if (ctrl is PanelDoubleBuffer & isOnChildren & ctrl.HasChildren)
                 {
@@ -404,7 +405,7 @@ namespace AeonLabs.Layouts.Main
                 {
                     if (ctrl.HasChildren)
                     {
-                        updateBkImageOnChildForms(ctrl, true, ctrl);
+                        updateBkImageOnChildForms(ctrl, true, (PanelDoubleBuffer)ctrl);
                     }
                 }
                 else if ((ctrl is FormCustomized | ctrl is Form) & isOnChildren)
@@ -527,7 +528,7 @@ namespace AeonLabs.Layouts.Main
         {
             System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(enVars.currentLang);
             msgbox = new messageBoxForm(My.Resources.strings.exitApp + " ?", My.Resources.strings.question, MessageBoxButtons.YesNo, MessageBoxIcon.Question, this.Location.X + this.Width / 2, this.Location.Y + this.Height / 2, enVars);
-            if (msgbox.ShowDialog == MsgBoxResult.No)
+            if (msgbox.ShowDialog().Equals( MsgBoxResult.No))
             {
                 e.Cancel = true;
             }

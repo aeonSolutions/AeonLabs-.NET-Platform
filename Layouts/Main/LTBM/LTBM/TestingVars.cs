@@ -1,5 +1,7 @@
-﻿using System;
+﻿using AeonLabs.Environment;
+using System;
 using System.Drawing;
+using static AeonLabs.Environment.menuEnvironmentVarsClass;
 
 namespace AeonLabs.Layouts.Main
 {
