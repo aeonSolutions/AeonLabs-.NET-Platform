@@ -30,7 +30,6 @@ namespace AeonLabs.Environment
 
         #endregion
 
-
         #region "Customization"
         public customization customization { get; set; } = new customization();
         #endregion

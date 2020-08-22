@@ -3,6 +3,8 @@ using System.IO;
 using AeonLabs.Environment;
 using Microsoft.VisualBasic;
 
+namespace AeonLabs.Layouts.Main
+{
     public static class LayoutSettings
     {
         public const string LAYOUT_VERSION = "1.0.0";
@@ -19,6 +21,7 @@ using Microsoft.VisualBasic;
         {
             envars.externalFilesToLoad.Add("menuMinimizeArrow", "uparrow.png");
             envars.externalFilesToLoad.Add("menuExpandArrow", "downarrow.png");
+            envars.externalFilesToLoad.Add("noNetwork", "noNetwork.png");
 
             string testFilesExist = "";
             foreach (KeyValuePair<string, string> item in envars.externalFilesToLoad)
@@ -42,3 +45,4 @@ using Microsoft.VisualBasic;
             }
         }
     }
+}

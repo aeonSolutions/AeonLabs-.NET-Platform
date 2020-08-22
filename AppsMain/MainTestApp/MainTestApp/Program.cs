@@ -105,10 +105,10 @@ namespace AeonLabs
             Type loadedType;
             FormCustomized mainForm;
 
-            loadedType =  AssembliesLoader.LoadObjectTypeFromAssembly(enVars.customization.designLayoutCustomAssemblyFileName, enVars.customization.designLayoutCustomAssemblyNameSpace, "mainLayoutForm");
+            loadedType =  AssembliesLoader.LoadObjectTypeFromAssembly(enVars.customization.designLayoutCustomAssemblyFileName, enVars.customization.designLayoutCustomAssemblyNameSpace, "mainAppLayoutForm");
            if (loadedType is null)
             {
-                 loadedType = AssembliesLoader.LoadObjectTypeFromAssembly(enVars.customization.designLayoutAssemblyFileName, enVars.customization.designLayoutAssemblyNameSpace, "mainLayoutForm");
+                 loadedType = AssembliesLoader.LoadObjectTypeFromAssembly(enVars.customization.designLayoutAssemblyFileName, enVars.customization.designLayoutAssemblyNameSpace, "mainAppLayoutForm");
                 if (loadedType is null)
                 {
                     MessageBox.Show("Error initializing main layout:" + AssembliesLoader.errorMessage);

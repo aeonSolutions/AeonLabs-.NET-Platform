@@ -1,22 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 <PropertyGroup>            
    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>            
-   <RootNamespace>AeonLabs.Layout</RootNamespace>
+   <RootNamespace>AeonLabs.Layouts.Main</RootNamespace>
 </PropertyGroup>
 <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-  <OutputPath>H:\DiskContents\Software\Code\AeonLabs Platform\Windows .NetCore\Platform\AppsMain\builds\debug\</OutputPath>
+  <OutputPath>H:\DiskContents\Software\Code\AeonLabs Platform\Windows .NetCore\Platform\AppsMain\builds\debug\library\</OutputPath>
 </PropertyGroup>
 <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-  <OutputPath>H:\DiskContents\Software\Code\AeonLabs Platform\Windows .NetCore\Platform\AppsMain\builds\release\</OutputPath>
+  <OutputPath>H:\DiskContents\Software\Code\AeonLabs Platform\Windows .NetCore\Platform\AppsMain\builds\release\library\</OutputPath>
 </PropertyGroup>
 <PropertyGroup>            
-   <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+   <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>            
+   <AssemblyName>ltbm.layout</AssemblyName>
 </PropertyGroup>
 <ItemGroup>
   <PackageReference Include="FontAwesome.Sharp" Version="5.14.0" />

@@ -45,7 +45,6 @@ namespace AeonLabs.Environment
         public environmentAssembliesClass assembly { get; set; }
     }
 
-
     public class EnvironmentAssembliesLoadClass {
 
         public Dictionary<string, Environment.environmentAssembliesClass> getAssemblies { get; set; }
@@ -58,8 +57,28 @@ namespace AeonLabs.Environment
             enVars = _enVars;
         }
 
-
         public string errorMessage {get; set;}
+
+        #region Assign Control to assembly
+        public Boolean assignControlAssembly(string friendlyName, Control ctrl) {
+            bool err = false;
+             errorMessage = "";
+
+            if (enVars.assemblies.ContainsKey(friendlyName))
+            {
+                enVars.assemblies[friendlyName].control = ctrl;
+            }
+            else
+            {
+                errorMessage += friendlyName;
+                err = true;
+            }
+
+            if (err) return false;
+
+            return true;
+        }
+        #endregion
 
         #region load object from assembly - friendly
         public Type friendlyLoadTypeObjectFromAssembly(string friendlyName, string layoutNameSpace="", string classNameToLoad="") {
@@ -115,11 +134,21 @@ namespace AeonLabs.Environment
                     }
                 }
 
+                string t = "";
+                foreach (Type type in assembly.GetTypes())
+                {
+                    t+=type.FullName + "       ";
+                }
+
                 typeToLoad = assembly.GetType(layoutNameSpace + "." + classNameToLoad);
+                if (typeToLoad is null) {
+                    errorMessage = "Class not found or invalid namespace";
+                }
             }
 
             catch (Exception ex)
             {
+                errorMessage = ex.Message;
                 return null;
             }
             return typeToLoad;

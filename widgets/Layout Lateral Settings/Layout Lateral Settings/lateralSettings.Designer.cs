@@ -8,7 +8,7 @@ using Microsoft.VisualBasic.CompilerServices;
 namespace AeonLabs.PlugIns.SideBar.Settings
 {
     [DesignerGenerated()]
-    public partial class lateralSettingsForm : Form
+    public partial class lateralSettingsForm : FormCustomized
     {
 
         // Form overrides dispose to clean up the component list.
@@ -37,269 +37,114 @@ namespace AeonLabs.PlugIns.SideBar.Settings
         [DebuggerStepThrough()]
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            _ColorPickerDialog = new ColorDialog();
-            _ToolTips = new ToolTip(components);
-            _selectBackGroundImage = new FontAwesome.Sharp.IconPictureBox();
-            _selectBackGroundImage.Click += new EventHandler(selectBackGroundImage_Click);
-            _selectPanelBackColor = new FontAwesome.Sharp.IconPictureBox();
-            _selectPanelBackColor.Click += new EventHandler(selectPanelBackColor_Click);
-            _MacTrackBar1 = new XComponent.SliderBar.MACTrackBar();
-            _MacTrackBar1.ValueChanged += MacTrackBar2_ValueChanged;
-            _panelForm = new PanelDoubleBuffer();
-            _panelForm.Paint += panelForm_Paint_1;
-            ((System.ComponentModel.ISupportInitialize)_selectBackGroundImage).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)_selectPanelBackColor).BeginInit();
-            _panelForm.SuspendLayout();
-            SuspendLayout();
+            this.components = new System.ComponentModel.Container();
+            this.ColorPickerDialog = new System.Windows.Forms.ColorDialog();
+            this.ToolTips = new System.Windows.Forms.ToolTip(this.components);
+            this.selectBackGroundImage = new FontAwesome.Sharp.IconPictureBox();
+            this.selectPanelBackColor = new FontAwesome.Sharp.IconPictureBox();
+            this.panelForm = new PanelDoubleBuffer();
+            this.trackBar = new System.Windows.Forms.TrackBar();
+            ((System.ComponentModel.ISupportInitialize)(this.selectBackGroundImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.selectPanelBackColor)).BeginInit();
+            this.panelForm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
+            this.SuspendLayout();
             // 
             // selectBackGroundImage
             // 
-            _selectBackGroundImage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            _selectBackGroundImage.BackColor = Color.Transparent;
-            _selectBackGroundImage.Cursor = Cursors.Hand;
-            _selectBackGroundImage.IconChar = FontAwesome.Sharp.IconChar.Image;
-            _selectBackGroundImage.IconColor = Color.White;
-            _selectBackGroundImage.IconSize = 20;
-            _selectBackGroundImage.Location = new Point(40, 44);
-            _selectBackGroundImage.Name = "_selectBackGroundImage";
-            _selectBackGroundImage.Size = new Size(20, 20);
-            _selectBackGroundImage.TabIndex = 3;
-            _selectBackGroundImage.TabStop = false;
+            this.selectBackGroundImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.selectBackGroundImage.BackColor = System.Drawing.Color.Transparent;
+            this.selectBackGroundImage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.selectBackGroundImage.IconChar = FontAwesome.Sharp.IconChar.FirefoxBrowser;
+            this.selectBackGroundImage.IconColor = System.Drawing.Color.White;
+            this.selectBackGroundImage.IconSize = 23;
+            this.selectBackGroundImage.Location = new System.Drawing.Point(53, 50);
+            this.selectBackGroundImage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.selectBackGroundImage.Name = "selectBackGroundImage";
+            this.selectBackGroundImage.Size = new System.Drawing.Size(23, 23);
+            this.selectBackGroundImage.TabIndex = 3;
+            this.selectBackGroundImage.TabStop = false;
             // 
             // selectPanelBackColor
             // 
-            _selectPanelBackColor.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            _selectPanelBackColor.BackColor = Color.Transparent;
-            _selectPanelBackColor.Cursor = Cursors.Hand;
-            _selectPanelBackColor.IconChar = FontAwesome.Sharp.IconChar.Palette;
-            _selectPanelBackColor.IconColor = Color.White;
-            _selectPanelBackColor.IconSize = 20;
-            _selectPanelBackColor.Location = new Point(3, 44);
-            _selectPanelBackColor.Name = "_selectPanelBackColor";
-            _selectPanelBackColor.Size = new Size(20, 20);
-            _selectPanelBackColor.TabIndex = 2;
-            _selectPanelBackColor.TabStop = false;
-            // 
-            // MacTrackBar1
-            // 
-            _MacTrackBar1.BackColor = Color.Transparent;
-            _MacTrackBar1.BorderColor = Color.Transparent;
-            _MacTrackBar1.Dock = DockStyle.Top;
-            _MacTrackBar1.Font = new Font("Verdana", 8.25F, FontStyle.Bold, GraphicsUnit.Point, Conversions.ToByte(0));
-            _MacTrackBar1.ForeColor = Color.White;
-            _MacTrackBar1.IndentHeight = 6;
-            _MacTrackBar1.LargeChange = 10;
-            _MacTrackBar1.Location = new Point(0, 0);
-            _MacTrackBar1.Maximum = 100;
-            _MacTrackBar1.Minimum = 0;
-            _MacTrackBar1.Name = "_MacTrackBar1";
-            _MacTrackBar1.Size = new Size(400, 38);
-            _MacTrackBar1.TabIndex = 1;
-            _MacTrackBar1.TextTickStyle = TickStyle.None;
-            _MacTrackBar1.TickColor = Color.White;
-            _MacTrackBar1.TickFrequency = 10;
-            _MacTrackBar1.TickHeight = 4;
-            _MacTrackBar1.TickStyle = TickStyle.Both;
-            _MacTrackBar1.TrackerColor = Color.White;
-            _MacTrackBar1.TrackerSize = new Size(16, 16);
-            _MacTrackBar1.TrackLineColor = Color.White;
-            _MacTrackBar1.TrackLineHeight = 3;
-            _MacTrackBar1.Value = 0;
+            this.selectPanelBackColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.selectPanelBackColor.BackColor = System.Drawing.Color.Transparent;
+            this.selectPanelBackColor.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.selectPanelBackColor.IconChar = FontAwesome.Sharp.IconChar.Faucet;
+            this.selectPanelBackColor.IconColor = System.Drawing.Color.White;
+            this.selectPanelBackColor.IconSize = 23;
+            this.selectPanelBackColor.Location = new System.Drawing.Point(13, 50);
+            this.selectPanelBackColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.selectPanelBackColor.Name = "selectPanelBackColor";
+            this.selectPanelBackColor.Size = new System.Drawing.Size(23, 23);
+            this.selectPanelBackColor.TabIndex = 2;
+            this.selectPanelBackColor.TabStop = false;
             // 
             // panelForm
             // 
-            _panelForm.Controls.Add(_MacTrackBar1);
-            _panelForm.Controls.Add(_selectBackGroundImage);
-            _panelForm.Controls.Add(_selectPanelBackColor);
-            _panelForm.Dock = DockStyle.Fill;
-            _panelForm.Location = new Point(0, 0);
-            _panelForm.Name = "_panelForm";
-            _panelForm.PANEL_CLOSED_STATE_DIM = 40;
-            _panelForm.PANEL_OPEN_STATE_DIM = 400;
-            _panelForm.Size = new Size(400, 113);
-            _panelForm.TabIndex = 356;
+            this.panelForm.Controls.Add(this.trackBar);
+            this.panelForm.Controls.Add(this.selectBackGroundImage);
+            this.panelForm.Controls.Add(this.selectPanelBackColor);
+            this.panelForm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelForm.Location = new System.Drawing.Point(0, 0);
+            this.panelForm.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.panelForm.Name = "panelForm";
+            this.panelForm.PANEL_CLOSED_STATE_DIM = 40;
+            this.panelForm.PANEL_OPEN_STATE_DIM = 400;
+            this.panelForm.SB_BOTH = 3;
+            this.panelForm.SB_CTL = 2;
+            this.panelForm.SB_HORZ = 0;
+            this.panelForm.SB_VERT = 0;
+            this.panelForm.ShowHorizontalScrolBar = false;
+            this.panelForm.ShowVerticalScrolBar = false;
+            this.panelForm.Size = new System.Drawing.Size(467, 85);
+            this.panelForm.TabIndex = 356;
+            // 
+            // trackBar
+            // 
+            this.trackBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.trackBar.Location = new System.Drawing.Point(0, 0);
+            this.trackBar.Maximum = 100;
+            this.trackBar.Name = "trackBar";
+            this.trackBar.Size = new System.Drawing.Size(467, 45);
+            this.trackBar.TabIndex = 4;
+            this.trackBar.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
             // 
             // lateralSettingsForm
             // 
-            AutoScaleDimensions = new SizeF(6.0F, 13.0F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Silver;
-            BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(400, 113);
-            ControlBox = false;
-            Controls.Add(_panelForm);
-            DoubleBuffered = true;
-            FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(2);
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "lateralSettingsForm";
-            Opacity = 0D;
-            ShowIcon = false;
-            ShowInTaskbar = false;
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
-            TransparencyKey = Color.Silver;
-            ((System.ComponentModel.ISupportInitialize)_selectBackGroundImage).EndInit();
-            ((System.ComponentModel.ISupportInitialize)_selectPanelBackColor).EndInit();
-            _panelForm.ResumeLayout(false);
-            Resize += new EventHandler(Form1_Resize);
-            Load += new EventHandler(messageBoxForm_Load);
-            Shown += new EventHandler(messageBoxForm_show);
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Silver;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(467, 85);
+            this.ControlBox = false;
+            this.Controls.Add(this.panelForm);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "lateralSettingsForm";
+            this.Opacity = 0D;
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.TargetOpacity = 1D;
+            this.Text = "Form1";
+            this.TransparencyKey = System.Drawing.Color.Silver;
+            ((System.ComponentModel.ISupportInitialize)(this.selectBackGroundImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.selectPanelBackColor)).EndInit();
+            this.panelForm.ResumeLayout(false);
+            this.panelForm.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
-        private XComponent.SliderBar.MACTrackBar _MacTrackBar1;
-
-        private XComponent.SliderBar.MACTrackBar MacTrackBar1
-        {
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            get
-            {
-                return _MacTrackBar1;
-            }
-
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            set
-            {
-                if (_MacTrackBar1 != null)
-                {
-                    _MacTrackBar1.ValueChanged -= MacTrackBar2_ValueChanged;
-                }
-
-                _MacTrackBar1 = value;
-                if (_MacTrackBar1 != null)
-                {
-                    _MacTrackBar1.ValueChanged += MacTrackBar2_ValueChanged;
-                }
-            }
-        }
-
-        private FontAwesome.Sharp.IconPictureBox _selectPanelBackColor;
-
-        internal FontAwesome.Sharp.IconPictureBox selectPanelBackColor
-        {
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            get
-            {
-                return _selectPanelBackColor;
-            }
-
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            set
-            {
-                if (_selectPanelBackColor != null)
-                {
-                    _selectPanelBackColor.Click -= selectPanelBackColor_Click;
-                }
-
-                _selectPanelBackColor = value;
-                if (_selectPanelBackColor != null)
-                {
-                    _selectPanelBackColor.Click += selectPanelBackColor_Click;
-                }
-            }
-        }
-
-        private ColorDialog _ColorPickerDialog;
-
-        internal ColorDialog ColorPickerDialog
-        {
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            get
-            {
-                return _ColorPickerDialog;
-            }
-
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            set
-            {
-                if (_ColorPickerDialog != null)
-                {
-                }
-
-                _ColorPickerDialog = value;
-                if (_ColorPickerDialog != null)
-                {
-                }
-            }
-        }
-
-        private FontAwesome.Sharp.IconPictureBox _selectBackGroundImage;
-
-        internal FontAwesome.Sharp.IconPictureBox selectBackGroundImage
-        {
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            get
-            {
-                return _selectBackGroundImage;
-            }
-
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            set
-            {
-                if (_selectBackGroundImage != null)
-                {
-                    _selectBackGroundImage.Click -= selectBackGroundImage_Click;
-                }
-
-                _selectBackGroundImage = value;
-                if (_selectBackGroundImage != null)
-                {
-                    _selectBackGroundImage.Click += selectBackGroundImage_Click;
-                }
-            }
-        }
-
-        private ToolTip _ToolTips;
-
-        internal ToolTip ToolTips
-        {
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            get
-            {
-                return _ToolTips;
-            }
-
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            set
-            {
-                if (_ToolTips != null)
-                {
-                }
-
-                _ToolTips = value;
-                if (_ToolTips != null)
-                {
-                }
-            }
-        }
-
-        private PanelDoubleBuffer _panelForm;
-
-        internal PanelDoubleBuffer panelForm
-        {
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            get
-            {
-                return _panelForm;
-            }
-
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            set
-            {
-                if (_panelForm != null)
-                {
-                    _panelForm.Paint -= panelForm_Paint_1;
-                }
-
-                _panelForm = value;
-                if (_panelForm != null)
-                {
-                    _panelForm.Paint += panelForm_Paint_1;
-                }
-            }
-        }
+        private FontAwesome.Sharp.IconPictureBox selectPanelBackColor;
+        private ColorDialog ColorPickerDialog;
+        private FontAwesome.Sharp.IconPictureBox selectBackGroundImage;
+        private ToolTip ToolTips;
+        private PanelDoubleBuffer panelForm;
+        private TrackBar trackBar;
     }
 }

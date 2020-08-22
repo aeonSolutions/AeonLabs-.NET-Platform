@@ -5,7 +5,8 @@ using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.CompilerServices;
 
-
+namespace AeonLabs.Layouts.Main
+{
     public partial class mainAppLayoutForm : FormCustomized
     {
 
@@ -119,6 +120,7 @@ using Microsoft.VisualBasic.CompilerServices;
             this.panelLeftSide.ShowVerticalScrolBar = false;
             this.panelLeftSide.Size = new System.Drawing.Size(350, 647);
             this.panelLeftSide.TabIndex = 3;
+            this.panelLeftSide.Paint += new System.Windows.Forms.PaintEventHandler(this.panelLeftSide_Paint);
             // 
             // panelMenuOptionsContainer
             // 
@@ -241,5 +243,6 @@ using Microsoft.VisualBasic.CompilerServices;
         private FontAwesome.Sharp.IconPictureBox iconMenuSettings;
         private PanelDoubleBuffer panelMenuOptions;
         private PanelDoubleBuffer panelMenuOptionsContainer;
-    private FontAwesome.Sharp.IconPictureBox menuToggleIcon;
+        private FontAwesome.Sharp.IconPictureBox menuToggleIcon;
+    }
 }

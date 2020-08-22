@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-
+namespace AeonLabs.Layouts.Main
+{
     public class initializeAssembly
     {
         public static Dictionary<string, environmentAssembliesClass> AssembliesToLoadAtStart()
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
             // SIDEBAR SETTINGS
             var assItem = new environmentAssembliesClass();
-            assItem.assemblyFileName = "settings.layout.widget.dll";
+            assItem.assemblyFileName = "sideBarSettings.dll";
             assItem.friendlyUID = "sideBarSettings";
             assItem.assemblyFormName = "lateralSettingsForm";
             assItem.assemblyFormToLoad = default;
@@ -28,3 +29,4 @@ using System.Windows.Forms;
             return returnAssemblies;
         }
     }
+}

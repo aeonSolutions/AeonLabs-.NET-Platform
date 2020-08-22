@@ -1,21 +1,21 @@
-﻿using System;
+﻿using AeonLabs.Environment;
+using System;
 using System.Drawing;
+using System.Globalization;
+using System.Reflection;
+using System.Resources;
 using System.Windows.Forms;
 
 namespace AeonLabs.PlugIns.SideBar.Settings
 {
-    public partial class lateralSettingsForm
-    {
-        public lateralSettingsForm()
-        {
-            InitializeComponent();
-            _selectBackGroundImage.Name = "selectBackGroundImage";
-            _selectPanelBackColor.Name = "selectPanelBackColor";
-            _MacTrackBar1.Name = "MacTrackBar1";
-            _panelForm.Name = "panelForm";
-        }
 
-        public lateralSettingsForm(Global.AeonLabs.Environment.environmentVarsCore _envars, ref environmentVarsCore.updateMainLayoutDelegate _updateMainApp)
+    public partial class lateralSettingsForm : FormCustomized
+    {
+
+        private ResourceManager resources = new ResourceManager(Assembly.GetExecutingAssembly().EntryPoint.DeclaringType.Namespace + ".config.strings", Assembly.GetExecutingAssembly());
+
+
+        public lateralSettingsForm(environmentVarsCore _envars, ref environmentVarsCore.updateMainLayoutDelegate _updateMainApp)
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.UserPaint, true);
@@ -27,18 +27,15 @@ namespace AeonLabs.PlugIns.SideBar.Settings
             InitializeComponent();
             System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(envars.currentLang);
             var backGroundImageToolTip = new ToolTip();
-            backGroundImageToolTip.SetToolTip(selectBackGroundImage, My.Resources.strings.backGroundImage);
+            backGroundImageToolTip.SetToolTip(selectBackGroundImage, resources.GetString("backGroundImage", CultureInfo.CurrentCulture));
             var colorPalleteToolTip = new ToolTip();
-            colorPalleteToolTip.SetToolTip(selectPanelBackColor, My.Resources.strings.colorPallete);
-            panelForm.BackColor = Color.FromArgb(envars.layoutDesign.PanelTransparencyIndex, envars.layoutDesign.PanelBackColor);
+            colorPalleteToolTip.SetToolTip(selectPanelBackColor, resources.GetString("colorPallete", CultureInfo.CurrentCulture));
+            panelForm.BackColor = Color.FromArgb(Convert.ToInt32(envars.layoutDesign.PanelTransparencyIndex), envars.layoutDesign.PanelBackColor);
             ResumeLayout();
-            _selectBackGroundImage.Name = "selectBackGroundImage";
-            _selectPanelBackColor.Name = "selectPanelBackColor";
-            _MacTrackBar1.Name = "MacTrackBar1";
-            _panelForm.Name = "panelForm";
+
         }
 
-        protected new override CreateParams CreateParams
+        protected override CreateParams CreateParams
         {
             get
             {
@@ -53,16 +50,15 @@ namespace AeonLabs.PlugIns.SideBar.Settings
         private ToolTip backGroundImageToolTip = new ToolTip();
         private ToolTip colorPalleteToolTip = new ToolTip();
 
-        private void Form1_Resize(object sender, EventArgs e)
-        {
-            MacTrackBar1.BorderStyle = BorderStyle.None;
-        }
-
-        private void messageBoxForm_Load(object sender, EventArgs e)
+        private void sideBarSettingsForm_reSize(object sender, EventArgs e)
         {
         }
 
-        private void messageBoxForm_show(object sender, EventArgs e)
+        private void sideBarSettingsForm_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void sideBarSettingsForm_shown(object sender, EventArgs e)
         {
         }
 
@@ -74,37 +70,38 @@ namespace AeonLabs.PlugIns.SideBar.Settings
                 var dataUpdate = new updateMainAppClass();
                 dataUpdate.envars = envars;
                 dataUpdate.updateTask = updateMainAppClass.UPDATE_LAYOUT;
-                updateMainApp.Invoke(this, dataUpdate);
+                updateMainApp.Invoke(this, ref dataUpdate);
             }
-        }
-
-        private void MacTrackBar2_ValueChanged(object sender, decimal value)
-        {
-            envars.layoutDesign.PanelTransparencyIndex = value;
-            var dataUpdate = new updateMainAppClass();
-            dataUpdate.envars = envars;
-            dataUpdate.updateTask = updateMainAppClass.UPDATE_LAYOUT;
-            updateMainApp.Invoke(this, dataUpdate);
-        }
-
-        private void panelForm_Paint_1(object sender, PaintEventArgs e)
-        {
         }
 
         private void selectBackGroundImage_Click(object sender, EventArgs e)
         {
             var OpenFileDialog1 = new OpenFileDialog();
-            OpenFileDialog1.Title = My.Resources.strings.openFile;
+            OpenFileDialog1.Title = resources.GetString("openFile", CultureInfo.CurrentCulture);
             OpenFileDialog1.Multiselect = false;
-            OpenFileDialog1.Filter = My.Resources.strings.imageFile + " jpg|*.jpg";
+            OpenFileDialog1.Filter = resources.GetString("imageFile", CultureInfo.CurrentCulture) + " jpg|*.jpg";
             if (OpenFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 var dataUpdate = new updateMainAppClass();
                 dataUpdate.envars = envars;
                 dataUpdate.backGroundFileName = OpenFileDialog1.FileName;
                 dataUpdate.updateTask = updateMainAppClass.UPDATE_LAYOUT_BACKGROUND;
-                updateMainApp.Invoke(this, dataUpdate);
+                updateMainApp.Invoke(this, ref dataUpdate);
             }
+        }
+
+        private void panelForm_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void trackBar_ValueChanged(object sender, EventArgs e)
+        {
+            envars.layoutDesign.PanelTransparencyIndex = trackBar.Value;
+            var dataUpdate = new updateMainAppClass();
+            dataUpdate.envars = envars;
+            dataUpdate.updateTask = updateMainAppClass.UPDATE_LAYOUT;
+            updateMainApp.Invoke(this, ref dataUpdate);
         }
     }
 }

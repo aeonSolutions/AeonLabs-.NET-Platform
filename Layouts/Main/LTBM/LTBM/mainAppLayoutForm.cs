@@ -13,84 +13,70 @@ using System.Resources;
 using System.Reflection;
 using System.Globalization;
 
-public partial class mainAppLayoutForm : FormCustomized
+namespace AeonLabs.Layouts.Main
+{
+
+    public partial class mainAppLayoutForm : FormCustomized
     {
 
-    #region Register Configurable Layout Controls
+        #region Register Configurable Layout Controls
 
-    private void registerConfigurableLayoutControls()
+        private void registerConfigurableLayoutControls()
         {
             // REGISTER CONFIGURABLE LAYOUT PANELS 
             registeredPanels.Add(panelLeftSide.Name);
             registeredPanels.Add(panelBottom.Name);
             registeredPanels.Add(panelTop.Name);
-    }
-    #endregion
+        }
+        #endregion
 
-    #region Assign Controls to Assembly
-    private void assignControlToAssembly()
+        #region Assign Controls to Assembly
+        private void assignControlToAssembly()
         {
-            if (ENABLE_TESTING_ENVIRONMENT)
+
+            if (ENABLE_TESTING_ENVIRONMENT.Equals(true))
             {
                 return;
             }
+            bool error = false;
+            error = !AssembliesManager.assignControlAssembly("sideBarSettings", panelMenuOptionsContainer);
 
-            bool err = false;
-            string errMsg = "";
-            if (enVars.assemblies.ContainsKey("settings.layout.widget.dll"))
+            if (error)
             {
-                if (enVars.assemblies("settings.layout.widget.dll").ContainsKey("lateralSettingsForm"))
-                {
-                    enVars.assemblies("settings.layout.widget.dll").Item("lateralSettingsForm").control = panelMenuOptionsContainer;
-                }
-                else
-                {
-                    errMsg += "lateralSettingsForm";
-                    err = true;
-                }
-            }
-            else
-            {
-                errMsg += "settings.layout.widget.dll";
-                err = true;
-            }
-
-            if (err)
-            {
-                Interaction.MsgBox("Error: assembly cound not be assigned a panel, " + errMsg);
+                Interaction.MsgBox("Error: assembly cound not be assigned a panel, " + AssembliesManager.errorMessage);
                 this.Close();
                 return;
             }
         }
-    #endregion
+        #endregion
 
-    #region Constants, Variables and Fields
+        #region Constants, Variables and Fields
 
-    #region Layout Settings
-    private const int LATERAL_MENU_OPEN_WIDTH = 400;
-    #endregion
+        #region Layout Settings
+        private const int LATERAL_MENU_OPEN_WIDTH = 400;
+        #endregion
 
-    // AssembliesToLoadAtStart = {({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"})}
-    public readonly object AssembliesToLoadAtStartOLD = new[] { new[] { "", "", "", "" }, new[] { "", "", "", "" }, new[] { "", "", "", "" }, new[] { "", "", "", "" } };
+        // AssembliesToLoadAtStart = {({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"})}
+        public readonly object AssembliesToLoadAtStartOLD = new[] { new[] { "", "", "", "" }, new[] { "", "", "", "" }, new[] { "", "", "", "" }, new[] { "", "", "", "" } };
 
-    #region Constants
-    private const bool ENABLE_TESTING_ENVIRONMENT = true;
-    #endregion
+        #region Constants
+        private const bool ENABLE_TESTING_ENVIRONMENT = true;
+        #endregion
 
-    #region Public Fields
-    public environmentVarsCore.updateMainLayoutDelegate updateMainApp;
-    public environmentVarsCore enVars { get; set; } = new environmentVarsCore();
+        #region Public Fields
+        public environmentVarsCore.updateMainLayoutDelegate updateMainApp;
+        public environmentVarsCore enVars { get; set; } = new environmentVarsCore();
         public string statusMessage { get; set; } = "";
-    #endregion
+        #endregion
 
-    #region Private fields
-    private ResourceManager resources = new ResourceManager(Assembly.GetExecutingAssembly().EntryPoint.DeclaringType.Namespace + ".config.strings", Assembly.GetExecutingAssembly());
-    private EnvironmentAssembliesLoadClass AssembliesManager;
+        #region Private fields
+        private ResourceManager resources;
+        private EnvironmentAssembliesLoadClass AssembliesManager;
 
-    // Flag to check if there are loading errors 
-    private bool ErrorLoading = false;
-    // panel registered for layout color and background changes
-    private List<string> registeredPanels = new List<string>();
+        // Flag to check if there are loading errors 
+        private bool ErrorLoading = false;
+        // panel registered for layout color and background changes
+        private List<string> registeredPanels = new List<string>();
         private messageBoxForm msgbox;
         // menu builder
         private MenuBuilderClass _menuBuilder;
@@ -236,21 +222,21 @@ public partial class mainAppLayoutForm : FormCustomized
             }
         }
 
-    #endregion
+        #endregion
 
-    public Form CurrentWrapperForm;
-    public Form LoadedFrm;
-    public bool loaded = false;
-    private bool BusyMenuOption = false;
+        public Form CurrentWrapperForm;
+        public Form LoadedFrm;
+        public bool loaded = false;
+        private bool BusyMenuOption = false;
 
-    public PictureBox usernamePhoto { get; set; } = null;
+        public PictureBox usernamePhoto { get; set; } = null;
 
-    private int eDelta;
-    private int Sensitivity = 20;
+        private int eDelta;
+        private int Sensitivity = 20;
 
-    #region ToolTips
+        #region ToolTips
 
-    private void addToolTips()
+        private void addToolTips()
         {
             // ADD TOOLTIPS 
             var menuToggleToolTip = new ToolTip();
@@ -258,67 +244,70 @@ public partial class mainAppLayoutForm : FormCustomized
             var settingsToolTip = new ToolTip();
             settingsToolTip.SetToolTip(iconMenuSettings, resources.GetString("settingsToggle"));
         }
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region Constructor
-    public mainAppLayoutForm(environmentVarsCore _envars = default)
-    {
-        bwChangeBackground = new BackgroundWorker();
-        Application.AddMessageFilter((IMessageFilter)this);
-        ErrorLoading = false;
-
-        // This call is required by the designer.
-        this.SuspendLayout();
-        InitializeComponent();
-        if (_envars is object)
+        #region Constructor
+        public mainAppLayoutForm(environmentVarsCore _envars = default)
         {
-            enVars = _envars;
+            bwChangeBackground = new BackgroundWorker();
+            Application.AddMessageFilter((IMessageFilter)this);
+            ErrorLoading = false;
+
+            // This call is required by the designer.
+            this.SuspendLayout();
+            InitializeComponent();
+            if (_envars is object)
+            {
+                enVars = _envars;
+            }
+
+            enVars.layoutDesign.menu.properties.ClosedStateSize = LATERAL_MENU_OPEN_WIDTH;
+
+            string resxFile = @".\config\strings.resx";
+            ResXResourceSet resources = new ResXResourceSet(resxFile);
+
+            // ASSIGN ASSEMBLIES TO PANELS
+            assignControlToAssembly();
+
+            // çheck if external files exist
+            enVars = LayoutSettings.loadExternalFilesInUse(enVars);
+            if (enVars is null)
+            {
+                ErrorLoading = true;
+                Application.Exit();
+                return;
+            }
+            // Instantiating the delegate for update data from child forms
+            updateMainApp = updateMainAppLayout;
+
+            // Me.InactivityTimeOut = enVars.AutomaticLogoutTime
+
+            this.Visible = false;
+            this.Opacity = 0;
+            this.Refresh();
+            registerConfigurableLayoutControls();
+            addToolTips();
+            if (ENABLE_TESTING_ENVIRONMENT)
+            {
+                enVars = TestingVars.loadTestingEnvironmentVars(enVars);
+            }
+
+            this.ResumeLayout();
+
+            // ' needs to be the last 
+            if (!this.IsDisposed & !ErrorLoading)
+            {
+                this.Show();
+            }
+
         }
 
-        enVars.layoutDesign.menu.properties.ClosedStateSize = LATERAL_MENU_OPEN_WIDTH;
+        #endregion
 
-        // ASSIGN ASSEMBLIES TO PANELS
-        assignControlToAssembly();
-
-        // çheck if external files exist
-        enVars = LayoutSettings.loadExternalFilesInUse(enVars);
-        if (enVars is null)
-        {
-            ErrorLoading = true;
-            Application.Exit();
-            return;
-        }
-        // Instantiating the delegate for update data from child forms
-        updateMainApp = updateMainAppLayout;
-
-        // Me.InactivityTimeOut = enVars.AutomaticLogoutTime
-
-        this.Visible = false;
-        this.Opacity = 0;
-        this.Refresh();
-        registerConfigurableLayoutControls();
-        addToolTips();
-        if (ENABLE_TESTING_ENVIRONMENT)
-        {
-            enVars = TestingVars.loadTestingEnvironmentVars(enVars);
-        }
-
-        this.ResumeLayout();
-
-        // ' needs to be the last 
-        if (!this.IsDisposed & !ErrorLoading)
-        {
-            this.Show();
-        }
-
-    }
-
-    #endregion
-
-    #region Update Envirnment and Layout
-    public void updateMainAppLayout(object sender, ref updateMainAppClass updateContents)
+        #region Update Envirnment and Layout
+        public void updateMainAppLayout(object sender, ref updateMainAppClass updateContents)
         {
             enVars = updateContents.envars;
             if (updateContents.updateTask.Equals(updateMainAppClass.UPDATE_LAYOUT))
@@ -394,15 +383,17 @@ public partial class mainAppLayoutForm : FormCustomized
                     ctrl.BackgroundImageLayout = ImageLayout.Stretch;
                 }
             }
-    }
-    #endregion
-    
-    #region Form events
+        }
+        #endregion
+
+        #region Form events
         private void mainAppLayoutForm_Load(object sender, EventArgs e)
         {
-        }
 
-        private void mainAppLayoutForm_shown(object sender, EventArgs e)
+
+    }
+
+    private void mainAppLayoutForm_shown(object sender, EventArgs e)
         {
             if (ErrorLoading)
             {
@@ -461,9 +452,9 @@ public partial class mainAppLayoutForm : FormCustomized
             updateBkColorAndTransparency(this, false, false);
             ResumeLayout();
 
-        //  ASSEMBLY Manager
-         AssembliesManager = new EnvironmentAssembliesLoadClass(enVars);
-    }
+            //  ASSEMBLY Manager
+            AssembliesManager = new EnvironmentAssembliesLoadClass(enVars);
+        }
 
         private void mainAppLayoutForm_Resize(object sender, EventArgs e)
         {
@@ -506,17 +497,17 @@ public partial class mainAppLayoutForm : FormCustomized
         private void mainAppLayoutForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(enVars.currentLang);
-            msgbox = new messageBoxForm(My.Resources.strings.exitApp + " ?", My.Resources.strings.question, MessageBoxButtons.YesNo, MessageBoxIcon.Question, this.Location.X + this.Width / 2, this.Location.Y + this.Height / 2, enVars);
-            if (msgbox.ShowDialog().Equals( MsgBoxResult.No))
+            msgbox = new messageBoxForm(resources.GetString("exitApp", CultureInfo.CurrentCulture) + " ?", resources.GetString("question", CultureInfo.CurrentCulture), MessageBoxButtons.YesNo, MessageBoxIcon.Question, this.Location.X + this.Width / 2, this.Location.Y + this.Height / 2, enVars);
+            if (msgbox.ShowDialog().Equals(MsgBoxResult.No))
             {
                 e.Cancel = true;
             }
             Application.RemoveMessageFilter((IMessageFilter)this);
         }
-    #endregion
+        #endregion
 
-    #region App main menu
-    private void menuPanel_Click(object sender, int menuPos)
+        #region App main menu
+        private void menuPanel_Click(object sender, int menuPos)
         {
             if (enVars.layoutDesign.menu.items.ElementAt(menuPos).showAsDialog)
             {
@@ -544,10 +535,10 @@ public partial class mainAppLayoutForm : FormCustomized
                 menuBuilder.MenuUpdate(true);
             }
         }
-    #endregion
+        #endregion
 
-    #region Status Message
-    private void UpdateStatusMessageTimer_Tick(object sender, EventArgs e)
+        #region Status Message
+        private void UpdateStatusMessageTimer_Tick(object sender, EventArgs e)
         {
             if (!statusMessage.Equals(statusText.Text))
             {
@@ -580,10 +571,10 @@ public partial class mainAppLayoutForm : FormCustomized
                 }
             }
         }
-    #endregion
+        #endregion
 
-    #region side panel selection clicks
-    private void menuStateUpdateLayout(object sender, bool menuState)
+        #region side panel selection clicks
+        private void menuStateUpdateLayout(object sender, bool menuState)
         {
             foreach (Control ctrl in panelMenuOptions.Controls)
                 ctrl.Visible = false;
@@ -616,7 +607,7 @@ public partial class mainAppLayoutForm : FormCustomized
             }
         }
 
-    private void menuToggleIcon_Click(object sender, EventArgs e)
+        private void menuToggleIcon_Click(object sender, EventArgs e)
         {
             if (menuToggleIcon.Location.X.Equals(5))
             {
@@ -628,10 +619,10 @@ public partial class mainAppLayoutForm : FormCustomized
             }
         }
 
-    #region icon quick settings side panel
-    private bool optionsIsOnpen = false;
+        #region icon quick settings side panel
+        private bool optionsIsOnpen = false;
 
-     private void iconMenuSettings_Click(object sender, EventArgs e)
+        private void iconMenuSettings_Click(object sender, EventArgs e)
         {
             if (optionsIsOnpen)
             {
@@ -662,10 +653,10 @@ public partial class mainAppLayoutForm : FormCustomized
                 openChildForm(panelMenuOptionsContainer, formToLoad);
             }
         }
-    #endregion
-    #endregion
+        #endregion
+        #endregion
 
-    private void panelLateralWrapper_Resize(object sender, EventArgs e)
+        private void panelLateralWrapper_Resize(object sender, EventArgs e)
         {
             // enVars.layoutDesign.menu.menuPanelContainer.Width = panelLeftSide.Width + enVars.layoutDesign.PANEL_SCROOL_UNDERLAY
             // enVars.layoutDesign.menu.menuPanelContainer.Height = panelLeftSide.Height - enVars.layoutDesign.menu.menuPanelContainer.Location.Y
@@ -745,8 +736,8 @@ public partial class mainAppLayoutForm : FormCustomized
 
             var mask = new PictureBox();
             mask.Dock = DockStyle.Fill;
-            mask.Top = Convert.ToInt16 (TopMost);
-            mask.Image = Image.FromFile(enVars.imagesPath + Convert.ToString("noNetwork.png"));
+            mask.Top = Convert.ToInt16(TopMost);
+            mask.Image = Image.FromFile(enVars.imagesPath + enVars.externalFilesToLoad["noNetwork"]);
             mask.SizeMode = PictureBoxSizeMode.CenterImage;
             mask.Parent = panelMain;
             panelMain.Controls.Clear();
@@ -764,39 +755,7 @@ public partial class mainAppLayoutForm : FormCustomized
             }
 
             panelMain.Refresh();
-            return;
-            if (panelMain.Controls.Count > 0)
-            {
-                Control ctrl = null;
-                for (int i = panelMain.Controls.Count - 1; i >= 0; i -= 1)
-                {
-                    ctrl = panelMain.Controls(i);
-                    try
-                    {
-                        // MISSING - BUGS HERE EVEN INSIDE THE TRY BLOCK
-                        panelMain.Controls.Remove(ctrl);
-                    }
-                    catch (Exception ex)
-                    {
-                        statusMessage = "Error unloading form";
-                    }
-                }
-
-                ctrl.Dispose();
-            }
         }
-
-
-        // 'Private Sub sidebarWrapper_Paint(sender As Object, e As TableLayoutCellPaintEventArgs) 'Handles sidebarWrapperContents.Paint
-        // 'Dim TheControl As Control = CType(sender, Control)
-        // 'Dim oRAngle As Rectangle = New Rectangle(0, 0, TheControl.Width, TheControl.Height)
-        // 'Dim oGradientBrush As Brush = New System.Drawing.Drawing2D.LinearGradientBrush(
-        // '                                oRAngle, enVars.colorMainMenu,
-        // '                              enVars.colorMainMenu,
-        // '                            System.Drawing.Drawing2D _
-        // '.LinearGradientMode.ForwardDiagonal)
-        // '  e.Graphics.FillRectangle(oGradientBrush, oRAngle)
-        // 'End Sub
 
         private void wrapper_got_focus(object sender, EventArgs e)
         {
@@ -819,17 +778,17 @@ public partial class mainAppLayoutForm : FormCustomized
 
         private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-
             // load background files from path or web ?
-
-
         }
 
         private void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
             // 'Me.BackgroundImage= 
-
         }
 
+        private void panelLeftSide_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+    }
 }
