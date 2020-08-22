@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Drawing;
 
-namespace AeonLabs.BasicLibraries
-{
     public static class imageManipulationLib
-    {
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        public static Image cropImage(Image sourceImage, Point pos, Size panelSize, Size ClientSize)
+{
+
+#region Crop Image
+    public static Image cropImage(Image sourceImage, Point pos, Size panelSize, Size ClientSize)
         {
             double wRatio = sourceImage.Width / (double)ClientSize.Width;
             double hRatio = sourceImage.Height / (double)ClientSize.Height;
@@ -64,6 +63,5 @@ namespace AeonLabs.BasicLibraries
 
             return bmDest;
         }
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-    }
+#endregion
 }

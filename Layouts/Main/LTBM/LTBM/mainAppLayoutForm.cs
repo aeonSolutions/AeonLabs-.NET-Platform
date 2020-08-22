@@ -8,28 +8,14 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using AeonLabs.Environment;
 using Microsoft.VisualBasic;
+using AeonLabs.BasicLibraries;
+using System.Resources;
+using System.Reflection;
 
-namespace AeonLabs.Layouts.Main
-{
-    public partial class mainAppLayoutForm : FormCustomized
+public partial class mainAppLayoutForm : FormCustomized
     {
-        public mainAppLayoutForm()
-        {
-            bwChangeBackground = new BackgroundWorker();
-            InitializeComponent();
-            _panelBottom.Name = "panelBottom";
-            _statusText.Name = "statusText";
-            _iconMenuSettings.Name = "iconMenuSettings";
-            _menuToggleIcon.Name = "menuToggleIcon";
-            _panelLeftSide.Name = "panelLeftSide";
-            _panelMenuOptionsContainer.Name = "panelMenuOptionsContainer";
-            _panelMenuOptions.Name = "panelMenuOptions";
-            _panelMain.Name = "panelMain";
-            _panelTop.Name = "panelTop";
-        }
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
 
+    #region Constructor
         public mainAppLayoutForm(environmentVarsCore _envars = default)
         {
             bwChangeBackground = new BackgroundWorker();
@@ -80,28 +66,23 @@ namespace AeonLabs.Layouts.Main
                 this.Show();
             }
 
-            _panelBottom.Name = "panelBottom";
-            _statusText.Name = "statusText";
-            _iconMenuSettings.Name = "iconMenuSettings";
-            _menuToggleIcon.Name = "menuToggleIcon";
-            _panelLeftSide.Name = "panelLeftSide";
-            _panelMenuOptionsContainer.Name = "panelMenuOptionsContainer";
-            _panelMenuOptions.Name = "panelMenuOptions";
-            _panelMain.Name = "panelMain";
-            _panelTop.Name = "panelTop";
-        }
+    }
 
-        /* TODO ERROR: Skipped RegionDirectiveTrivia *//* TODO ERROR: Skipped RegionDirectiveTrivia */
-        private void registerConfigurableLayoutControls()
+    #endregion
+
+    #region Register Configurable Layout Controls
+
+    private void registerConfigurableLayoutControls()
         {
             // REGISTER CONFIGURABLE LAYOUT PANELS 
             registeredPanels.Add(panelLeftSide.Name);
             registeredPanels.Add(panelBottom.Name);
             registeredPanels.Add(panelTop.Name);
-        }
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        private void assignControlToAssembly()
+    }
+    #endregion
+
+    #region Assign Controls to Assembly
+    private void assignControlToAssembly()
         {
             if (ENABLE_TESTING_ENVIRONMENT)
             {
@@ -135,36 +116,38 @@ namespace AeonLabs.Layouts.Main
                 return;
             }
         }
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        private const int LATERAL_MENU_OPEN_WIDTH = 400;
+    #endregion
 
-        // AssembliesToLoadAtStart = {({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"})}
-        public readonly object AssembliesToLoadAtStartOLD = new[] { new[] { "", "", "", "" }, new[] { "", "", "", "" }, new[] { "", "", "", "" }, new[] { "", "", "", "" } };
+    #region Constants, Variables and Fields
 
+    #region Layout Settings
+    private const int LATERAL_MENU_OPEN_WIDTH = 400;
+    #endregion
 
+    // AssembliesToLoadAtStart = {({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"})}
+    public readonly object AssembliesToLoadAtStartOLD = new[] { new[] { "", "", "", "" }, new[] { "", "", "", "" }, new[] { "", "", "", "" }, new[] { "", "", "", "" } };
+    #endregion
 
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        private const bool ENABLE_TESTING_ENVIRONMENT = true;
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        public environmentVarsCore.updateMainLayoutDelegate updateMainApp;
+    #region Constants
+    private const bool ENABLE_TESTING_ENVIRONMENT = true;
+    #endregion
 
-        public environmentVarsCore enVars { get; set; } = new environmentVarsCore();
+    #region Public Fields
+    public environmentVarsCore.updateMainLayoutDelegate updateMainApp;
+    public environmentVarsCore enVars { get; set; } = new environmentVarsCore();
         public string statusMessage { get; set; } = "";
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */    // Flag to check if there are loading errors
-        private bool ErrorLoading = false;
-        // panel registered for layout color and background changes
-        private List<string> registeredPanels = new List<string>();
-        private messageBoxForm msgbox;
+    #endregion
 
+    #region Private fields
+    public ResourceManager resources = new ResourceManager(Assembly.GetExecutingAssembly().EntryPoint.DeclaringType.Namespace + ".config.strings", Assembly.GetExecutingAssembly());
+
+    // Flag to check if there are loading errors 
+    private bool ErrorLoading = false;
+    // panel registered for layout color and background changes
+    private List<string> registeredPanels = new List<string>();
+        private messageBoxForm msgbox;
         // menu builder
         private MenuBuilderClass _menuBuilder;
-
         private MenuBuilderClass menuBuilder
         {
             [MethodImpl(MethodImplOptions.Synchronized)]
@@ -178,12 +161,8 @@ namespace AeonLabs.Layouts.Main
             {
                 if (_menuBuilder != null)
                 {
-                    /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-                    /* TODO ERROR: Skipped RegionDirectiveTrivia */
                     _menuBuilder.menuPanelClick -= menuPanel_Click;
                     _menuBuilder.menuNotificationClick -= menuPanelNotifications_click;
-                    /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-                    /* TODO ERROR: Skipped RegionDirectiveTrivia */
                     _menuBuilder.menuStateUpdateLayout -= menuStateUpdateLayout;
                 }
 
@@ -242,9 +221,6 @@ namespace AeonLabs.Layouts.Main
             {
                 if (_UpdateStatusMessageTimer != null)
                 {
-
-                    /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-                    /* TODO ERROR: Skipped RegionDirectiveTrivia */
                     _UpdateStatusMessageTimer.Tick -= UpdateStatusMessageTimer_Tick;
                 }
 
@@ -262,7 +238,6 @@ namespace AeonLabs.Layouts.Main
 
         // CHANGE BACKGROUND IMAGE
         private Timer _ChangeBackgroundTimer;
-
         private Timer ChangeBackgroundTimer
         {
             [MethodImpl(MethodImplOptions.Synchronized)]
@@ -315,9 +290,9 @@ namespace AeonLabs.Layouts.Main
             }
         }
 
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
+    #endregion
 
-        public Form CurrentWrapperForm;
+    public Form CurrentWrapperForm;
         public Form LoadedFrm;
         public bool loaded = false;
         private bool BusyMenuOption = false;
@@ -326,19 +301,21 @@ namespace AeonLabs.Layouts.Main
 
         private int eDelta;
         private int Sensitivity = 20;
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        private void addToolTips()
+
+    #region ToolTips
+
+    private void addToolTips()
         {
             // ADD TOOLTIPS 
             var menuToggleToolTip = new ToolTip();
-            menuToggleToolTip.SetToolTip(menuToggleIcon, My.Resources.strings.MenuToggle);
+            menuToggleToolTip.SetToolTip(menuToggleIcon, resources.GetString("MenuToggle"));
             var settingsToolTip = new ToolTip();
-            settingsToolTip.SetToolTip(iconMenuSettings, My.Resources.strings.settingsToggle);
+            settingsToolTip.SetToolTip(iconMenuSettings, resources.GetString("settingsToggle"));
         }
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        public void updateMainAppLayout(object sender, ref updateMainAppClass updateContents)
+    #endregion
+
+    #region Update Envirnment and Layout
+    public void updateMainAppLayout(object sender, ref updateMainAppClass updateContents)
         {
             enVars = updateContents.envars;
             if (updateContents.updateTask.Equals(updateMainAppClass.UPDATE_LAYOUT))
@@ -414,19 +391,19 @@ namespace AeonLabs.Layouts.Main
                     ctrl.BackgroundImageLayout = ImageLayout.Stretch;
                 }
             }
-        }
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        private void MyForm_FormClosing(object sender, FormClosingEventArgs e)
+    }
+
+
+
+    #endregion
+    
+#region Form events
+
+        private void mainAppLayoutForm_Load(object sender, EventArgs e)
         {
-            Application.RemoveMessageFilter((IMessageFilter)this);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void Form1_shown(object sender, EventArgs e)
+        private void mainAppLayoutForm_shown(object sender, EventArgs e)
         {
             if (ErrorLoading)
             {
@@ -486,7 +463,7 @@ namespace AeonLabs.Layouts.Main
             ResumeLayout();
         }
 
-        private void Form1_Resize(object sender, EventArgs e)
+        private void mainAppLayoutForm_Resize(object sender, EventArgs e)
         {
             if (this.IsDisposed)
             {
@@ -524,7 +501,7 @@ namespace AeonLabs.Layouts.Main
             }
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void mainAppLayoutForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(enVars.currentLang);
             msgbox = new messageBoxForm(My.Resources.strings.exitApp + " ?", My.Resources.strings.question, MessageBoxButtons.YesNo, MessageBoxIcon.Question, this.Location.X + this.Width / 2, this.Location.Y + this.Height / 2, enVars);
@@ -532,110 +509,13 @@ namespace AeonLabs.Layouts.Main
             {
                 e.Cancel = true;
             }
+            Application.RemoveMessageFilter((IMessageFilter)this);
         }
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        private void menuPanelLateral_mouseMove(object sender, MouseEventArgs e)
-        {
-            doLPanelLateralScrool(sender, e);
-        }
+    #endregion
 
-        private void Form1_MouseWheel(object sender, MouseEventArgs e)
-        {
-            return;
-            eDelta = e.Delta;
-            Control ctrlIni = this.GetChildAtPoint(new Point(e.X, e.Y));
-            Panel menuPanel = null;
-            if (ctrlIni is Panel)
-            {
-                Panel ctrl = (Panel)ctrlIni;
-                if (ctrl.Name.Equals("panelLateral"))
-                {
-                    menuPanel = ctrl;
-                }
-                else if (ctrl.Parent.Parent is object)
-                {
-                    if (ctrl.Parent.Parent.Name.Equals("panelLateral"))
-                    {
-                        menuPanel = (Panel)ctrl.Parent;
-                    }
-                }
-            }
 
-            if (ctrlIni is LabelDoubleBuffer)
-            {
-                LabelDoubleBuffer ctrl = (LabelDoubleBuffer)ctrlIni;
-                if (ctrl.Parent.Parent is object)
-                {
-                    if (ctrl.Parent.Parent.Name.Equals("panelLateral"))
-                    {
-                        menuPanel = ctrl.Parent;
-                    }
-                }
-            }
-
-            if (ctrlIni is PictureBox)
-            {
-                PictureBox ctrl = (PictureBox)ctrlIni;
-                if (ctrl.Parent.Parent is object)
-                {
-                    if (ctrl.Parent.Parent.Name.Equals("panelLateral"))
-                    {
-                        menuPanel = (Panel)ctrl.Parent;
-                    }
-                }
-            }
-
-            if (menuPanel is null)
-            {
-                return;
-            }
-
-            if (menuPanel.Name.Equals("panelLateral"))
-            {
-                int vScrollPosition = VScroll; // panelLateral.VerticalScroll.Value
-                vScrollPosition -= Math.Sign(eDelta) * Sensitivity;
-                vScrollPosition = Math.Max(0, vScrollPosition);
-                vScrollPosition = Math.Min(vScrollPosition, enVars.layoutDesign.menu.menuPanelContainer.VerticalScroll.Maximum);
-                if (!vScrollPosition.Equals(enVars.layoutDesign.menu.menuPanelContainer.VerticalScroll.Value))
-                {
-                    enVars.layoutDesign.menu.menuPanelContainer.SuspendLayout();
-                    enVars.layoutDesign.menu.menuPanelContainer.AutoScroll = true;
-                    enVars.layoutDesign.menu.menuPanelContainer.VerticalScroll.Enabled = true;
-                    enVars.layoutDesign.menu.menuPanelContainer.VerticalScroll.Value = vScrollPosition;
-                    enVars.layoutDesign.menu.menuPanelContainer.AutoScrollPosition = new Point(enVars.layoutDesign.menu.menuPanelContainer.AutoScrollPosition.X, vScrollPosition);
-                    enVars.layoutDesign.menu.menuPanelContainer.AutoScroll = false;
-                    enVars.layoutDesign.menu.menuPanelContainer.ResumeLayout();
-                    VScroll = vScrollPosition;
-                }
-
-                statusMessage = "VSCROOL: " + vScrollPosition + "      Previous:" + enVars.layoutDesign.menu.menuPanelContainer.VerticalScroll.Value;
-            }
-        }
-
-        private void doLPanelLateralScrool(object sender, MouseEventArgs e)
-        {
-            if (enVars.layoutDesign.menu.menuPanelContainer.Bounds.Contains(e.Location))
-            {
-                int vScrollPosition = VScroll; // panelLateral.VerticalScroll.Value
-                vScrollPosition -= Math.Sign(e.Delta) * Sensitivity;
-                vScrollPosition = Math.Max(0, vScrollPosition);
-                vScrollPosition = Math.Min(vScrollPosition, enVars.layoutDesign.menu.menuPanelContainer.VerticalScroll.Maximum);
-                if (!vScrollPosition.Equals(enVars.layoutDesign.menu.menuPanelContainer.VerticalScroll.Value))
-                {
-                    enVars.layoutDesign.menu.menuPanelContainer.SuspendLayout();
-                    enVars.layoutDesign.menu.menuPanelContainer.AutoScroll = true;
-                    enVars.layoutDesign.menu.menuPanelContainer.AutoScrollPosition = new Point(enVars.layoutDesign.menu.menuPanelContainer.AutoScrollPosition.X, vScrollPosition);
-                    enVars.layoutDesign.menu.menuPanelContainer.AutoScroll = false;
-                    enVars.layoutDesign.menu.menuPanelContainer.ResumeLayout();
-                    VScroll = vScrollPosition;
-                }
-
-                statusMessage = "VSCROOL: " + vScrollPosition + "      Previous:" + enVars.layoutDesign.menu.menuPanelContainer.VerticalScroll.Value;
-            }
-        }
-
-        private void menuPanel_Click(object sender, int menuPos)
+    #region App main menu
+    private void menuPanel_Click(object sender, int menuPos)
         {
             if (enVars.layoutDesign.menu.items.ElementAt(menuPos).showAsDialog)
             {
@@ -663,8 +543,10 @@ namespace AeonLabs.Layouts.Main
                 menuBuilder.MenuUpdate(true);
             }
         }
+    #endregion
 
-        private void UpdateStatusMessageTimer_Tick(object sender, EventArgs e)
+    #region Status Message
+    private void UpdateStatusMessageTimer_Tick(object sender, EventArgs e)
         {
             if (!statusMessage.Equals(statusText.Text))
             {
@@ -697,8 +579,10 @@ namespace AeonLabs.Layouts.Main
                 }
             }
         }
+    #endregion
 
-        private void menuStateUpdateLayout(object sender, bool menuState)
+    #region side panel selection clicks
+    private void menuStateUpdateLayout(object sender, bool menuState)
         {
             foreach (Control ctrl in panelMenuOptions.Controls)
                 ctrl.Visible = false;
@@ -731,7 +615,7 @@ namespace AeonLabs.Layouts.Main
             }
         }
 
-        private void menuIconPic_Click_1(object sender, EventArgs e)
+    private void menuToggleIcon_Click(object sender, EventArgs e)
         {
             if (menuToggleIcon.Location.X.Equals(5))
             {
@@ -743,10 +627,10 @@ namespace AeonLabs.Layouts.Main
             }
         }
 
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        private bool optionsIsOnpen = false;
+    #region icon quick settings side panel
+    private bool optionsIsOnpen = false;
 
-        private void iconMenuSettings_Click_1(object sender, EventArgs e)
+     private void iconMenuSettings_Click(object sender, EventArgs e)
         {
             if (optionsIsOnpen)
             {
@@ -766,11 +650,11 @@ namespace AeonLabs.Layouts.Main
                 openChildForm(panelMenuOptionsContainer, formToLoad);
             }
         }
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
+    #endregion
 
+    #endregion
 
-        private void panelLateralWrapper_Resize(object sender, EventArgs e)
+    private void panelLateralWrapper_Resize(object sender, EventArgs e)
         {
             // enVars.layoutDesign.menu.menuPanelContainer.Width = panelLeftSide.Width + enVars.layoutDesign.PANEL_SCROOL_UNDERLAY
             // enVars.layoutDesign.menu.menuPanelContainer.Height = panelLeftSide.Height - enVars.layoutDesign.menu.menuPanelContainer.Location.Y
@@ -808,7 +692,7 @@ namespace AeonLabs.Layouts.Main
             targetPanel.Controls.Add(childForm);
             targetPanel.Tag = childForm;
             childForm.BringToFront();
-            childForm.BackgroundImage = cropImage(this.BackgroundImage, targetPanel.Location, targetPanel.Size, this.Size);
+            childForm.BackgroundImage = imageManipulationLib.cropImage(this.BackgroundImage, targetPanel.Location, targetPanel.Size, this.Size);
             childForm.BackgroundImageLayout = ImageLayout.Stretch;
             childForm.Show();
             ResumeLayout();
@@ -850,7 +734,7 @@ namespace AeonLabs.Layouts.Main
 
             var mask = new PictureBox();
             mask.Dock = DockStyle.Fill;
-            mask.Top = TopMost;
+            mask.Top = Convert.ToInt16 (TopMost);
             mask.Image = Image.FromFile(enVars.imagesPath + Convert.ToString("noNetwork.png"));
             mask.SizeMode = PictureBoxSizeMode.CenterImage;
             mask.Parent = panelMain;
@@ -937,12 +821,4 @@ namespace AeonLabs.Layouts.Main
 
         }
 
-        private void statusText_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void panelTop_Paint(object sender, PaintEventArgs e)
-        {
-        }
-    }
 }

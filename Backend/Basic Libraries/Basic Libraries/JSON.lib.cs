@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Web.Script.Serialization;
+using System.Text.Json;
 using Microsoft.VisualBasic.CompilerServices;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace AeonLabs.BasicLibraries
@@ -24,7 +25,7 @@ namespace AeonLabs.BasicLibraries
             var translations = new Dictionary<string, string>();
             try
             {
-                var j = new JavaScriptSerializer().Deserialize<object>(jsonString);
+                var j = JsonConvert.DeserializeObject<object>(jsonString);
                 foreach (KeyValuePair<string, object> entry in (IEnumerable)j)
                     translations.Add(entry.Key, Conversions.ToString(entry.Value));
             }

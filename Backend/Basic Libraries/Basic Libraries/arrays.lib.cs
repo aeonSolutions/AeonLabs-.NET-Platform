@@ -26,7 +26,7 @@ namespace AeonLabs.BasicLibraries
             return -1;
         }
 
-        public static int InArrayInt(Array arr, int needle)
+        public static int InArrayInt( int[] arr, int needle)
         {
             int i;
             if (arr is null)
@@ -37,17 +37,16 @@ namespace AeonLabs.BasicLibraries
             var loopTo = arr.Length - 1;
             for (i = 0; i <= loopTo; i++)
             {
-                if (Conversions.ToBoolean(Operators.ConditionalCompareObjectEqual(arr((object)i), needle, false)))
+                if (Conversions.ToBoolean(Operators.ConditionalCompareObjectEqual(arr[i], needle, false)))
                 {
                     return i;
-                    return default;
                 }
             }
 
             return -1;
         }
 
-        public static int InArray(ref Array arr, string needle, int pos)
+        public static int InArray(ref int[][] arr, string needle, int pos)
         {
             int i;
             if (arr is null)
@@ -58,10 +57,9 @@ namespace AeonLabs.BasicLibraries
             var loopTo = arr.GetLength(0) - 1;
             for (i = 0; i <= loopTo; i++)
             {
-                if (arr(i, pos).ToString().Equals(needle))
+                if (arr[i][pos].ToString().Equals(needle))
                 {
                     return i;
-                    return default;
                 }
             }
 

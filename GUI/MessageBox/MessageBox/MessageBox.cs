@@ -56,4 +56,5 @@ public partial class messageBoxForm : FormCustomized
         msbox.Size = this.ClientSize;
         msbox.Invalidate();
     }
+
 }

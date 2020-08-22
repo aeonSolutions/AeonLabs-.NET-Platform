@@ -9,8 +9,14 @@
    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 </PropertyGroup>
 <ItemGroup>
+  <PackageReference Include="FontAwesome.Sharp" Version="5.14.0" />
+</ItemGroup>
+<ItemGroup>
   <Reference Include="AlphaGradientPanel">
     <HintPath>..\..\..\..\AppsMain\builds\debug\AlphaGradientPanel.dll</HintPath>
+  </Reference>
+  <Reference Include="BasicLibraries">
+    <HintPath>..\..\..\..\AppsMain\builds\debug\BasicLibraries.dll</HintPath>
   </Reference>
   <Reference Include="controls.gui">
     <HintPath>..\..\..\..\AppsMain\builds\debug\controls.gui.dll</HintPath>
@@ -21,8 +27,8 @@
   <Reference Include="EnvironmentAssembly">
     <HintPath>..\..\..\..\AppsMain\builds\debug\EnvironmentAssembly.dll</HintPath>
   </Reference>
-  <Reference Include="FontAwesome.Sharp">
-    <HintPath>..\..\..\..\AppsMain\builds\debug\FontAwesome.Sharp.dll</HintPath>
+  <Reference Include="menuBuilder">
+    <HintPath>..\..\..\..\AppsMain\builds\debug\menuBuilder.dll</HintPath>
   </Reference>
   <Reference Include="MessageBox">
     <HintPath>..\..\..\..\AppsMain\builds\debug\MessageBox.dll</HintPath>

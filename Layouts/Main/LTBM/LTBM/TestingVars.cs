@@ -67,7 +67,7 @@ namespace AeonLabs.Layouts.Main
                 withBlock3.nameSpaceString = "usersProfileForm";
                 withBlock3.showAsDialog = true;
                 withBlock3.icon = "icon.person.png";
-                withBlock3.subMenuIndex = false;
+                withBlock3.subMenuIndex = 0;
                 withBlock3.menuIndex = PROFILE;
             }
 
@@ -120,7 +120,7 @@ namespace AeonLabs.Layouts.Main
                 withBlock6.assemblyFilename = null;
                 withBlock6.formWithContentsToLoad = null;
                 withBlock6.nameSpaceString = "";
-                withBlock6.showAsDialog = null;
+                withBlock6.showAsDialog = false;
                 withBlock6.icon = "";
                 withBlock6.subMenuIndex = subMenuIdx;
                 withBlock6.menuIndex = PROFILE;
@@ -141,7 +141,7 @@ namespace AeonLabs.Layouts.Main
                 withBlock7.nameSpaceString = "usersProfileForm";
                 withBlock7.showAsDialog = true;
                 withBlock7.icon = "icon.person.png";
-                withBlock7.subMenuIndex = false;
+                withBlock7.subMenuIndex = 0;
                 withBlock7.menuIndex = PROFILE2;
             }
 
@@ -194,7 +194,7 @@ namespace AeonLabs.Layouts.Main
                 withBlock10.assemblyFilename = null;
                 withBlock10.formWithContentsToLoad = null;
                 withBlock10.nameSpaceString = "";
-                withBlock10.showAsDialog = null;
+                withBlock10.showAsDialog = false;
                 withBlock10.icon = "";
                 withBlock10.subMenuIndex = subMenuIdx;
                 withBlock10.menuIndex = PROFILE2;
@@ -215,7 +215,7 @@ namespace AeonLabs.Layouts.Main
                 withBlock11.nameSpaceString = "usersProfileForm";
                 withBlock11.showAsDialog = true;
                 withBlock11.icon = "icon.person.png";
-                withBlock11.subMenuIndex = false;
+                withBlock11.subMenuIndex = 0;
                 withBlock11.menuIndex = PROFILE3;
             }
 
@@ -268,7 +268,7 @@ namespace AeonLabs.Layouts.Main
                 withBlock14.assemblyFilename = null;
                 withBlock14.formWithContentsToLoad = null;
                 withBlock14.nameSpaceString = "";
-                withBlock14.showAsDialog = null;
+                withBlock14.showAsDialog = false;
                 withBlock14.icon = "";
                 withBlock14.subMenuIndex = subMenuIdx;
                 withBlock14.menuIndex = PROFILE3;
@@ -288,7 +288,7 @@ namespace AeonLabs.Layouts.Main
                 withBlock15.nameSpaceString = "";
                 withBlock15.showAsDialog = true;
                 withBlock15.icon = "icon.help.png";
-                withBlock15.subMenuIndex = false;
+                withBlock15.subMenuIndex = 0;
                 withBlock15.menuIndex = HELP;
             }
 

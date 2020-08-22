@@ -5,15 +5,19 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
+using System.Resources;
 using System.Windows.Forms;
+using AeonLabs.Environment;
 using FontAwesome.Sharp;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
+using static AeonLabs.Environment.menuEnvironmentVarsClass;
 
-namespace AeonLabs.Layout.Menu.Vertical
-{
-    public class MenuBuilderClass
+
+public class MenuBuilderClass
     {
+        #region Public Vars
         public const int MENU_HORIZONTAL = 100;
         public const int MENU_VERTICAL = 200;
 
@@ -26,11 +30,8 @@ namespace AeonLabs.Layout.Menu.Vertical
         }
 
         public event updateStausMessageEventHandler updateStausMessage;
-
         public delegate void updateStausMessageEventHandler(object sender, string message);
-
         public event menuPanelClickEventHandler menuPanelClick;
-
         public delegate void menuPanelClickEventHandler(object sender, int menuPos);
 
         public event menuPanelMouseOverEventEventHandler menuPanelMouseOverEvent;
@@ -57,7 +58,9 @@ namespace AeonLabs.Layout.Menu.Vertical
             public PanelDoubleBuffer menuPanel;
             public int menuTotalHeight = 0;
         }
+        #endregion
 
+        #region Private vars
         private SizeF sizeOfString = new SizeF();
         private int menuOrientation;
         private environmentVarsCore enVars;
@@ -70,30 +73,36 @@ namespace AeonLabs.Layout.Menu.Vertical
         private Timer previousPanelTimer = new Timer();
         private object entry = "";
 
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        public MenuBuilderClass(Form _mainform, PanelDoubleBuffer _menuPanel, environmentVarsCore _envars, int _menuOrientation)
+        public ResourceManager resources = new ResourceManager(Assembly.GetExecutingAssembly().EntryPoint.DeclaringType.Namespace + ".config.strings", Assembly.GetExecutingAssembly());
+
+    #endregion
+
+    #region constructor
+    public MenuBuilderClass(Form _mainform, PanelDoubleBuffer _menuPanel, environmentVarsCore _envars, int _menuOrientation)
         {
             mainForm = _mainform;
             enVars = _envars;
             menuOrientation = _menuOrientation;
             menuPanel = _menuPanel;
-            if (enVars.layoutDesign.fontTitle.Families.Count < 1)
+            if (enVars.layoutDesign.fontTitle.Families.Count() < 1)
             {
                 Interaction.MsgBox("Font files not loaded properly:" + ToString());
                 return;
             }
 
-            var fontToMeasure = new Font(enVars.layoutDesign.fontTitle.Families(0), enVars.layoutDesign.subMenuTitleFontSize, FontStyle.Regular);
+            var fontToMeasure = new Font(enVars.layoutDesign.fontTitle.Families[0], enVars.layoutDesign.subMenuTitleFontSize, FontStyle.Regular);
             var g = mainForm.CreateGraphics();
             sizeOfString = g.MeasureString("PQWER", fontToMeasure);
             previousPanelTimer.Interval = 300;
             previousPanelTimer.Tick += (_, __) => delayActiveBar();
         }
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
+        #endregion
+
+#region Build Menu
+
         public environmentVarsCore buildMenu()
         {
-            IList<menuItemClass> menuItems = (from s in enVars.layoutDesign.menu.items
+            IList<menuItemClass> menuItems = (IList<menuItemClass>)(from s in enVars.layoutDesign.menu.items
                                               where s.subMenuIndex.Equals(0)
                                               select s).ToList();
             int previousSubMenuItemsCounter = 0;
@@ -120,11 +129,11 @@ namespace AeonLabs.Layout.Menu.Vertical
                     Parent = setup.MenuContainer,
                     BackColor = Color.Transparent // Color.FromArgb(255, CInt(Math.Ceiling(Rnd() * 255)) + 1, CInt(Math.Ceiling(Rnd() * 255)) + 1, CInt(Math.Ceiling(Rnd() * 255)) + 1)
                 };
-                enVars.layoutDesign.menu.items(i).menuListIndex = i;
+                enVars.layoutDesign.menu.items[i].menuListIndex = i;
                 int d = i;
 
                 // build top menu option
-                buildMenu(menuItems[i], 0, i, menuItemsCount);
+                buildMenuOption(menuItems[i], 0, i, menuItemsCount);
                 menuItemsCount += 1;
                 IList<menuItemClass> subMenuItems = (from s in enVars.layoutDesign.menu.items
                                                      where !s.subMenuIndex.Equals(0) & s.menuIndex.Equals(menuItems[d].menuIndex)
@@ -132,16 +141,16 @@ namespace AeonLabs.Layout.Menu.Vertical
                 setup.menuTotalHeight += subMenuItems.Count * enVars.layoutDesign.menu.properties.height;
                 for (int j = 1, loopTo1 = subMenuItems.Count; j <= loopTo1; j++)
                 {
-                    buildMenu(subMenuItems[j - 1], j, i, menuItemsCount);
+                    buildMenuOption(subMenuItems[j - 1], j, i, menuItemsCount);
                     menuItemsCount += 1;
                 }
 
                 previousSubMenuItemsCounter += subMenuItems.Count + 1;
                 menuItems[i].menuWrapperOpenHeight = enVars.layoutDesign.menu.properties.height * subMenuItems.Count + subMenuItems.Count;
-                var index = enVars.layoutDesign.menu.items.FindIndex(c => c.menuUID.Equals(menuItems(d).menuUID));
+                var index = enVars.layoutDesign.menu.items.FindIndex(c => c.menuUID.Equals(menuItems[d].menuUID));
                 setup.menuPanel.Height = (subMenuItems.Count + 1) * enVars.layoutDesign.menu.properties.height;
                 enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperOpenHeight = (subMenuItems.Count + 1) * enVars.layoutDesign.menu.properties.height;
-                enVars.layoutDesign.menu.items(index).menuWrapperPanel = setup.menuPanel;
+                enVars.layoutDesign.menu.items[index].menuWrapperPanel = setup.menuPanel;
                 setup.MenuContainer.Controls.Add(setup.menuPanel);
             }
 
@@ -160,13 +169,14 @@ namespace AeonLabs.Layout.Menu.Vertical
             enVars.layoutDesign.menu.menuPanelContainer = setup.MenuContainer;
             return enVars;
         }
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        private void buildMenu(menuItemClass menuItem, int placeIndex, int firstmenuItemListIndex, int menuItemsCount)
+        #endregion
+
+#region Build Menu Option
+        private void buildMenuOption(menuItemClass menuItem, int placeIndex, int firstmenuItemListIndex, int menuItemsCount)
         {
             int titlePosY = 0;
             int menuPosX = enVars.layoutDesign.menu.properties.ClosedStateSize;
-            int iconSize = enVars.layoutDesign.menu.properties.ClosedStateSize * 0.7;
+            int iconSize = Convert.ToInt16(enVars.layoutDesign.menu.properties.ClosedStateSize * 0.7);
             var subMenuExpandIcon = new IconPictureBox();
             var subMenuIcon = new PictureBox();
             menuItem.iconPicHolder = new List<PictureBox>();
@@ -213,7 +223,7 @@ namespace AeonLabs.Layout.Menu.Vertical
                         {
                             System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(enVars.currentLang);
                             subMenuIcon.Image = Image.FromFile(enVars.imagesPath + Convert.ToString("worker.icon.png"));
-                            updateStausMessage?.Invoke(this, My.Resources.strings.errorDownloadingPhoto);
+                            updateStausMessage?.Invoke(this, resources.GetString("errorDownloadingPhoto"));
                         }
                     }
                 }
@@ -237,7 +247,7 @@ namespace AeonLabs.Layout.Menu.Vertical
                     Cursor = Cursors.Hand,
                     IconChar = IconChar.AngleDown,
                     IconSize = iconSize,
-                    Location = new Point(enVars.layoutDesign.menu.properties.width - enVars.layoutDesign.menu.properties.height, enVars.layoutDesign.menu.properties.height / 2 - (double)iconSize / (double)2),
+                    Location = new Point(enVars.layoutDesign.menu.properties.width - enVars.layoutDesign.menu.properties.height, Convert.ToInt16(enVars.layoutDesign.menu.properties.height / 2 - iconSize / 2)),
                     Name = menuItem.menuUID + "_expandIcon-" + index,
                     Size = new Size(enVars.layoutDesign.menu.properties.height - 6, enVars.layoutDesign.menu.properties.height - 6),
                     Parent = subMenuPanel
@@ -281,7 +291,7 @@ namespace AeonLabs.Layout.Menu.Vertical
             var notif = new LabelDoubleBuffer()
             {
                 Location = new Point(subMenuPanel.Width - enVars.layoutDesign.menu.properties.ClosedStateSize, 5),
-                Font = new Font(enVars.layoutDesign.fontTitle.Families(0), enVars.layoutDesign.subMenuTitleFontSize, FontStyle.Regular),
+                Font = new Font(enVars.layoutDesign.fontTitle.Families[0], enVars.layoutDesign.subMenuTitleFontSize, FontStyle.Regular),
                 Text = "",
                 Parent = subMenuPanel,
                 ForeColor = Color.Orange,
@@ -293,11 +303,11 @@ namespace AeonLabs.Layout.Menu.Vertical
             {
                 if (menuItem.notifications < 10)
                 {
-                    notif.Text = "0" + menuItem.notifications.ToString;
+                    notif.Text = "0" + menuItem.notifications.ToString();
                 }
                 else
                 {
-                    notif.Text = menuItem.notifications.ToString;
+                    notif.Text = menuItem.notifications.ToString();
                 }
             }
 
@@ -309,7 +319,7 @@ namespace AeonLabs.Layout.Menu.Vertical
             {
                 var subtitle = new LabelDoubleBuffer()
                 {
-                    Font = new Font(enVars.layoutDesign.fontTitle.Families(0), enVars.layoutDesign.subMenuTitleFontSize, FontStyle.Regular),
+                    Font = new Font(enVars.layoutDesign.fontTitle.Families[0], enVars.layoutDesign.subMenuTitleFontSize, FontStyle.Regular),
                     Location = new Point(menuPosX, 26),
                     Text = enVars.customization.businessname,
                     Parent = setup.menuPanel,
@@ -324,16 +334,16 @@ namespace AeonLabs.Layout.Menu.Vertical
             }
             else if (placeIndex.Equals(0))
             {
-                titlePosY = (setup.menuPanel.Height - sizeOfString.Height) / 2;
+                titlePosY = Convert.ToInt16((setup.menuPanel.Height - sizeOfString.Height) / 2);
             }
             else
             {
-                titlePosY = (setup.menuPanel.Height - sizeOfString.Height) / 2;
+                titlePosY = Convert.ToInt16 ((setup.menuPanel.Height - sizeOfString.Height) / 2);
             }
 
             var title = new LabelDoubleBuffer()
             {
-                Font = new Font(enVars.layoutDesign.fontTitle.Families(0), enVars.layoutDesign.menuTitleFontSize, FontStyle.Regular),
+                Font = new Font(enVars.layoutDesign.fontTitle.Families[0], enVars.layoutDesign.menuTitleFontSize, FontStyle.Regular),
                 Location = new Point(menuPosX, titlePosY),
                 Text = menuItem.menuTitle.Equals("username") ? enVars.username.Equals("") ? "user" : enVars.username : menuItem.menuTitle,
                 Parent = setup.menuPanel,
@@ -346,15 +356,16 @@ namespace AeonLabs.Layout.Menu.Vertical
             title.Click += menuPanel_Click;
             subMenuPanel.Controls.Add(title);
             setup.menuPanel.Controls.Add(subMenuPanel);
-            enVars.layoutDesign.menu.items(index).menuListIndex = firstmenuItemListIndex;
-            enVars.layoutDesign.menu.items(index).menuItemPanel = subMenuPanel;
-            enVars.layoutDesign.menu.items(index).menuActiveBarPanel = activeBar;
-            enVars.layoutDesign.menu.items(index).iconPicHolder = new List<PictureBox>();
-            enVars.layoutDesign.menu.items(index).iconPicHolder.Add(subMenuIcon);
-            enVars.layoutDesign.menu.items(index).iconPicHolderFontAwesome(1) = subMenuExpandIcon;
+            enVars.layoutDesign.menu.items[index].menuListIndex = firstmenuItemListIndex;
+            enVars.layoutDesign.menu.items[index].menuItemPanel = subMenuPanel;
+            enVars.layoutDesign.menu.items[index].menuActiveBarPanel = activeBar;
+            enVars.layoutDesign.menu.items[index].iconPicHolder = new List<PictureBox>();
+            enVars.layoutDesign.menu.items[index].iconPicHolder.Add(subMenuIcon);
+            enVars.layoutDesign.menu.items[index].iconPicHolderFontAwesome[1] = subMenuExpandIcon;
         }
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
+#endregion region
+
+#region Menu Events
         private void menuPanelToggleActiveBar(object sender, EventArgs e)
         {
             string menukey = "";
@@ -572,8 +583,9 @@ namespace AeonLabs.Layout.Menu.Vertical
         {
             menuNotificationClick?.Invoke(sender, e);
         }
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-        /* TODO ERROR: Skipped RegionDirectiveTrivia */
+#endregion
+
+#region Menu Update
         public void MenuUpdate(bool menuState)
         {
             menuStateUpdateLayout?.Invoke(this, menuState);
@@ -584,17 +596,17 @@ namespace AeonLabs.Layout.Menu.Vertical
             for (int i = 0, loopTo = menuItems.Count - 1; i <= loopTo; i++)
             {
                 int d = i;
-                var index = enVars.layoutDesign.menu.items.FindIndex(c => c.menuUID.Equals(menuItems(d).menuUID));
+                var index = enVars.layoutDesign.menu.items.FindIndex(c => c.menuUID.Equals(menuItems[d].menuUID));
 
                 // 'do opeing / closing of menu
                 if (enVars.layoutDesign.menu.items.ElementAt(index).isOpen)
                 {
-                    enVars.layoutDesign.menu.items.ElementAt(index).iconPicHolderFontAwesome(1).IconChar = IconChar.AngleUp;
+                    enVars.layoutDesign.menu.items.ElementAt(index).iconPicHolderFontAwesome[1].IconChar = IconChar.AngleUp;
                     enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Height = enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperOpenHeight;
                 }
                 else
                 {
-                    enVars.layoutDesign.menu.items.ElementAt(index).iconPicHolderFontAwesome(1).IconChar = IconChar.AngleDown;
+                    enVars.layoutDesign.menu.items.ElementAt(index).iconPicHolderFontAwesome[1].IconChar = IconChar.AngleDown;
                     enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Height = enVars.layoutDesign.menu.properties.height;
                 }
 
@@ -625,6 +637,5 @@ namespace AeonLabs.Layout.Menu.Vertical
             for (int i = 0; i <= loopTo; i++)
                 enVars.layoutDesign.menu.items.ElementAt(i).isOpen = menuState;
         }
-        /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
+#endregion
     }
-}

@@ -30,12 +30,10 @@ namespace AeonLabs.BasicLibraries
             return builder.ToString();
         }
 
-        public static object randomString(object size = 12)
+        public static object randomString(int size = 12)
         {
             RandomKeyGenerator KeyGen;
-            int NumKeys;
-            int i_Keys;
-            string RandomKey;
+
             KeyGen = new RandomKeyGenerator();
             KeyGen.KeyLetters = "abcdefghijklmnopqrstuvwxyz";
             KeyGen.KeyNumbers = "0123456789";

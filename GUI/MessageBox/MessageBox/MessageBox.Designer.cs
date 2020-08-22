@@ -32,35 +32,36 @@ using System.Windows.Forms;
     /// </summary>
     private void InitializeComponent()
         {
-            _ColorWithAlpha1 = new BlueActivity.ColorWithAlpha();
-            SuspendLayout();
+            this._ColorWithAlpha1 = new BlueActivity.ColorWithAlpha();
+            this.SuspendLayout();
             // 
-            // ColorWithAlpha1
+            // _ColorWithAlpha1
             // 
-            _ColorWithAlpha1.Alpha = 50;
-            _ColorWithAlpha1.Color = Color.WhiteSmoke;
-            _ColorWithAlpha1.Parent = null;
+            this._ColorWithAlpha1.Alpha = 50;
+            this._ColorWithAlpha1.Color = System.Drawing.Color.WhiteSmoke;
+            this._ColorWithAlpha1.Parent = null;
             // 
             // messageBoxForm
             // 
-            AutoScaleDimensions = new SizeF(6.0F, 13.0F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Black;
-            BackgroundImageLayout = ImageLayout.None;
-            ClientSize = new Size(400, 156);
-            ControlBox = false;
-            DoubleBuffered = true;
-            FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(2, 2, 2, 2);
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "messageBoxForm";
-            Opacity = 0.5D;
-            ShowIcon = false;
-            ShowInTaskbar = false;
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ClientSize = new System.Drawing.Size(467, 180);
+            this.ControlBox = false;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "messageBoxForm";
+            this.Opacity = 0.5D;
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.TargetOpacity = 1D;
+            this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         private BlueActivity.ColorWithAlpha _ColorWithAlpha1;
