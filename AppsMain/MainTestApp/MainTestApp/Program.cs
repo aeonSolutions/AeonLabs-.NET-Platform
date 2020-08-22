@@ -119,7 +119,6 @@ namespace AeonLabs
             mainForm = Activator.CreateInstance(loadedType, enVars) as FormCustomized;
             // start the main layout
             Application.Run(mainForm);
-
         }
         #endregion
 

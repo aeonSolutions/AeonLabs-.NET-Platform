@@ -12,7 +12,6 @@ public class menuOptions
 
     private ResourceManager rm = new ResourceManager(Assembly.GetExecutingAssembly().EntryPoint.DeclaringType.Namespace + ".config.strings", Assembly.GetExecutingAssembly());
 
-
     public environmentVarsCore Load(environmentVarsCore _enVars)
     {
         enVars = _enVars;
@@ -21,15 +20,13 @@ public class menuOptions
         return enVars;
     }
 
-    /* TODO ERROR: Skipped RegionDirectiveTrivia */
+#region Load Menu Profile
     private void load_profile_menu()
     {
 
         //Assembly assembly = Assembly.GetExecutingAssembly();
         //foreach (string s in assembly.GetManifestResourceNames())
         //    System.Diagnostics.Debug.WriteLine(s);
-
-
 
     var menuItem = new menuItemClass();
         global::System.Int32 subMenuIdx = 0;
@@ -85,8 +82,9 @@ public class menuOptions
         menuItem.tasks.Add(constants.runInternalTask.EXITAPP.ToString() );
         enVars.layoutDesign.menu.items.Add(menuItem);
     }
-    /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-    /* TODO ERROR: Skipped RegionDirectiveTrivia */
+    #endregion
+
+    #region Load Menu Help
     private void load_menu_help()
     {
         global::System.Int32 subMenuIdx = 0;
@@ -128,5 +126,5 @@ public class menuOptions
         menuItem.menuIndex = HELP;
         enVars.layoutDesign.menu.items.Add(menuItem);
     }
-    /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
+#endregion
 }

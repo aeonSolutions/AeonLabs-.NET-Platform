@@ -1,10 +1,10 @@
 ﻿using AeonLabs.Environment;
 using System;
 using System.Drawing;
+using static AeonLabs.Environment.constants;
 using static AeonLabs.Environment.menuEnvironmentVarsClass;
 
-namespace AeonLabs.Layouts.Main
-{
+
     static class TestingVars
     {
         public static environmentVarsCore loadTestingEnvironmentVars(environmentVarsCore envars)
@@ -62,7 +62,7 @@ namespace AeonLabs.Layouts.Main
                 var withBlock3 = menuItem;
                 withBlock3.menuUID = Guid.NewGuid().ToString().Replace("-", "");
                 withBlock3.menuTitle = "Profile";
-                withBlock3.assemblyFilename = "profile.dll";
+                withBlock3.friendlyUID = "profile.dll";
                 withBlock3.formWithContentsToLoad = null;
                 withBlock3.nameSpaceString = "usersProfileForm";
                 withBlock3.showAsDialog = true;
@@ -80,7 +80,7 @@ namespace AeonLabs.Layouts.Main
                 var withBlock4 = menuItem;
                 withBlock4.menuUID = Guid.NewGuid().ToString().Replace("-", "");
                 withBlock4.menuTitle = "Settings";
-                withBlock4.assemblyFilename = "settings.dll";
+                withBlock4.friendlyUID = "settings.dll";
                 withBlock4.formWithContentsToLoad = null;
                 withBlock4.nameSpaceString = "";
                 withBlock4.showAsDialog = true;
@@ -98,14 +98,14 @@ namespace AeonLabs.Layouts.Main
                 var withBlock5 = menuItem;
                 withBlock5.menuUID = Guid.NewGuid().ToString().Replace("-", "");
                 withBlock5.menuTitle = "Logout";
-                withBlock5.assemblyFilename = null;
+                withBlock5.friendlyUID = null;
                 withBlock5.formWithContentsToLoad = null;
                 withBlock5.nameSpaceString = "";
                 withBlock5.showAsDialog = true;
                 withBlock5.icon = "";
                 withBlock5.subMenuIndex = subMenuIdx;
                 withBlock5.menuIndex = PROFILE;
-                withBlock5.tasks.Add(runInternalTask.LOGOUT);
+                withBlock5.tasks.Add(runInternalTask.LOGOUT.ToString());
             }
 
             envars.layoutDesign.menu.items.Add(menuItem);
@@ -117,14 +117,14 @@ namespace AeonLabs.Layouts.Main
                 var withBlock6 = menuItem;
                 withBlock6.menuUID = Guid.NewGuid().ToString().Replace("-", "");
                 withBlock6.menuTitle = "Exit";
-                withBlock6.assemblyFilename = null;
+                withBlock6.friendlyUID = null;
                 withBlock6.formWithContentsToLoad = null;
                 withBlock6.nameSpaceString = "";
                 withBlock6.showAsDialog = false;
                 withBlock6.icon = "";
                 withBlock6.subMenuIndex = subMenuIdx;
                 withBlock6.menuIndex = PROFILE;
-                withBlock6.tasks.Add(runInternalTask.EXITAPP);
+                withBlock6.tasks.Add(runInternalTask.EXITAPP.ToString());
             }
 
             envars.layoutDesign.menu.items.Add(menuItem);
@@ -136,7 +136,7 @@ namespace AeonLabs.Layouts.Main
                 var withBlock7 = menuItem;
                 withBlock7.menuUID = Guid.NewGuid().ToString().Replace("-", "");
                 withBlock7.menuTitle = "Profile";
-                withBlock7.assemblyFilename = "profile.dll";
+                withBlock7.friendlyUID = "profile.dll";
                 withBlock7.formWithContentsToLoad = null;
                 withBlock7.nameSpaceString = "usersProfileForm";
                 withBlock7.showAsDialog = true;
@@ -154,7 +154,7 @@ namespace AeonLabs.Layouts.Main
                 var withBlock8 = menuItem;
                 withBlock8.menuUID = Guid.NewGuid().ToString().Replace("-", "");
                 withBlock8.menuTitle = "Settings";
-                withBlock8.assemblyFilename = "settings.dll";
+                withBlock8.friendlyUID = "settings.dll";
                 withBlock8.formWithContentsToLoad = null;
                 withBlock8.nameSpaceString = "";
                 withBlock8.showAsDialog = true;
@@ -172,14 +172,14 @@ namespace AeonLabs.Layouts.Main
                 var withBlock9 = menuItem;
                 withBlock9.menuUID = Guid.NewGuid().ToString().Replace("-", "");
                 withBlock9.menuTitle = "Logout";
-                withBlock9.assemblyFilename = null;
+                withBlock9.friendlyUID = null;
                 withBlock9.formWithContentsToLoad = null;
                 withBlock9.nameSpaceString = "";
                 withBlock9.showAsDialog = true;
                 withBlock9.icon = "";
                 withBlock9.subMenuIndex = subMenuIdx;
                 withBlock9.menuIndex = PROFILE2;
-                withBlock9.tasks.Add(runInternalTask.LOGOUT);
+                withBlock9.tasks.Add(runInternalTask.LOGOUT.ToString());
             }
 
             envars.layoutDesign.menu.items.Add(menuItem);
@@ -191,14 +191,14 @@ namespace AeonLabs.Layouts.Main
                 var withBlock10 = menuItem;
                 withBlock10.menuUID = Guid.NewGuid().ToString().Replace("-", "");
                 withBlock10.menuTitle = "Exit";
-                withBlock10.assemblyFilename = null;
+                withBlock10.friendlyUID = null;
                 withBlock10.formWithContentsToLoad = null;
                 withBlock10.nameSpaceString = "";
                 withBlock10.showAsDialog = false;
                 withBlock10.icon = "";
                 withBlock10.subMenuIndex = subMenuIdx;
                 withBlock10.menuIndex = PROFILE2;
-                withBlock10.tasks.Add(runInternalTask.EXITAPP);
+                withBlock10.tasks.Add(runInternalTask.EXITAPP.ToString());
             }
 
             envars.layoutDesign.menu.items.Add(menuItem);
@@ -210,7 +210,7 @@ namespace AeonLabs.Layouts.Main
                 var withBlock11 = menuItem;
                 withBlock11.menuUID = Guid.NewGuid().ToString().Replace("-", "");
                 withBlock11.menuTitle = "Profile";
-                withBlock11.assemblyFilename = "profile.dll";
+                withBlock11.friendlyUID = "profile.dll";
                 withBlock11.formWithContentsToLoad = null;
                 withBlock11.nameSpaceString = "usersProfileForm";
                 withBlock11.showAsDialog = true;
@@ -228,7 +228,7 @@ namespace AeonLabs.Layouts.Main
                 var withBlock12 = menuItem;
                 withBlock12.menuUID = Guid.NewGuid().ToString().Replace("-", "");
                 withBlock12.menuTitle = "Settings";
-                withBlock12.assemblyFilename = "settings.dll";
+                withBlock12.friendlyUID = "settings.dll";
                 withBlock12.formWithContentsToLoad = null;
                 withBlock12.nameSpaceString = "";
                 withBlock12.showAsDialog = true;
@@ -246,14 +246,14 @@ namespace AeonLabs.Layouts.Main
                 var withBlock13 = menuItem;
                 withBlock13.menuUID = Guid.NewGuid().ToString().Replace("-", "");
                 withBlock13.menuTitle = "Logout";
-                withBlock13.assemblyFilename = null;
+                withBlock13.friendlyUID = null;
                 withBlock13.formWithContentsToLoad = null;
                 withBlock13.nameSpaceString = "";
                 withBlock13.showAsDialog = true;
                 withBlock13.icon = "";
                 withBlock13.subMenuIndex = subMenuIdx;
                 withBlock13.menuIndex = PROFILE3;
-                withBlock13.tasks.Add(runInternalTask.LOGOUT);
+                withBlock13.tasks.Add(runInternalTask.LOGOUT.ToString());
             }
 
             envars.layoutDesign.menu.items.Add(menuItem);
@@ -265,14 +265,14 @@ namespace AeonLabs.Layouts.Main
                 var withBlock14 = menuItem;
                 withBlock14.menuUID = Guid.NewGuid().ToString().Replace("-", "");
                 withBlock14.menuTitle = "Exit";
-                withBlock14.assemblyFilename = null;
+                withBlock14.friendlyUID = null;
                 withBlock14.formWithContentsToLoad = null;
                 withBlock14.nameSpaceString = "";
                 withBlock14.showAsDialog = false;
                 withBlock14.icon = "";
                 withBlock14.subMenuIndex = subMenuIdx;
                 withBlock14.menuIndex = PROFILE3;
-                withBlock14.tasks.Add(runInternalTask.EXITAPP);
+                withBlock14.tasks.Add(runInternalTask.EXITAPP.ToString());
             }
 
             envars.layoutDesign.menu.items.Add(menuItem);
@@ -283,7 +283,7 @@ namespace AeonLabs.Layouts.Main
                 var withBlock15 = menuItem;
                 withBlock15.menuUID = Guid.NewGuid().ToString().Replace("-", "");
                 withBlock15.menuTitle = "Help";
-                withBlock15.assemblyFilename = null;
+                withBlock15.friendlyUID = null;
                 withBlock15.formWithContentsToLoad = null;
                 withBlock15.nameSpaceString = "";
                 withBlock15.showAsDialog = true;
@@ -301,7 +301,7 @@ namespace AeonLabs.Layouts.Main
                 var withBlock16 = menuItem;
                 withBlock16.menuUID = Guid.NewGuid().ToString().Replace("-", "");
                 withBlock16.menuTitle = "Update";
-                withBlock16.assemblyFilename = "update.dll";
+                withBlock16.friendlyUID = "update.dll";
                 withBlock16.formWithContentsToLoad = null;
                 withBlock16.nameSpaceString = "";
                 withBlock16.showAsDialog = true;
@@ -317,7 +317,7 @@ namespace AeonLabs.Layouts.Main
             subMenuIdx += 1;
             menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
             menuItem.menuTitle = "About";
-            menuItem.assemblyFilename = "about.dll";
+            menuItem.friendlyUID = "about.dll";
             menuItem.formWithContentsToLoad = null;
             menuItem.nameSpaceString = "";
             menuItem.showAsDialog = true;
@@ -328,4 +328,3 @@ namespace AeonLabs.Layouts.Main
             return envars;
         }
     }
-}

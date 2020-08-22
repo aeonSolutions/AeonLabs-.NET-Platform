@@ -18,12 +18,16 @@ namespace AeonLabs.Environment
         public bool deleteOnExit;
 
         public string spaceName { get; set; }
+        public string defaultClassName { get; set; }
+        public string assemblyFileName { get; set; }
+
         public string friendlyUID { get; set; }
         public string UID { get; set; }
-        public Type AssemblyObject { get; set; }
-        public string assemblyFileName { get; set; }
+        
+        public Type AssemblyObject { get; set; }        
         public FormCustomized assemblyFormToLoad { get; set; }
         public string assemblyFormName { get; set; }
+ 
         public int minWidth { get; set; }
         public int minHeight { get; set; }
         public int positionX { get; set; }
@@ -57,6 +61,19 @@ namespace AeonLabs.Environment
 
         public string errorMessage {get; set;}
 
+        #region load object from assembly - friendly
+        public Type friendlyLoadTypeObjectFromAssembly(string friendlyName, string layoutNameSpace="", string classNameToLoad="") {
+            if (layoutNameSpace.Equals("")) {
+                layoutNameSpace = enVars.assemblies[friendlyName].spaceName;
+            }
+            if (classNameToLoad.Equals(""))
+            {
+                classNameToLoad = enVars.assemblies[friendlyName].defaultClassName;
+            }
+
+            return LoadObjectTypeFromAssembly(enVars.assemblies[friendlyName].assemblyFileName, layoutNameSpace, classNameToLoad);
+        }
+        #endregion
 
         #region load Object from assembly
         public Type LoadObjectTypeFromAssembly(string layoutFilename, string layoutNameSpace, string classNameToLoad)

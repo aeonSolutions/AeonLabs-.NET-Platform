@@ -1,36 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using AeonLabs.Environment;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace AeonLabs.Layouts.Main
-{
+
     public class initializeAssembly
     {
-        public static Dictionary<string, Dictionary<string, environmentLoadedAssembliesClass>> AssembliesToLoadAtStart()
+        public static Dictionary<string, environmentAssembliesClass> AssembliesToLoadAtStart()
         {
-            var returnAssemblies = new Dictionary<string, Dictionary<string, environmentLoadedAssembliesClass>>();
-            Dictionary<string, environmentLoadedAssembliesClass> assembliesTypes;
-            environmentLoadedAssembliesClass assemblyDetails;
-            string fileName;
-            string formName;
+            var returnAssemblies = new Dictionary<string, environmentAssembliesClass>();
 
-            // Add assembly
-            assembliesTypes = new Dictionary<string, environmentLoadedAssembliesClass>();
-            assemblyDetails = new environmentLoadedAssembliesClass();
-            fileName = "settings.layout.widget.dll";
-            formName = "lateralSettingsForm";
-            assemblyDetails.assemblyFormName = formName;
-            assemblyDetails.spaceName = "AeonLabs.PlugIns.SideBar.Settings";
-            assemblyDetails.UID = "NPmPqPuuqlwPL6swalnnMSqKGCp6MTr9";
-            assemblyDetails.positionX = null; // Nothing for default posX
-            assemblyDetails.positionY = null; // Nothing for default poxY
-            assemblyDetails.anchor = AnchorStyles.Left | AnchorStyles.Top;
-            assemblyDetails.control = null;
-            assembliesTypes.Add(formName, assemblyDetails);
-            returnAssemblies.Add(fileName, assembliesTypes);
-            // end of add assembly
+            // SIDEBAR SETTINGS
+            var assItem = new environmentAssembliesClass();
+            assItem.assemblyFileName = "settings.layout.widget.dll";
+            assItem.friendlyUID = "sideBarSettings";
+            assItem.assemblyFormName = "lateralSettingsForm";
+            assItem.assemblyFormToLoad = default;
+            assItem.AssemblyObject = default;
+            assItem.spaceName = "AeonLabs.PlugIns.SideBar.Settings";
+            assItem.UID = "NPmPqPuuqlwPL6swalnnMSqKGCp6MTr9";
+            assItem.positionX = default; // Nothing for default posX
+            assItem.positionY = default; // Nothing for default poxY
+            assItem.anchor = AnchorStyles.Left | AnchorStyles.Top;
+            assItem.control = null;
+            returnAssemblies.Add(assItem.friendlyUID, assItem);
 
             // RETURN ASSEMBLIES DICT list
             return returnAssemblies;
         }
     }
-}
