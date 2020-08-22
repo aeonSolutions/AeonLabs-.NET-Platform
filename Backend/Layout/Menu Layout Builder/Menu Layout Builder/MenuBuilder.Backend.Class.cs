@@ -72,14 +72,15 @@ public class MenuBuilderClass
         private Control previousPanelToToggle = null;
         private Timer previousPanelTimer = new Timer();
         private object entry = "";
-
-        public ResourceManager resources = new ResourceManager(Assembly.GetExecutingAssembly().EntryPoint.DeclaringType.Namespace + ".config.strings", Assembly.GetExecutingAssembly());
+        private ResourceManager resources;
 
     #endregion
 
     #region constructor
     public MenuBuilderClass(Form _mainform, PanelDoubleBuffer _menuPanel, environmentVarsCore _envars, int _menuOrientation)
         {
+            resources = new ResourceManager(GetType().Namespace + ".config.strings", Assembly.GetExecutingAssembly());
+
             mainForm = _mainform;
             enVars = _envars;
             menuOrientation = _menuOrientation;

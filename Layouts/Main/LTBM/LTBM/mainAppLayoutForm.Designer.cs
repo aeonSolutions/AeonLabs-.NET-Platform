@@ -169,6 +169,7 @@ namespace AeonLabs.Layouts.Main
             this.menuToggleIcon.Size = new System.Drawing.Size(32, 32);
             this.menuToggleIcon.TabIndex = 0;
             this.menuToggleIcon.TabStop = false;
+            this.menuToggleIcon.Click += new System.EventHandler(this.menuToggleIcon_Click_1);
             // 
             // panelMain
             // 
@@ -231,6 +232,10 @@ namespace AeonLabs.Layouts.Main
             this.panelLeftSide.ResumeLayout(false);
             this.panelMenuOptions.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.menuToggleIcon)).EndInit();
+            this.Load += mainAppLayoutForm_Load;
+            this.Resize += mainAppLayoutForm_Resize;
+            this.Shown += mainAppLayoutForm_shown;
+            this.FormClosing += mainAppLayoutForm_FormClosing;
             this.ResumeLayout(false);
 
         }

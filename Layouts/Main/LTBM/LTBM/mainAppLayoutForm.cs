@@ -265,8 +265,7 @@ namespace AeonLabs.Layouts.Main
 
             enVars.layoutDesign.menu.properties.ClosedStateSize = LATERAL_MENU_OPEN_WIDTH;
 
-            string resxFile = @".\config\strings.resx";
-            ResXResourceSet resources = new ResXResourceSet(resxFile);
+            resources = new ResourceManager(GetType().Namespace + ".config.strings", Assembly.GetExecutingAssembly());
 
             // ASSIGN ASSEMBLIES TO PANELS
             assignControlToAssembly();
@@ -595,8 +594,9 @@ namespace AeonLabs.Layouts.Main
             panelMenuOptions.Refresh();
         }
 
-        private void panelLateral_Click(object sender, EventArgs e)
+        private void panelLeftSide_Paint(object sender, PaintEventArgs e)
         {
+            if (menuBuilder is null) return;
             if (panelLeftSide.Width.Equals(enVars.layoutDesign.MENU_OPEN_STATE)) // ' is open 
             {
                 menuBuilder.MenuUpdate(false);
@@ -607,7 +607,7 @@ namespace AeonLabs.Layouts.Main
             }
         }
 
-        private void menuToggleIcon_Click(object sender, EventArgs e)
+        private void menuToggleIcon_Click_1(object sender, EventArgs e)
         {
             if (menuToggleIcon.Location.X.Equals(5))
             {
@@ -786,9 +786,6 @@ namespace AeonLabs.Layouts.Main
             // 'Me.BackgroundImage= 
         }
 
-        private void panelLeftSide_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
     }
 }
