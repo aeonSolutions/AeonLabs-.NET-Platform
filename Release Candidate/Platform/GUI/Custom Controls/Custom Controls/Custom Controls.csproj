@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>AeonLabs.Layout.Controls</RootNamespace>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>controls.gui</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>H:\DiskContents\Software\Code\AeonLabs Platform\Windows .NetCore\Platform\AppsMain\builds\release\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>H:\DiskContents\Software\Code\AeonLabs Platform\Windows .NetCore\Platform\AppsMain\builds\debug\</OutputPath>
+  </PropertyGroup>
+
+<PropertyGroup>
+<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+</PropertyGroup>
+</Project>

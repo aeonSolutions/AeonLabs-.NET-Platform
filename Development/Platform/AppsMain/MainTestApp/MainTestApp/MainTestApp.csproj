@@ -1,0 +1,92 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>AeonLabs</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>H:\DiskContents\Software\Code\AeonLabs Platform\Windows .NetCore\Platform\AppsMain\builds\debug\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>H:\DiskContents\Software\Code\AeonLabs Platform\Windows .NetCore\Platform\AppsMain\builds\release\</OutputPath>
+  </PropertyGroup>
+<PropertyGroup>            
+   <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+</PropertyGroup>
+
+<PropertyGroup>            
+   <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+</PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="WinFormAnimation" Version="1.6.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Backend\Environment\environmentCore\environmentCore\environmentCore.csproj" />
+    <ProjectReference Include="..\..\..\Layouts\Main\LTBM\LTBM\LTBM.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CircularProgressBar">
+      <HintPath>..\..\builds\debug\CircularProgressBar.dll</HintPath>
+    </Reference>
+    <Reference Include="controls.gui">
+      <HintPath>..\..\builds\debug\controls.gui.dll</HintPath>
+    </Reference>
+    <Reference Include="EnvironmentAssembly">
+      <HintPath>..\..\builds\debug\EnvironmentAssembly.dll</HintPath>
+    </Reference>
+    <Reference Include="EnvironmentLoading">
+      <HintPath>..\..\builds\debug\EnvironmentLoading.dll</HintPath>
+    </Reference>
+    <Reference Include="management">
+      <HintPath>..\..\builds\debug\management.dll</HintPath>
+    </Reference>
+    <Reference Include="MessageBox">
+      <HintPath>..\..\builds\debug\MessageBox.dll</HintPath>
+    </Reference>
+    <Reference Include="Network">
+      <HintPath>..\..\builds\debug\Network.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="config\apiTasks.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>apiTasks.resx</DependentUpon>
+    </Compile>
+    <Compile Update="config\strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>strings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="config\apiTasks.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>apiTasks.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="config\strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
