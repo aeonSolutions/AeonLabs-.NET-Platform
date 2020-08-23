@@ -120,7 +120,9 @@ namespace AeonLabs
             }
             //mainForm = Activator.CreateInstance(loadedType, enVars) as FormCustomized;
             // start the main layout
-            Application.Run(new mainAppLayoutForm(enVars));
+            mainAppLayoutForm mainForm2 = new mainAppLayoutForm(enVars);
+            enVars.assemblies = initializeAssembly.AssembliesToLoadAtStart();
+            Application.Run(mainForm2);
         }
         #endregion
 

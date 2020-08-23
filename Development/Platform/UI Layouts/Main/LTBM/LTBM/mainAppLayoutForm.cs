@@ -5,10 +5,8 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using AeonLabs.Environment;
 using Microsoft.VisualBasic;
-using AeonLabs.BasicLibraries;
 using System.Resources;
 using System.Reflection;
 using System.Globalization;
@@ -56,6 +54,7 @@ namespace AeonLabs.Layouts.Main
         #region Layout Settings
         private const int LATERAL_MENU_OPEN_WIDTH = 400;
         #endregion
+        public initializeAssembly initializeAssembly = new initializeAssembly();
 
         // AssembliesToLoadAtStart = {({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"})}
         public readonly object AssembliesToLoadAtStartOLD = new[] { new[] { "", "", "", "" }, new[] { "", "", "", "" }, new[] { "", "", "", "" }, new[] { "", "", "", "" } };
@@ -502,8 +501,12 @@ namespace AeonLabs.Layouts.Main
             if (msgbox.ShowDialog().Equals(MsgBoxResult.No))
             {
                 e.Cancel = true;
+                return;
             }
-            Application.RemoveMessageFilter((IMessageFilter)this);
+            else
+            {
+                Application.RemoveMessageFilter((IMessageFilter)this);
+            }
         }
         #endregion
 
@@ -630,6 +633,7 @@ namespace AeonLabs.Layouts.Main
                 if (!Information.IsNothing(currentForm))
                 {
                     currentForm.Close();
+                    AssembliesManager.unload("sideBarSettings");
                 }
 
                 panelMenuOptionsContainer.Height = 0;
@@ -644,11 +648,11 @@ namespace AeonLabs.Layouts.Main
                 loadedType = AssembliesManager.friendlyLoadTypeObjectFromAssembly("sideBarSettings");
                 if (loadedType is null)
                 {
-                    msgbox = new messageBoxForm(resources.GetString("exitApp", CultureInfo.CurrentCulture) + " ?", resources.GetString("question", CultureInfo.CurrentCulture), MessageBoxButtons.YesNo, MessageBoxIcon.Question, this.Location.X + this.Width / 2, this.Location.Y + this.Height / 2, enVars);
+                    msgbox = new messageBoxForm(resources.GetString("errorPlugIn", CultureInfo.CurrentCulture) + " ! \n\r" + AssembliesManager.errorMessage, resources.GetString("exclamation", CultureInfo.CurrentCulture), MessageBoxButtons.OK, MessageBoxIcon.Exclamation, this.Location.X + this.Width / 2, this.Location.Y + this.Height / 2, enVars);
                     msgbox.ShowDialog();
                     return;
                 }
-                formToLoad = Activator.CreateInstance(loadedType, enVars) as FormCustomized;
+                formToLoad = Activator.CreateInstance(loadedType, enVars, updateMainApp) as FormCustomized;
                 panelMenuOptionsContainer.Height = formToLoad.Height;
                 openChildForm(panelMenuOptionsContainer, formToLoad);
             }

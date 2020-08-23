@@ -6,7 +6,8 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 <PropertyGroup>            
-   <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+   <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>            
+   <RootNamespace>XComponent.SliderBar</RootNamespace>
 </PropertyGroup>
 <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
   <OutputPath>..\..\..\..\AppsMain\builds\debug\</OutputPath>

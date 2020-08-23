@@ -112,16 +112,22 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="errorDataFileNotFound" xml:space="preserve">
     <value>DataFile not found</value>
   </data>
   <data name="errorDownloadingPhoto" xml:space="preserve">
     <value>Error downloading photo</value>
+  </data>
+  <data name="errorPlugIn" xml:space="preserve">
+    <value>error loading plugIn</value>
+  </data>
+  <data name="exclamation" xml:space="preserve">
+    <value>Exclamation</value>
   </data>
   <data name="exitApp" xml:space="preserve">
     <value>Are you sure you want to exit</value>

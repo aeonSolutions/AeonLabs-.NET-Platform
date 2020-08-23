@@ -43,7 +43,8 @@ namespace AeonLabs.PlugIns.SideBar.Settings
             this.selectBackGroundImage = new FontAwesome.Sharp.IconPictureBox();
             this.selectPanelBackColor = new FontAwesome.Sharp.IconPictureBox();
             this.panelForm = new PanelDoubleBuffer();
-            this.trackBar = new System.Windows.Forms.TrackBar();
+            this.trackBar = new TrackBarTransparent();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.selectBackGroundImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.selectPanelBackColor)).BeginInit();
             this.panelForm.SuspendLayout();
@@ -58,12 +59,13 @@ namespace AeonLabs.PlugIns.SideBar.Settings
             this.selectBackGroundImage.IconChar = FontAwesome.Sharp.IconChar.FirefoxBrowser;
             this.selectBackGroundImage.IconColor = System.Drawing.Color.White;
             this.selectBackGroundImage.IconSize = 23;
-            this.selectBackGroundImage.Location = new System.Drawing.Point(53, 50);
+            this.selectBackGroundImage.Location = new System.Drawing.Point(53, 85);
             this.selectBackGroundImage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.selectBackGroundImage.Name = "selectBackGroundImage";
             this.selectBackGroundImage.Size = new System.Drawing.Size(23, 23);
             this.selectBackGroundImage.TabIndex = 3;
             this.selectBackGroundImage.TabStop = false;
+            this.selectBackGroundImage.Click += new System.EventHandler(this.selectBackGroundImage_Click_1);
             // 
             // selectPanelBackColor
             // 
@@ -73,12 +75,13 @@ namespace AeonLabs.PlugIns.SideBar.Settings
             this.selectPanelBackColor.IconChar = FontAwesome.Sharp.IconChar.Faucet;
             this.selectPanelBackColor.IconColor = System.Drawing.Color.White;
             this.selectPanelBackColor.IconSize = 23;
-            this.selectPanelBackColor.Location = new System.Drawing.Point(13, 50);
+            this.selectPanelBackColor.Location = new System.Drawing.Point(13, 85);
             this.selectPanelBackColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.selectPanelBackColor.Name = "selectPanelBackColor";
             this.selectPanelBackColor.Size = new System.Drawing.Size(23, 23);
             this.selectPanelBackColor.TabIndex = 2;
             this.selectPanelBackColor.TabStop = false;
+            this.selectPanelBackColor.Click += new System.EventHandler(this.selectPanelBackColor_Click_1);
             // 
             // panelForm
             // 
@@ -97,18 +100,24 @@ namespace AeonLabs.PlugIns.SideBar.Settings
             this.panelForm.SB_VERT = 0;
             this.panelForm.ShowHorizontalScrolBar = false;
             this.panelForm.ShowVerticalScrolBar = false;
-            this.panelForm.Size = new System.Drawing.Size(467, 85);
+            this.panelForm.Size = new System.Drawing.Size(467, 120);
             this.panelForm.TabIndex = 356;
             // 
             // trackBar
             // 
+            this.trackBar.BackColor = System.Drawing.Color.Transparent;
             this.trackBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.trackBar.Location = new System.Drawing.Point(0, 0);
+            this.trackBar.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.trackBar.Maximum = 100;
             this.trackBar.Name = "trackBar";
             this.trackBar.Size = new System.Drawing.Size(467, 45);
             this.trackBar.TabIndex = 4;
             this.trackBar.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // lateralSettingsForm
             // 
@@ -116,7 +125,7 @@ namespace AeonLabs.PlugIns.SideBar.Settings
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(467, 85);
+            this.ClientSize = new System.Drawing.Size(467, 120);
             this.ControlBox = false;
             this.Controls.Add(this.panelForm);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -145,6 +154,7 @@ namespace AeonLabs.PlugIns.SideBar.Settings
         private FontAwesome.Sharp.IconPictureBox selectBackGroundImage;
         private ToolTip ToolTips;
         private PanelDoubleBuffer panelForm;
-        private TrackBar trackBar;
+        private TrackBarTransparent trackBar;
+        private OpenFileDialog openFileDialog1;
     }
 }

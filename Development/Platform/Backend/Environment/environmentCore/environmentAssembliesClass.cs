@@ -46,7 +46,20 @@ namespace AeonLabs.Environment
     }
 
     public class EnvironmentAssembliesLoadClass {
+        public class CollectibleAssemblyLoadContext : AssemblyLoadContext
+        {
+            public CollectibleAssemblyLoadContext() : base(isCollectible: true)
+            { }
 
+            protected override Assembly Load(AssemblyName assemblyName)
+            {
+                return null;
+            }
+        }
+
+
+        public Dictionary<string, CollectibleAssemblyLoadContext> context = new Dictionary<string, CollectibleAssemblyLoadContext>();
+        
         public Dictionary<string, Environment.environmentAssembliesClass> getAssemblies { get; set; }
 
         private Dictionary<string, Environment.environmentAssembliesClass> enVarsAssemblies;
@@ -87,15 +100,16 @@ namespace AeonLabs.Environment
             }
             if (classNameToLoad.Equals(""))
             {
-                classNameToLoad = enVars.assemblies[friendlyName].defaultClassName;
+                classNameToLoad = enVars.assemblies[friendlyName].assemblyFormName;
             }
 
-            return LoadObjectTypeFromAssembly(enVars.assemblies[friendlyName].assemblyFileName, layoutNameSpace, classNameToLoad);
+            return LoadObjectTypeFromAssembly(enVars.assemblies[friendlyName].assemblyFileName, layoutNameSpace, classNameToLoad, friendlyName);
         }
         #endregion
 
         #region load Object from assembly
-        public Type LoadObjectTypeFromAssembly(string layoutFilename, string layoutNameSpace, string classNameToLoad)
+        
+        public Type LoadObjectTypeFromAssembly(string layoutFilename, string layoutNameSpace, string classNameToLoad, string friendlyName="")
         {
             Type typeToLoad = default;
             FileInfo layoutFile;
@@ -114,12 +128,15 @@ namespace AeonLabs.Environment
                 return null;
             }
 
+            if (friendlyName.Equals("")) {
+                friendlyName = classNameToLoad;
+            }
 
             try
             {
                 System.Reflection.Assembly assemblyRaw = System.Reflection.Assembly.LoadFrom(enVars.libraryPath + layoutFilename);
-                AssemblyLoadContext context = AssemblyLoadContext.Default;
-                System.Reflection.Assembly assembly = context.LoadFromAssemblyPath(enVars.libraryPath + layoutFilename);
+                context.Add(friendlyName, new CollectibleAssemblyLoadContext());
+                System.Reflection.Assembly assembly = context[friendlyName].LoadFromAssemblyPath(enVars.libraryPath + layoutFilename);
 
                 // check if assembly has assemblies to load
                 Type typeMainLayoutIni = assembly.GetType(layoutNameSpace + ".initializeAssembly");
@@ -137,9 +154,8 @@ namespace AeonLabs.Environment
                 string t = "";
                 foreach (Type type in assembly.GetTypes())
                 {
-                    t+=type.FullName + "       ";
+                    t+=type.FullName + " >> ";
                 }
-
                 typeToLoad = assembly.GetType(layoutNameSpace + "." + classNameToLoad);
                 if (typeToLoad is null) {
                     errorMessage = "Class not found or invalid namespace";
@@ -154,6 +170,31 @@ namespace AeonLabs.Environment
             return typeToLoad;
         }
         #endregion
+
+        #region unload assembly
+        public bool unload(string friendlyName) {
+            context[friendlyName].Unload();
+            RunGarbageCollection();
+            context.Remove(friendlyName);
+            return true;
+        }
+        #endregion
+
+        #region run garbage collection
+        public static void RunGarbageCollection()
+        {
+            try
+            {
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
+            catch (System.Exception)
+            {
+                //sometimes GC.Collet/WaitForPendingFinalizers crashes, just ignore for this blog post
+            }
+        }
+        #endregion
+
     }
 
 }

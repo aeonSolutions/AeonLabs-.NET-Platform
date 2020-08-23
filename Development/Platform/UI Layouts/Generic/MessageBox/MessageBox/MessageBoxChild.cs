@@ -9,11 +9,6 @@ namespace AeonLabs.Layouts.Dialogs
 {
     public partial class MessageBoxChild : FormCustomized
     {
-        public MessageBoxChild()
-        {
-            base.Load += message_box_frm_load;
-            base.Shown += message_box_frm_show;
-        }
 
         public MessageBoxChild(global::System.String _message, global::System.String _title, MessageBoxButtons _buttons, MessageBoxIcon _icon, global::System.Int32 posx = -1, global::System.Int32 posy = -1, AeonLabs.Environment.environmentVarsCore _state = default)
         {
@@ -180,29 +175,9 @@ namespace AeonLabs.Layouts.Dialogs
         {
         }
 
-        private void cancelBtn_Click(global::System.Object sender, EventArgs e)
-        {
-            if (buttons.Equals(MessageBoxButtons.OK))
-            {
-                this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            }
-            else if (buttons.Equals(MessageBoxButtons.OKCancel))
-            {
-                this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            }
-            else if (buttons.Equals(MessageBoxButtons.YesNo))
-            {
-                this.DialogResult = System.Windows.Forms.DialogResult.No;
-            }
-            else if (buttons.Equals(MessageBoxButtons.RetryCancel))
-            {
-                this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            }
 
-            this.Close();
-        }
 
-        private void ContinueBtn_Click(global::System.Object sender, EventArgs e)
+        private void ContinueBtn_Click_1(object sender, EventArgs e)
         {
             if (buttons.Equals(MessageBoxButtons.OK))
             {
@@ -224,8 +199,26 @@ namespace AeonLabs.Layouts.Dialogs
             this.Close();
         }
 
-        private void AlphaGradientPanel1_Paint(global::System.Object sender, PaintEventArgs e)
+        private void cancelBtn_Click_1(object sender, EventArgs e)
         {
+            if (buttons.Equals(MessageBoxButtons.OK))
+            {
+                this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            }
+            else if (buttons.Equals(MessageBoxButtons.OKCancel))
+            {
+                this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            }
+            else if (buttons.Equals(MessageBoxButtons.YesNo))
+            {
+                this.DialogResult = System.Windows.Forms.DialogResult.No;
+            }
+            else if (buttons.Equals(MessageBoxButtons.RetryCancel))
+            {
+                this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            }
+
+            this.Close();
         }
     }
 }

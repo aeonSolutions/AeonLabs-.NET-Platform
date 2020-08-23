@@ -17,6 +17,7 @@ namespace AeonLabs.Layouts.Main
             assItem.assemblyFormName = "lateralSettingsForm";
             assItem.assemblyFormToLoad = default;
             assItem.AssemblyObject = default;
+            assItem.defaultClassName = "";
             assItem.spaceName = "AeonLabs.PlugIns.SideBar.Settings";
             assItem.UID = "NPmPqPuuqlwPL6swalnnMSqKGCp6MTr9";
             assItem.positionX = default; // Nothing for default posX
