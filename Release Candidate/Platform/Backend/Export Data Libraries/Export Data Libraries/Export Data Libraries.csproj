@@ -3,8 +3,17 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Export_Data_Libraries</RootNamespace>
+    <RootNamespace>AeonLabs.Data.Export</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>export.lib</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\AppsMain\builds\debug\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\..\AppsMain\builds\release\</OutputPath>
   </PropertyGroup>
 
 </Project>

@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>H:\DiskContents\Software\Code\AeonLabs Platform\Windows .NetCore\Platform\AppsMain\builds\debug\</OutputPath>
+    <OutputPath>..\..\..\AppsMain\builds\debug\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>H:\DiskContents\Software\Code\AeonLabs Platform\Windows .NetCore\Platform\AppsMain\builds\release\</OutputPath>
+    <OutputPath>..\..\..\AppsMain\builds\release\</OutputPath>
   </PropertyGroup>
 <PropertyGroup>            
    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -28,8 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Backend\Environment\environmentCore\environmentCore.csproj" />
     <ProjectReference Include="..\..\..\Backend\Environment\environmentCore\environmentCore\environmentCore.csproj" />
     <ProjectReference Include="..\..\..\Layouts\Main\LTBM\LTBM\LTBM.csproj" />
+    <ProjectReference Include="..\..\..\UI Layouts\Main\LTBM\LTBM\LTBM.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,9 +40,6 @@
     </Reference>
     <Reference Include="controls.gui">
       <HintPath>..\..\builds\debug\controls.gui.dll</HintPath>
-    </Reference>
-    <Reference Include="EnvironmentAssembly">
-      <HintPath>..\..\builds\debug\EnvironmentAssembly.dll</HintPath>
     </Reference>
     <Reference Include="EnvironmentLoading">
       <HintPath>..\..\builds\debug\EnvironmentLoading.dll</HintPath>

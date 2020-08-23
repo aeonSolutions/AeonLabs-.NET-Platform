@@ -9,8 +9,8 @@ using System.Reflection;
 using System.Resources;
 using System.Windows.Forms;
 using System.Runtime.Loader;
-using AeonLabs.Layouts.Main;
 using AeonLabs.Layouts.Dialogs;
+using AeonLabs.Layouts.Main;
 
 namespace AeonLabs
 {

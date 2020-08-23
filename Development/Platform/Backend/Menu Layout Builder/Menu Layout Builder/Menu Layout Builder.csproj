@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>AeonLabs.Layouts.MenuBuilder</RootNamespace>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>menuBuilder</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\AppsMain\builds\debug\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\..\AppsMain\builds\debug\</OutputPath>
+  </PropertyGroup>
+<PropertyGroup>            
+   <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+</PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="FontAwesome.Sharp" Version="5.14.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="controls.gui">
+      <HintPath>..\..\..\AppsMain\builds\debug\controls.gui.dll</HintPath>
+    </Reference>
+    <Reference Include="environment">
+      <HintPath>..\..\..\AppsMain\builds\debug\environment.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

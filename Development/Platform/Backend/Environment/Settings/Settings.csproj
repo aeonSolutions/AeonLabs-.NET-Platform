@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+<PropertyGroup>            
+   <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>            
+   <RootNamespace>AeonLabs.Environment.Settings</RootNamespace>
+</PropertyGroup>
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <OutputPath>..\..\..\AppsMain\builds\debug\</OutputPath>
+</PropertyGroup>
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  <OutputPath>..\..\..\AppsMain\builds\debug\</OutputPath>
+</PropertyGroup>
+<ItemGroup>
+  <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+</ItemGroup>
+<ItemGroup>
+  <Reference Include="environment">
+    <HintPath>..\..\..\AppsMain\builds\debug\environment.dll</HintPath>
+  </Reference>
+  <Reference Include="security">
+    <HintPath>..\..\..\AppsMain\builds\debug\security.dll</HintPath>
+  </Reference>
+</ItemGroup>
+</Project>

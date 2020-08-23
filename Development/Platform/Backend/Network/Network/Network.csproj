@@ -10,10 +10,10 @@
    <RootNamespace>AeonLabs.Network</RootNamespace>
 </PropertyGroup>
 <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-  <OutputPath>H:\DiskContents\Software\Code\AeonLabs Platform\Windows .NetCore\Platform\AppsMain\builds\debug\</OutputPath>
+  <OutputPath>..\..\..\AppsMain\builds\debug\</OutputPath>
 </PropertyGroup>
 <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-  <OutputPath>H:\DiskContents\Software\Code\AeonLabs Platform\Windows .NetCore\Platform\AppsMain\builds\release\</OutputPath>
+  <OutputPath>..\..\..\AppsMain\builds\release\</OutputPath>
 </PropertyGroup>
 <ItemGroup>
   <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -24,6 +24,9 @@
 <ItemGroup>
   <Reference Include="controls.gui">
     <HintPath>..\..\..\AppsMain\builds\debug\controls.gui.dll</HintPath>
+  </Reference>
+  <Reference Include="environment">
+    <HintPath>..\..\..\AppsMain\builds\debug\environment.dll</HintPath>
   </Reference>
   <Reference Include="MessageBox">
     <HintPath>..\..\..\AppsMain\builds\debug\MessageBox.dll</HintPath>

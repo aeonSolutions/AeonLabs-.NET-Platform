@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+<PropertyGroup>            
+   <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>            
+   <RootNamespace>AeonLabs.Layouts.Main</RootNamespace>
+</PropertyGroup>
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <OutputPath>..\..\..\..\AppsMain\builds\debug\</OutputPath>
+</PropertyGroup>
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  <OutputPath>..\..\..\..\AppsMain\builds\release\</OutputPath>
+</PropertyGroup>
+<PropertyGroup>            
+   <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>            
+   <AssemblyName>ltbm.layout</AssemblyName>
+</PropertyGroup>
+<ItemGroup>
+  <PackageReference Include="FontAwesome.Sharp" Version="5.14.0" />
+</ItemGroup>
+<ItemGroup>
+  <ProjectReference Include="..\..\..\..\Backend\Environment\environmentCore\environmentCore.csproj" />
+</ItemGroup>
+<ItemGroup>
+  <Reference Include="AlphaGradientPanel">
+    <HintPath>..\..\..\..\AppsMain\builds\debug\AlphaGradientPanel.dll</HintPath>
+  </Reference>
+  <Reference Include="BasicLibraries">
+    <HintPath>..\..\..\..\AppsMain\builds\debug\BasicLibraries.dll</HintPath>
+  </Reference>
+  <Reference Include="controls.gui">
+    <HintPath>..\..\..\..\AppsMain\builds\debug\controls.gui.dll</HintPath>
+  </Reference>
+  <Reference Include="environment">
+    <HintPath>..\..\..\..\AppsMain\builds\debug\environment.dll</HintPath>
+  </Reference>
+  <Reference Include="menuBuilder">
+    <HintPath>..\..\..\..\AppsMain\builds\debug\menuBuilder.dll</HintPath>
+  </Reference>
+  <Reference Include="MessageBox">
+    <HintPath>..\..\..\..\AppsMain\builds\debug\MessageBox.dll</HintPath>
+  </Reference>
+</ItemGroup>
+</Project>

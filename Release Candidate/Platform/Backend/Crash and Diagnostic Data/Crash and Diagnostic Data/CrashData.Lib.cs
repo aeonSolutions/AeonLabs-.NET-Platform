@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
+using Microsoft.VisualBasic.Devices;
 
 namespace AeonLabs.CrashAndDiagnostics
 {
@@ -32,38 +34,14 @@ namespace AeonLabs.CrashAndDiagnostics
             }
 
             report += "-------------end report---------------" + Environment.NewLine;
-            ;
-#error Cannot convert LocalDeclarationStatementSyntax - see comment for details
-            /* Cannot convert LocalDeclarationStatementSyntax, System.NotSupportedException: StaticKeyword not supported!
-               at ICSharpCode.CodeConverter.CSharp.SyntaxKindExtensions.ConvertToken(SyntaxKind t, TokenContext context)
-               at ICSharpCode.CodeConverter.CSharp.CommonConversions.ConvertModifier(SyntaxToken m, TokenContext context)
-               at ICSharpCode.CodeConverter.CSharp.CommonConversions.<ConvertModifiersCore>d__40.MoveNext()
-               at System.Linq.Enumerable.<ConcatIterator>d__59`1.MoveNext()
-               at System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
-               at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
-               at System.Linq.OrderedEnumerable`1.<GetEnumerator>d__1.MoveNext()
-               at Microsoft.CodeAnalysis.SyntaxTokenList.CreateNode(IEnumerable`1 tokens)
-               at ICSharpCode.CodeConverter.CSharp.CommonConversions.ConvertModifiers(SyntaxNode node, IReadOnlyCollection`1 modifiers, TokenContext context, Boolean isVariableOrConst, SyntaxKind[] extraCsModifierKinds)
-               at ICSharpCode.CodeConverter.CSharp.MethodBodyExecutableStatementVisitor.<VisitLocalDeclarationStatement>d__31.MoveNext()
-            --- End of stack trace from previous location where exception was thrown ---
-               at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-               at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-               at ICSharpCode.CodeConverter.CSharp.HoistedNodeStateVisitor.<AddLocalVariablesAsync>d__6.MoveNext()
-            --- End of stack trace from previous location where exception was thrown ---
-               at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-               at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-               at ICSharpCode.CodeConverter.CSharp.CommentConvertingMethodBodyVisitor.<DefaultVisitInnerAsync>d__3.MoveNext()
 
-            Input:
 
-                    Static start As Single
-
-             */
+            Single start;
             start = Conversions.ToSingle(DateAndTime.Timer);
             try
             {
                 System.IO.StreamWriter file;
-                file = My.MyProject.Computer.FileSystem.OpenTextFileWriter(Path.Combine(string.Format(@"{0}\", Environment.CurrentDirectory), "crash.log"), true);
+                file = Computer.FileSystem.OpenTextFileWriter(Path.Combine(string.Format(@"{0}\", Environment.CurrentDirectory), "crash.log"), true);
                 file.WriteLine(report + Environment.NewLine);
                 file.Close();
             }
