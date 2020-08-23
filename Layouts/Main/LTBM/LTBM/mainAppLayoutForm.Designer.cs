@@ -190,6 +190,7 @@ namespace AeonLabs.Layouts.Main
             this.panelMain.ShowVerticalScrolBar = false;
             this.panelMain.Size = new System.Drawing.Size(832, 579);
             this.panelMain.TabIndex = 4;
+            this.panelMain.Resize += new System.EventHandler(this.mainAppLayoutForm_Resize);
             // 
             // panelTop
             // 
@@ -228,6 +229,9 @@ namespace AeonLabs.Layouts.Main
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TargetOpacity = 1D;
             this.Text = "MainApp";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainAppLayoutForm_FormClosing);
+            this.Load += new System.EventHandler(this.mainAppLayoutForm_Load);
+            this.Shown += new System.EventHandler(this.mainAppLayoutForm_shown);
             this.panelBottom.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.iconMenuSettings)).EndInit();
             this.panelLeftSide.ResumeLayout(false);

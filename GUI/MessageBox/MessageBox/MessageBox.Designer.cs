@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
+namespace AeonLabs.Layouts.Dialogs
+{
     public partial class messageBoxForm : FormCustomized
     {
         /// <summary>
@@ -24,13 +26,13 @@ using System.Windows.Forms;
             base.Dispose(disposing);
         }
 
-    #region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
         {
             this._ColorWithAlpha1 = new BlueActivity.ColorWithAlpha();
             this.SuspendLayout();
@@ -88,4 +90,5 @@ using System.Windows.Forms;
             }
         }
     }
+}
 #endregion 

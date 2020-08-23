@@ -12,6 +12,7 @@ using AeonLabs.BasicLibraries;
 using System.Resources;
 using System.Reflection;
 using System.Globalization;
+using AeonLabs.Layouts.Dialogs;
 
 namespace AeonLabs.Layouts.Main
 {
@@ -604,8 +605,10 @@ namespace AeonLabs.Layouts.Main
 
         }
 
-        private void menuToggleIcon_Click_1(object sender, EventArgs e)
-        {
+        private void menuToggleIcon_Click_1(object sender, EventArgs e) 
+        { 
+            if (menuBuilder is null ) return;
+
             if (menuToggleIcon.Location.X.Equals(5))
             {
                 menuBuilder.MenuUpdate(true);
