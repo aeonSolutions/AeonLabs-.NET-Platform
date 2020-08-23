@@ -23,5 +23,6 @@ Home of AeonLabs .NET Platform
 To view the current state of the art goto releases
 https://github.com/aeonSolutions/AeonLabs-.NET-Platform/releases
 
-current layout (example)
+## current layout
+(example)
 ![alt text](http://www.aeonlabs.solutions/images/github/layout3.jpg)
