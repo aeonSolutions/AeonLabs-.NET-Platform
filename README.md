@@ -11,7 +11,7 @@ Home of AeonLabs .NET Platform
 
 ### Menu Builder
 - Horizontal / Vertical Menus - 100% 
-- Dynamic Menu Builder (80%)
+- Dynamic Menu Builder - 100%
 - Load packages and widgets - 0%
 - Menu visual effects - 70%
 
