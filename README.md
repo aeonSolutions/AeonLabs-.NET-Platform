@@ -16,8 +16,8 @@ Home of AeonLabs .NET Platform
 - Menu visual effects - 70%
 
 ### Packages and Widgets
-- Load assemblies and prepare for rapid deployment (60%)
-- On demanad (live) load / unload of assemblies (50%)
+- Load assemblies and prepare for rapid deployment (100%)
+- On demanad (live) load / unload of assemblies (90%)
 
 ## Release
 To view the current state of the art goto releases
