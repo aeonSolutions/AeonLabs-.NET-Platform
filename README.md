@@ -19,6 +19,8 @@ Packages and Widgets
 - Load assemblies and prepare for rapid deployment (60%)
 - On demanad (live) load / unload of assemblies (50%)
 
+To view the current state of the art goto releases
+https://github.com/aeonSolutions/AeonLabs-.NET-Platform/releases
 
 current layout (example)
 ![alt text](http://www.aeonlabs.solutions/images/github/layout3.jpg)
