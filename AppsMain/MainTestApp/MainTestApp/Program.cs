@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Resources;
 using System.Windows.Forms;
 using System.Runtime.Loader;
+using AeonLabs.Layouts.Main;
 
 namespace AeonLabs
 {
@@ -116,9 +117,9 @@ namespace AeonLabs
                     return;
                 }
             }
-            mainForm = Activator.CreateInstance(loadedType, enVars) as FormCustomized;
+            //mainForm = Activator.CreateInstance(loadedType, enVars) as FormCustomized;
             // start the main layout
-            Application.Run(mainForm);
+            Application.Run(new mainAppLayoutForm(enVars));
         }
         #endregion
 

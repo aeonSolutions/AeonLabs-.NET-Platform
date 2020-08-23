@@ -51,7 +51,7 @@ public class MenuBuilderClass
         public delegate void menuStateUpdateLayoutEventHandler(object sender, bool menuState);
 
         public menuSetup setup { get; set; } = new menuSetup();
-
+        public bool menuIsBeingUpdated { get; set; } = false;
         public class menuSetup
         {
             public PanelDoubleBuffer MenuContainer = new PanelDoubleBuffer();
@@ -589,7 +589,10 @@ public class MenuBuilderClass
 #region Menu Update
         public void MenuUpdate(bool menuState)
         {
-            menuStateUpdateLayout?.Invoke(this, menuState);
+            if (menuIsBeingUpdated)
+                return;
+            menuIsBeingUpdated = true;
+            menuStateUpdateLayout.Invoke(this, menuState);
             int menuPosY = 0;
             IList<menuItemClass> menuItems = (from s in enVars.layoutDesign.menu.items
                                               where s.subMenuIndex.Equals(0)
@@ -623,9 +626,10 @@ public class MenuBuilderClass
                 enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Location = new Point(enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Location.X, menuPosY);
                 menuPosY = menuPosY + enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Height;
             }
-        }
+        menuIsBeingUpdated = false;
+    }
 
-        public void MenuItemActiveBarReset()
+    public void MenuItemActiveBarReset()
         {
             var loopTo = enVars.layoutDesign.menu.items.Count - 1;
             for (int i = 0; i <= loopTo; i++)

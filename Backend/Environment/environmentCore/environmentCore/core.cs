@@ -215,6 +215,7 @@ namespace AeonLabs.Environment
             public string longitude;
         }
 
+        #region Load environment defaults
         public void loadEnvironmentcoreDefaults()
         {
             layoutDesign.loadDefaults(this);
@@ -226,5 +227,22 @@ namespace AeonLabs.Environment
             options.viewThisConstructionSiteAttendance = false;
             tableSearchOptions = options;
         }
+        #endregion
+
+        #region add external file
+        public bool addExternalFileToLoad(string key, string value) {
+            if (externalFilesToLoad.ContainsKey(key))
+            {
+                stateErrorMessage = "there is already a key with same name. choose another name: " + key;
+                stateErrorFound = true;
+                return false;
+            }
+            else {
+                externalFilesToLoad.Add(key, value);
+            }
+
+            return true;
+        }
+        #endregion
     }
 }

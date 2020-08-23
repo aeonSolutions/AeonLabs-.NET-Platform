@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Windows;
 using AeonLabs.Environment;
 using Microsoft.VisualBasic;
 
@@ -19,10 +20,12 @@ namespace AeonLabs.Layouts.Main
 
         public static environmentVarsCore loadExternalFilesInUse(environmentVarsCore envars)
         {
-            envars.externalFilesToLoad.Add("menuMinimizeArrow", "uparrow.png");
-            envars.externalFilesToLoad.Add("menuExpandArrow", "downarrow.png");
-            envars.externalFilesToLoad.Add("noNetwork", "noNetwork.png");
-
+            envars.addExternalFileToLoad("menuMinimizeArrow", "uparrow.png");
+            envars.addExternalFileToLoad("menuExpandArrow", "downarrow.png");
+            envars.addExternalFileToLoad("noNetwork", "noNetwork.png");
+            if (envars.stateErrorFound) {
+                MessageBox.Show(envars.stateErrorMessage);
+            }
             string testFilesExist = "";
             foreach (KeyValuePair<string, string> item in envars.externalFilesToLoad)
             {

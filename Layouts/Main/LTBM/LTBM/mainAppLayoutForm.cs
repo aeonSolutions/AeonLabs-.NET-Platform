@@ -394,6 +394,7 @@ namespace AeonLabs.Layouts.Main
 
     private void mainAppLayoutForm_shown(object sender, EventArgs e)
         {
+            // ' needs to be the last 
             if (ErrorLoading)
             {
                 Application.Exit();
@@ -577,7 +578,9 @@ namespace AeonLabs.Layouts.Main
         {
             foreach (Control ctrl in panelMenuOptions.Controls)
                 ctrl.Visible = false;
+
             panelMenuOptions.Refresh();
+            panelLeftSide.SuspendLayout();
             if (menuState.Equals(true))
             {
                 panelLeftSide.Width = enVars.layoutDesign.MENU_OPEN_STATE;
@@ -591,20 +594,14 @@ namespace AeonLabs.Layouts.Main
 
             foreach (Control ctrl in panelMenuOptions.Controls)
                 ctrl.Visible = true;
+
+            panelLeftSide.ResumeLayout();
             panelMenuOptions.Refresh();
         }
 
         private void panelLeftSide_Paint(object sender, PaintEventArgs e)
         {
-            if (menuBuilder is null) return;
-            if (panelLeftSide.Width.Equals(enVars.layoutDesign.MENU_OPEN_STATE)) // ' is open 
-            {
-                menuBuilder.MenuUpdate(false);
-            }
-            else
-            {
-                menuBuilder.MenuUpdate(true);
-            }
+
         }
 
         private void menuToggleIcon_Click_1(object sender, EventArgs e)

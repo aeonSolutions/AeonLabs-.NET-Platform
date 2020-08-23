@@ -162,6 +162,7 @@ namespace AeonLabs.Layouts.Main
             // menuToggleIcon
             // 
             this.menuToggleIcon.BackColor = System.Drawing.Color.Transparent;
+            this.menuToggleIcon.Cursor = System.Windows.Forms.Cursors.Hand;
             this.menuToggleIcon.IconChar = FontAwesome.Sharp.IconChar.Faucet;
             this.menuToggleIcon.IconColor = System.Drawing.Color.White;
             this.menuToggleIcon.Location = new System.Drawing.Point(311, 6);
@@ -232,10 +233,6 @@ namespace AeonLabs.Layouts.Main
             this.panelLeftSide.ResumeLayout(false);
             this.panelMenuOptions.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.menuToggleIcon)).EndInit();
-            this.Load += mainAppLayoutForm_Load;
-            this.Resize += mainAppLayoutForm_Resize;
-            this.Shown += mainAppLayoutForm_shown;
-            this.FormClosing += mainAppLayoutForm_FormClosing;
             this.ResumeLayout(false);
 
         }
