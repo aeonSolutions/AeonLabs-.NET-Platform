@@ -39,6 +39,7 @@ namespace AeonLabs.Layouts.Main
                 return;
             }
             bool error = false;
+            var t = enVars.assemblies;
             error = !enVars.AssembliesManager.assignControlAssembly("sideBarSettings", panelMenuOptionsContainer);
 
             if (error)
@@ -61,7 +62,7 @@ namespace AeonLabs.Layouts.Main
         public readonly object AssembliesToLoadAtStartOLD = new[] { new[] { "", "", "", "" }, new[] { "", "", "", "" }, new[] { "", "", "", "" }, new[] { "", "", "", "" } };
 
         #region Constants
-        private const bool ENABLE_TESTING_ENVIRONMENT = true;
+        private const bool ENABLE_TESTING_ENVIRONMENT = false;
         #endregion
 
         #region Public Fields
@@ -267,9 +268,6 @@ namespace AeonLabs.Layouts.Main
 
             resources = new ResourceManager(GetType().Namespace + ".config.strings", Assembly.GetExecutingAssembly());
 
-            // ASSIGN ASSEMBLIES TO PANELS
-            assignControlToAssembly();
-
             // çheck if external files exist
             enVars = LayoutSettings.loadExternalFilesInUse(enVars);
             if (enVars is null)
@@ -400,6 +398,10 @@ namespace AeonLabs.Layouts.Main
                 Application.Exit();
                 return;
             }
+
+            environmentVarsCore t = enVars;
+            // ASSIGN ASSEMBLIES TO PANELS
+            assignControlToAssembly();
 
             SuspendLayout();
             loaded = false;
@@ -790,6 +792,9 @@ namespace AeonLabs.Layouts.Main
             // 'Me.BackgroundImage= 
         }
 
+        private void panelMain_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
     }
 }

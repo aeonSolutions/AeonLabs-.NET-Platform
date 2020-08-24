@@ -19,7 +19,6 @@ namespace AeonLabs
 
         #region Variables
         public static environmentVarsCore enVars;
-        public static environmentVarsCore.updateMainLayoutDelegate updateMainApp;
         private static Network.HttpDataPostData _getUpdates;
 
         private static Network.HttpDataPostData getUpdates
@@ -35,8 +34,6 @@ namespace AeonLabs
             }
         }
 
-        private static global::System.Boolean waitForTasksToComplete = true;
-        private static global::System.Boolean tasksCompletedSuccessfully = false;
         private static updateEnvironmentClass updateEnv = new updateEnvironmentClass();
         #endregion
 
@@ -47,7 +44,6 @@ namespace AeonLabs
         [STAThread]
         static void Main()
         {
-
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -55,7 +51,7 @@ namespace AeonLabs
             enVars = new environmentVarsCore();
 
             // Instantiating the delegate for update data from child forms
-            updateMainApp = updateMain;
+            enVars.updateViewLayout = updateMain;
 
             // set customization option
             enVars.customization.hasCodedCustomizationSettings = true;
@@ -88,7 +84,7 @@ namespace AeonLabs
             // TODO: LOAD USER BOUGHT ASSEMBLIES (PACKAGES, WIDGETS, LAYOUTS)
             // loadUserAssemblies()
 
-            // TODO REVIEW
+            // TODO REVIEW: move to each packages 
             // LOAD CONFIG API CALL IDS
             loadAPItasksIDs();
 
@@ -118,6 +114,8 @@ namespace AeonLabs
                     return;
                 }
             }
+            enVars.assemblies = AssembliesLoader.getAssemblies;
+
             //mainForm = Activator.CreateInstance(loadedType, enVars) as FormCustomized;
             // start the main layout
             mainAppLayoutForm mainForm2 = new mainAppLayoutForm(enVars);
@@ -135,7 +133,7 @@ namespace AeonLabs
             dataUpdate.enVars = enVars;
             dataUpdate.enVars.successLogin = true;
             dataUpdate.updateTask = updateMainAppClass.UPDATE_LAYOUT;
-            updateMainApp.Invoke(default, ref dataUpdate);
+            enVars.updateViewLayout.Invoke(default, ref dataUpdate);
             return;
 
             // LOAD STARTUP & LOGIN DLG
@@ -156,7 +154,7 @@ namespace AeonLabs
             {
                 assembly = System.Reflection.Assembly.LoadFile(enVars.basePath + enVars.customization.designStartupLayoutAssemblyFileName);
                 typeStartupLayout = assembly.GetType(enVars.customization.designLayoutAssemblyNameSpace + ".LayoutStartUpForm");
-                startupLayout = Activator.CreateInstance(typeStartupLayout, enVars, updateMainApp) as FormCustomized;
+                startupLayout = Activator.CreateInstance(typeStartupLayout, enVars) as FormCustomized;
             }
             catch (Exception ex)
             {
@@ -174,16 +172,6 @@ namespace AeonLabs
         public static void updateMain(global::System.Object sender, ref updateMainAppClass updateContents)
         {
             enVars = updateContents.enVars;
-            if (!enVars.successLogin & enVars.customization.hasLogin)
-            {
-                tasksCompletedSuccessfully = false;
-            }
-            else
-            {
-                tasksCompletedSuccessfully = true;
-            }
-
-            waitForTasksToComplete = false;
         }
         #endregion
 

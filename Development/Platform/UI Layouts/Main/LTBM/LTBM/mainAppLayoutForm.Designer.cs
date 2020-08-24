@@ -190,6 +190,7 @@ namespace AeonLabs.Layouts.Main
             this.panelMain.ShowVerticalScrolBar = false;
             this.panelMain.Size = new System.Drawing.Size(832, 579);
             this.panelMain.TabIndex = 4;
+            this.panelMain.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMain_Paint);
             this.panelMain.Resize += new System.EventHandler(this.mainAppLayoutForm_Resize);
             // 
             // panelTop

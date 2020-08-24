@@ -91,7 +91,7 @@ public class menuOptions
         var menuItem = new menuItemClass();
         menuItem.menuUID = "Help";
         menuItem.menuTitle = rm.GetString("menuHelpTitle", CultureInfo.CurrentCulture); 
-        menuItem.friendlyUID = default;
+        menuItem.assemblyFriendlyUID = default;
         menuItem.formWithContentsToLoad = default;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = true;
@@ -104,7 +104,7 @@ public class menuOptions
         subMenuIdx += 1;
         menuItem.menuUID = "CheckUpdates";
         menuItem.menuTitle = rm.GetString("menuItemCheckUpdate", CultureInfo.CurrentCulture);
-        menuItem.friendlyUID = "update.dll";
+        menuItem.assemblyFriendlyUID = "update.dll";
         menuItem.formWithContentsToLoad = default;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = true;
@@ -117,7 +117,7 @@ public class menuOptions
         subMenuIdx += 1;
         menuItem.menuUID = "About";
         menuItem.menuTitle = rm.GetString("menuItemAbout", CultureInfo.CurrentCulture) + " " + enVars.customization.ApplicationBrandNAme;
-        menuItem.friendlyUID = "about.dll";
+        menuItem.assemblyFriendlyUID = "about.dll";
         menuItem.formWithContentsToLoad = default;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = true;

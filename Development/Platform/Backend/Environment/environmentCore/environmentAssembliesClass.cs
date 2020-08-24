@@ -95,6 +95,11 @@ namespace AeonLabs.Environment.Core
 
         #region load object from assembly - friendly
         public Type friendlyLoadTypeObjectFromAssembly(string friendlyName, string layoutNameSpace="", string classNameToLoad="") {
+            if ((layoutNameSpace.Equals("") | classNameToLoad.Equals("")) & !enVars.assemblies.ContainsKey(friendlyName)) {
+                errorMessage = "Friendly Name not found: " + friendlyName;
+                return null;
+            }
+
             if (layoutNameSpace.Equals("")) {
                 layoutNameSpace = enVars.assemblies[friendlyName].spaceName;
             }
