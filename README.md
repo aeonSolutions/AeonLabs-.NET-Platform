@@ -28,7 +28,7 @@ The AeonLabs Platform is being developed in .Net 5.0 and is an open source platf
 Please refer to the [wiki](https://github.com/aeonSolutions/AeonLabs-.NET-Platform/wiki) to learn how to use this code.
 
 ## Release
-To view the current state of the art goto releases
+To view running the current state of the art goto releases
 https://github.com/aeonSolutions/AeonLabs-.NET-Platform/releases
 
 ## current layout
