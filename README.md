@@ -1,6 +1,11 @@
 # AeonLabs-.NET-Platform
-Home of AeonLabs .NET Platform
-(code is being upgraded to .Net 5 as you read this)
+The AeonLabs Platform is being developed in .Net 5.0 and is an open source platform. The main purpose is to facilitate development of windows applications by
+- Reusing libraries
+- Modular code design based on microservices principles
+- Fully customizable with almost no programming requiered
+- Allows development of custom pachages and widgets
+- Allows live installation of widgets and packages downloaded from the [AeonLabs store](https://www.store.aeonlabs.solutions "AeonLabs store")
+- Uses standard encryption over http data trabfers in the cloud
 
 ## Build Status
 
