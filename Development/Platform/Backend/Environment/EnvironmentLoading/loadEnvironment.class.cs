@@ -5,7 +5,7 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using AeonLabs.Environment;
+using AeonLabs.Environment.Core;
 using AeonLabs.Network;
 using AeonLabs.Security;
 using Microsoft.VisualBasic.CompilerServices;
@@ -135,7 +135,7 @@ namespace AeonLabs.environmentLoading
         }
 
         private int dataLoadedStatusQueue = 0;
-        private AeonLabs.Environment.environmentVarsCore enVars;
+        private environmentVarsCore enVars;
 
         /* TODO ERROR: Skipped RegionDirectiveTrivia */
         public environmentVarsCore GetEnviroment()
@@ -144,7 +144,7 @@ namespace AeonLabs.environmentLoading
         }
         /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
         /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        public void CopyFieldsFromCore(AeonLabs.Environment.environmentVarsCore enVarsCore)
+        public void CopyFieldsFromCore(environmentVarsCore enVarsCore)
         {
             var bindingFlagsSelection = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
             var fieldValues = enVarsCore.GetType().GetFields(bindingFlagsSelection);
@@ -157,7 +157,7 @@ namespace AeonLabs.environmentLoading
         }
         /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
         /* TODO ERROR: Skipped RegionDirectiveTrivia */
-        public loadEnvironment(AeonLabs.Environment.environmentVarsCore _enVars, int settings = -100)
+        public loadEnvironment(environmentVarsCore _enVars, int settings = -100)
         {
             enVars = _enVars;
             enVars.loadEnvironmentcoreDefaults();
@@ -224,7 +224,7 @@ namespace AeonLabs.environmentLoading
         public void loadConfig()
         {
             changeDataLoadedState(true);
-            var cfgstate = new AeonLabs.Environment.environmentVarsCore();
+            var cfgstate = new environmentVarsCore();
             cfgstate.secretKey = enVars.secretKey;
             var encryption = new AesCipher(cfgstate);
             var settingsFile = new FileInfo(Path.Combine(cfgstate.libraryPath, "ScrewDriver.cfg"));
@@ -361,7 +361,7 @@ namespace AeonLabs.environmentLoading
 
         private void loadLocationCoordinates_dataArrived(object sender, string responseData, Dictionary<string, string> misc)
         {
-            AeonLabs.Environment.environmentVarsCore.locationDataStructure locationDataItem;
+            environmentVarsCore.locationDataStructure locationDataItem;
             locationDataItem = enVars.locationData;
             try
             {
@@ -385,7 +385,7 @@ namespace AeonLabs.environmentLoading
 
         private void loadLocationData_dataArrived(object sender, string responseData, Dictionary<string, string> misc)
         {
-            AeonLabs.Environment.environmentVarsCore.locationDataStructure locationDataItem;
+            environmentVarsCore.locationDataStructure locationDataItem;
             locationDataItem = enVars.locationData;
             try
             {

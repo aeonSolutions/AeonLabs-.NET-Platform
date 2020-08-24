@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -9,12 +10,15 @@ using System.Reflection;
 using System.Resources;
 using System.Windows.Forms;
 using AeonLabs.Environment.Core;
+using AeonLabs.Layouts.Dialogs;
 using FontAwesome.Sharp;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
 using static AeonLabs.Environment.Core.menuEnvironmentVarsClass;
 
-public class MenuBuilderClass
+namespace AeonLabs.Layouts.MenuBuilder
+{
+    public class MenuBuilderClass
     {
         #region Public Vars
         public const int MENU_HORIZONTAL = 100;
@@ -72,14 +76,14 @@ public class MenuBuilderClass
         private Timer previousPanelTimer = new Timer();
         private object entry = "";
         private ResourceManager resources;
+        private environmentVarsCore.updateMainLayoutDelegate updateMainApp;
+        #endregion
 
-    #endregion
-
-    #region constructor
-    public MenuBuilderClass(Form _mainform, PanelDoubleBuffer _menuPanel, environmentVarsCore _envars, int _menuOrientation)
+        #region constructor
+        public MenuBuilderClass(Form _mainform, PanelDoubleBuffer _menuPanel, environmentVarsCore _envars, int _menuOrientation, ref environmentVarsCore.updateMainLayoutDelegate _updateMainApp)
         {
             resources = new ResourceManager(GetType().Namespace + ".config.strings", Assembly.GetExecutingAssembly());
-
+            updateMainApp = _updateMainApp;
             mainForm = _mainform;
             enVars = _envars;
             menuOrientation = _menuOrientation;
@@ -98,13 +102,13 @@ public class MenuBuilderClass
         }
         #endregion
 
-#region Build Menu
+        #region Build Menu
 
         public environmentVarsCore buildMenu()
         {
             IList<menuItemClass> menuItems = (IList<menuItemClass>)(from s in enVars.layoutDesign.menu.items
-                                              where s.subMenuIndex.Equals(0)
-                                              select s).ToList();
+                                                                    where s.subMenuIndex.Equals(0)
+                                                                    select s).ToList();
             int previousSubMenuItemsCounter = 0;
             setup.menuTotalHeight = 0;
             int menuItemsCount = 0;
@@ -171,7 +175,7 @@ public class MenuBuilderClass
         }
         #endregion
 
-#region Build Menu Option
+        #region Build Menu Option
         private void buildMenuOption(menuItemClass menuItem, int placeIndex, int firstmenuItemListIndex, int menuItemsCount)
         {
             int titlePosY = 0;
@@ -338,7 +342,7 @@ public class MenuBuilderClass
             }
             else
             {
-                titlePosY = Convert.ToInt16 ((setup.menuPanel.Height - sizeOfString.Height) / 2);
+                titlePosY = Convert.ToInt16((setup.menuPanel.Height - sizeOfString.Height) / 2);
             }
 
             var title = new LabelDoubleBuffer()
@@ -363,9 +367,9 @@ public class MenuBuilderClass
             enVars.layoutDesign.menu.items[index].iconPicHolder.Add(subMenuIcon);
             enVars.layoutDesign.menu.items[index].iconPicHolderFontAwesome[1] = subMenuExpandIcon;
         }
-#endregion region
+        #endregion region
 
-#region Menu Events
+        #region Menu Events
         private void menuPanelToggleActiveBar(object sender, EventArgs e)
         {
             string menukey = "";
@@ -545,6 +549,19 @@ public class MenuBuilderClass
                 MenuUpdate(true);
             }
 
+            //Load contents 
+            Type loadedType;
+            FormCustomized formToLoad;
+
+            loadedType = enVars.AssembliesManager.friendlyLoadTypeObjectFromAssembly(enVars.layoutDesign.menu.items.ElementAt(subMenuPos).friendlyUID);
+            if (loadedType is null)
+            {
+                messageBoxForm msgbox = new messageBoxForm(resources.GetString("errorPlugIn", CultureInfo.CurrentCulture) + " ! \n\r" + enVars.AssembliesManager.errorMessage, resources.GetString("exclamation", CultureInfo.CurrentCulture), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                msgbox.ShowDialog();
+                return;
+            }
+            formToLoad = Activator.CreateInstance(loadedType, enVars, updateMainApp) as FormCustomized;
+
             if (enVars.layoutDesign.menu.items.ElementAt(subMenuPos).formWithContentsToLoad != null)
             {
                 MenuUpdate(false);
@@ -583,9 +600,9 @@ public class MenuBuilderClass
         {
             menuNotificationClick?.Invoke(sender, e);
         }
-#endregion
+        #endregion
 
-#region Menu Update
+        #region Menu Update
         public void MenuUpdate(bool menuState)
         {
             if (menuIsBeingUpdated)
@@ -625,10 +642,10 @@ public class MenuBuilderClass
                 enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Location = new Point(enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Location.X, menuPosY);
                 menuPosY = menuPosY + enVars.layoutDesign.menu.items.ElementAt(index).menuWrapperPanel.Height;
             }
-        menuIsBeingUpdated = false;
-    }
+            menuIsBeingUpdated = false;
+        }
 
-    public void MenuItemActiveBarReset()
+        public void MenuItemActiveBarReset()
         {
             var loopTo = enVars.layoutDesign.menu.items.Count - 1;
             for (int i = 0; i <= loopTo; i++)
@@ -641,5 +658,6 @@ public class MenuBuilderClass
             for (int i = 0; i <= loopTo; i++)
                 enVars.layoutDesign.menu.items.ElementAt(i).isOpen = menuState;
         }
-#endregion
+        #endregion
     }
+}

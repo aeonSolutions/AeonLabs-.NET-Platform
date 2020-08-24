@@ -105,7 +105,7 @@ namespace AeonLabs.PlugIns.SideBar.Settings
             // 
             // trackBar
             // 
-            this.trackBar.BackColor = System.Drawing.Color.Transparent;
+            this.trackBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.trackBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.trackBar.Location = new System.Drawing.Point(0, 0);
             this.trackBar.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);

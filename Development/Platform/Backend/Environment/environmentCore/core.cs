@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 
 namespace AeonLabs.Environment.Core
 {
-    public class environmentVarsCore
+    public class environmentVarsCore 
     {
         #region "constructor"
         public environmentVarsCore()
@@ -22,12 +23,10 @@ namespace AeonLabs.Environment.Core
 
         public delegate void dataChangedEventHandler(object sender, environmentVarsCore envars);
 
+
         public delegate void updateMainLayoutDelegate(object sender, ref updateMainAppClass updateContents);
-
-        public void updateMainLayout(object sender, ref updateMainAppClass updateContents)
-        {
-        }
-
+        public event updateMainLayoutDelegate updateMainLayout;
+        public updateMainLayoutDelegate updateViewLayout;
         #endregion
 
         #region "Customization"
@@ -35,6 +34,23 @@ namespace AeonLabs.Environment.Core
         #endregion
 
         #region Assemblies
+        private EnvironmentAssembliesLoadClass _AssembliesManager;
+        public EnvironmentAssembliesLoadClass AssembliesManager
+        {
+            get
+            {
+                return this._AssembliesManager;
+            }
+
+            set
+            {
+             this._AssembliesManager = value;
+
+                var dataUpdate = new updateMainAppClass(this, updateMainAppClass.UPDATE_ENVIRONMENT_VARS);
+                updateMainLayout?.Invoke(this, ref dataUpdate);
+            }
+        }
+
         public Dictionary<string, environmentAssembliesClass> assemblies { get; set; } = new Dictionary<string, environmentAssembliesClass>();
 
         public Dictionary<string, List<EnvironmentAssignedToControlClass>> assignedAssembliesToControl { get; set; } = new Dictionary<string, List<EnvironmentAssignedToControlClass>>();

@@ -58,7 +58,7 @@ static class TestingVars
             
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "Menu 1";
-        menuItem.friendlyUID = "profile.dll";
+        menuItem.assemblyFriendlyUID = "profile.dll";
         menuItem.formWithContentsToLoad = null;
         menuItem.nameSpaceString = "usersProfileForm";
         menuItem.showAsDialog = true;
@@ -75,7 +75,7 @@ static class TestingVars
             
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "Submenu 1";
-        menuItem.friendlyUID = "settings.dll";
+        menuItem.assemblyFriendlyUID = "settings.dll";
         menuItem.formWithContentsToLoad = null;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = true;
@@ -92,7 +92,7 @@ static class TestingVars
 
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "Subemenu 2";
-        menuItem.friendlyUID = null;
+        menuItem.assemblyFriendlyUID = null;
         menuItem.formWithContentsToLoad = null;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = true;
@@ -110,7 +110,7 @@ static class TestingVars
 
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "sub menu 3";
-        menuItem.friendlyUID = null;
+        menuItem.assemblyFriendlyUID = null;
         menuItem.formWithContentsToLoad = null;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = false;
@@ -127,7 +127,7 @@ static class TestingVars
 
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "menu 2";
-        menuItem.friendlyUID = "profile.dll";
+        menuItem.assemblyFriendlyUID = "profile.dll";
         menuItem.formWithContentsToLoad = null;
         menuItem.nameSpaceString = "usersProfileForm";
         menuItem.showAsDialog = true;
@@ -144,7 +144,7 @@ static class TestingVars
 
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "sub menu 1";
-        menuItem.friendlyUID = "settings.dll";
+        menuItem.assemblyFriendlyUID = "settings.dll";
         menuItem.formWithContentsToLoad = null;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = true;
@@ -161,7 +161,7 @@ static class TestingVars
 
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "sub menu 2";
-        menuItem.friendlyUID = null;
+        menuItem.assemblyFriendlyUID = null;
         menuItem.formWithContentsToLoad = null;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = true;
@@ -179,7 +179,7 @@ static class TestingVars
 
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "sub menu 3";
-        menuItem.friendlyUID = null;
+        menuItem.assemblyFriendlyUID = null;
         menuItem.formWithContentsToLoad = null;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = false;
@@ -197,7 +197,7 @@ static class TestingVars
 
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "menu 3";
-        menuItem.friendlyUID = "profile.dll";
+        menuItem.assemblyFriendlyUID = "profile.dll";
         menuItem.formWithContentsToLoad = null;
         menuItem.nameSpaceString = "usersProfileForm";
         menuItem.showAsDialog = true;
@@ -214,7 +214,7 @@ static class TestingVars
 
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "sub menu 1";
-        menuItem.friendlyUID = "settings.dll";
+        menuItem.assemblyFriendlyUID = "settings.dll";
         menuItem.formWithContentsToLoad = null;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = true;
@@ -231,7 +231,7 @@ static class TestingVars
 
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "sub menu 2";
-        menuItem.friendlyUID = null;
+        menuItem.assemblyFriendlyUID = null;
         menuItem.formWithContentsToLoad = null;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = true;
@@ -249,7 +249,7 @@ static class TestingVars
 
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "sub menu 3";
-        menuItem.friendlyUID = null;
+        menuItem.assemblyFriendlyUID = null;
         menuItem.formWithContentsToLoad = null;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = false;
@@ -266,7 +266,7 @@ static class TestingVars
 
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "menu 4";
-        menuItem.friendlyUID = null;
+        menuItem.assemblyFriendlyUID = null;
         menuItem.formWithContentsToLoad = null;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = true;
@@ -283,7 +283,7 @@ static class TestingVars
 
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "sub menu 1";
-        menuItem.friendlyUID = "update.dll";
+        menuItem.assemblyFriendlyUID = "update.dll";
         menuItem.formWithContentsToLoad = null;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = true;
@@ -299,7 +299,7 @@ static class TestingVars
             subMenuIdx += 1;
             menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
             menuItem.menuTitle = "sub menu 2";
-            menuItem.friendlyUID = "about.dll";
+            menuItem.assemblyFriendlyUID = "about.dll";
             menuItem.formWithContentsToLoad = null;
             menuItem.nameSpaceString = "";
             menuItem.showAsDialog = true;

@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using AeonLabs.Environment;
+using AeonLabs.Environment.Core;
 using Microsoft.VisualBasic;
 
 namespace AeonLabs.Security

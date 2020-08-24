@@ -1,4 +1,4 @@
-﻿using AeonLabs.Environment;
+﻿using AeonLabs.Environment.Core;
 
 public class assembliesToLoadClass
 {
@@ -16,29 +16,23 @@ public class assembliesToLoadClass
     private void load_profile_menu()
     {
         var assItem = new environmentAssembliesClass();
-        {
-            var withBlock = assItem;
-            withBlock.assemblyFileName = "profile.dll";
-            withBlock.friendlyUID = "MyProfile";
-            withBlock.UID = "";
-            withBlock.assemblyFormName = "";
-            withBlock.assemblyFormToLoad = default;
-            withBlock.AssemblyObject = default;
-            withBlock.spaceName = "";
-        }
+        assItem.assemblyFileName = "profile.dll";
+        assItem.friendlyUID = "MyProfile";
+        assItem.UID = "";
+        assItem.assemblyFormName = "";
+        assItem.assemblyFormToLoad = default;
+        assItem.AssemblyObject = default;
+        assItem.spaceName = "";
 
         enVars.assemblies.Add("MyProfile", assItem);
         assItem = new environmentAssembliesClass();
-        {
-            var withBlock1 = assItem;
-            withBlock1.assemblyFileName = "settings.dll";
-            withBlock1.friendlyUID = "MySettings";
-            withBlock1.UID = "";
-            withBlock1.assemblyFormName = "";
-            withBlock1.assemblyFormToLoad = default;
-            withBlock1.AssemblyObject = default;
-            withBlock1.spaceName = "";
-        }
+        assItem.assemblyFileName = "profile.dll";
+        assItem.friendlyUID = "MyProfile";
+        assItem.UID = "";
+        assItem.assemblyFormName = "";
+        assItem.assemblyFormToLoad = default;
+        assItem.AssemblyObject = default;
+        assItem.spaceName = "";
 
         enVars.assemblies.Add("MySettings", assItem);
         assItem = new environmentAssembliesClass();

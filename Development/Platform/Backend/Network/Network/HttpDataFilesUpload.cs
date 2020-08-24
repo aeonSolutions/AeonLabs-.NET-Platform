@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Resources;
 using System.Text;
 using System.Web;
-using AeonLabs.Environment;
+using AeonLabs.Environment.Core;
 using AeonLabs.Security;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;

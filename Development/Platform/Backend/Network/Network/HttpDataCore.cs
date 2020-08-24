@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows.Forms;
-using AeonLabs.Environment;
+using AeonLabs.Environment.Core;
 using Microsoft.VisualBasic.CompilerServices;
 using System.Text.Json;
 using System.Reflection;

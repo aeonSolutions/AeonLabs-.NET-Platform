@@ -28,22 +28,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Backend\Environment\environmentCore\environmentCore.csproj" />
-    <ProjectReference Include="..\..\..\UI Layouts\Main\LTBM\LTBM\LTBM.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="CircularProgressBar">
       <HintPath>..\..\builds\debug\CircularProgressBar.dll</HintPath>
     </Reference>
     <Reference Include="controls.gui">
       <HintPath>..\..\builds\debug\controls.gui.dll</HintPath>
     </Reference>
+    <Reference Include="environment">
+      <HintPath>..\..\builds\debug\environment.dll</HintPath>
+    </Reference>
     <Reference Include="EnvironmentLoading">
       <HintPath>..\..\builds\debug\EnvironmentLoading.dll</HintPath>
     </Reference>
+    <Reference Include="ltbm.layout">
+      <HintPath>..\..\builds\debug\ltbm.layout.dll</HintPath>
+    </Reference>
     <Reference Include="management">
       <HintPath>..\..\builds\debug\management.dll</HintPath>
+    </Reference>
+    <Reference Include="MessageBox">
+      <HintPath>..\..\builds\debug\MessageBox.dll</HintPath>
     </Reference>
     <Reference Include="Network">
       <HintPath>..\..\builds\debug\Network.dll</HintPath>

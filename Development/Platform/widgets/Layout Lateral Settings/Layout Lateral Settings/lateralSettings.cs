@@ -1,4 +1,4 @@
-﻿using AeonLabs.Environment;
+﻿using AeonLabs.Environment.Core;
 using System;
 using System.Drawing;
 using System.Globalization;
@@ -14,26 +14,24 @@ namespace AeonLabs.PlugIns.SideBar.Settings
 
         private ResourceManager resources;
 
-
-        public lateralSettingsForm(environmentVarsCore _envars, environmentVarsCore.updateMainLayoutDelegate _updateMainApp)
+        public lateralSettingsForm(environmentVarsCore _enVars)
         {
             resources = new ResourceManager(GetType().Namespace + ".config.strings", Assembly.GetExecutingAssembly());
 
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.UserPaint, true);
-            envars = _envars;
-            updateMainApp = _updateMainApp;
+            enVars = _enVars;
 
             // This call is required by the designer.
             SuspendLayout();
             InitializeComponent();
 
-            System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(envars.currentLang);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(enVars.currentLang);
             var backGroundImageToolTip = new ToolTip();
             backGroundImageToolTip.SetToolTip(selectBackGroundImage, resources.GetString("backGroundImage", CultureInfo.CurrentCulture));
             var colorPalleteToolTip = new ToolTip();
             colorPalleteToolTip.SetToolTip(selectPanelBackColor, resources.GetString("colorPallete", CultureInfo.CurrentCulture));
-            panelForm.BackColor = Color.FromArgb(Convert.ToInt32(envars.layoutDesign.PanelTransparencyIndex), envars.layoutDesign.PanelBackColor);
+            panelForm.BackColor = Color.FromArgb(Convert.ToInt32(enVars.layoutDesign.PanelTransparencyIndex), enVars.layoutDesign.PanelBackColor);
             ResumeLayout();
 
         }
@@ -48,29 +46,28 @@ namespace AeonLabs.PlugIns.SideBar.Settings
             }
         }
 
-        private environmentVarsCore envars;
-        private environmentVarsCore.updateMainLayoutDelegate updateMainApp;
+        private environmentVarsCore enVars;
         private ToolTip backGroundImageToolTip = new ToolTip();
         private ToolTip colorPalleteToolTip = new ToolTip();
 
         private void trackBar_ValueChanged(object sender, EventArgs e)
         {
-            envars.layoutDesign.PanelTransparencyIndex = trackBar.Value;
+            enVars.layoutDesign.PanelTransparencyIndex = trackBar.Value;
             var dataUpdate = new updateMainAppClass();
-            dataUpdate.envars = envars;
+            dataUpdate.enVars = enVars;
             dataUpdate.updateTask = updateMainAppClass.UPDATE_LAYOUT;
-            updateMainApp.Invoke(this, ref dataUpdate);
+            enVars.updateViewLayout?.Invoke(this, ref dataUpdate);
         }
 
         private void selectPanelBackColor_Click_1(object sender, EventArgs e)
         {
             if (ColorPickerDialog.ShowDialog() == DialogResult.OK)
             {
-                envars.layoutDesign.PanelBackColor = ColorPickerDialog.Color;
+                enVars.layoutDesign.PanelBackColor = ColorPickerDialog.Color;
                 var dataUpdate = new updateMainAppClass();
-                dataUpdate.envars = envars;
+                dataUpdate.enVars = enVars;
                 dataUpdate.updateTask = updateMainAppClass.UPDATE_LAYOUT;
-                updateMainApp.Invoke(this, ref dataUpdate);
+                enVars.updateViewLayout?.Invoke(this, ref dataUpdate);
             }
         }
 
@@ -82,10 +79,10 @@ namespace AeonLabs.PlugIns.SideBar.Settings
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 var dataUpdate = new updateMainAppClass();
-                dataUpdate.envars = envars;
+                dataUpdate.enVars = enVars;
                 dataUpdate.backGroundFileName = openFileDialog1.FileName;
                 dataUpdate.updateTask = updateMainAppClass.UPDATE_LAYOUT_BACKGROUND;
-                updateMainApp.Invoke(this, ref dataUpdate);
+                enVars.updateViewLayout?.Invoke(this, ref dataUpdate);
             }
         }
     }

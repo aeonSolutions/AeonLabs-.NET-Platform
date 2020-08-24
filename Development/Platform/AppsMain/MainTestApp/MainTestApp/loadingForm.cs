@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using AeonLabs.Environment;
+using AeonLabs.Environment.Core;
 using System.Collections.Generic;
 using AeonLabs.environmentLoading;
 using Newtonsoft.Json;

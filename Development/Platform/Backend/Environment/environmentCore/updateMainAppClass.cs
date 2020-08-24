@@ -8,8 +8,13 @@ namespace AeonLabs.Environment.Core
         public const int UPDATE_ENVIRONMENT_VARS = 10003;
         public const int UPDATE_MAIN = 10004;
 
-        public environmentVarsCore envars { get; set; }
+        public environmentVarsCore enVars { get; set; }
         public int updateTask { get; set; } = 0;
         public string backGroundFileName { get; set; } = "";
+
+        public updateMainAppClass(environmentVarsCore _enVars = null , int _updateTask = default ) {
+            enVars = _enVars;
+            updateTask = _updateTask;
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using AeonLabs.Environment;
+﻿using AeonLabs.Environment.Core;
 
 static class AppCustomization
 {

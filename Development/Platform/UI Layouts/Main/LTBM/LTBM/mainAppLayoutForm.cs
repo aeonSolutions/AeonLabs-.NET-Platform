@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Globalization;
 using AeonLabs.Layouts.Dialogs;
 using AeonLabs.Environment.Core;
+using AeonLabs.Layouts.MenuBuilder;
 
 namespace AeonLabs.Layouts.Main
 {
@@ -38,11 +39,11 @@ namespace AeonLabs.Layouts.Main
                 return;
             }
             bool error = false;
-            error = !AssembliesManager.assignControlAssembly("sideBarSettings", panelMenuOptionsContainer);
+            error = !enVars.AssembliesManager.assignControlAssembly("sideBarSettings", panelMenuOptionsContainer);
 
             if (error)
             {
-                Interaction.MsgBox("Error: assembly cound not be assigned a panel, " + AssembliesManager.errorMessage);
+                Interaction.MsgBox("Error: assembly cound not be assigned a panel, " + enVars.AssembliesManager.errorMessage);
                 this.Close();
                 return;
             }
@@ -64,14 +65,12 @@ namespace AeonLabs.Layouts.Main
         #endregion
 
         #region Public Fields
-        public environmentVarsCore.updateMainLayoutDelegate updateMainApp;
         public environmentVarsCore enVars { get; set; } = new environmentVarsCore();
         public string statusMessage { get; set; } = "";
         #endregion
 
         #region Private fields
         private ResourceManager resources;
-        private EnvironmentAssembliesLoadClass AssembliesManager;
 
         // Flag to check if there are loading errors 
         private bool ErrorLoading = false;
@@ -258,9 +257,10 @@ namespace AeonLabs.Layouts.Main
             // This call is required by the designer.
             this.SuspendLayout();
             InitializeComponent();
-            if (_envars is object)
+            if (_envars != null)
             {
                 enVars = _envars;
+                
             }
 
             enVars.layoutDesign.menu.properties.ClosedStateSize = LATERAL_MENU_OPEN_WIDTH;
@@ -279,7 +279,7 @@ namespace AeonLabs.Layouts.Main
                 return;
             }
             // Instantiating the delegate for update data from child forms
-            updateMainApp = updateMainAppLayout;
+            enVars.updateViewLayout = updateMainAppLayout;
 
             // Me.InactivityTimeOut = enVars.AutomaticLogoutTime
 
@@ -308,7 +308,7 @@ namespace AeonLabs.Layouts.Main
         #region Update Envirnment and Layout
         public void updateMainAppLayout(object sender, ref updateMainAppClass updateContents)
         {
-            enVars = updateContents.envars;
+            enVars = updateContents.enVars;
             if (updateContents.updateTask.Equals(updateMainAppClass.UPDATE_LAYOUT))
             {
                 SuspendLayout();
@@ -435,7 +435,7 @@ namespace AeonLabs.Layouts.Main
                 withBlock2.BringToFront();
             }
 
-            menuBuilder = new MenuBuilderClass(this, panelLeftSide, enVars, MenuBuilderClass.MENU_VERTICAL);
+            menuBuilder = new MenuBuilderClass(this, panelLeftSide, enVars, MenuBuilderClass.MENU_VERTICAL, ref enVars.updateViewLayout);
             enVars = menuBuilder.buildMenu();
             panelLeftSide.Controls.Add(enVars.layoutDesign.menu.menuPanelContainer);
             enVars.layoutDesign.menu.menuPanelContainer.BringToFront();
@@ -453,7 +453,7 @@ namespace AeonLabs.Layouts.Main
             ResumeLayout();
 
             //  ASSEMBLY Manager
-            AssembliesManager = new EnvironmentAssembliesLoadClass(enVars);
+            enVars.AssembliesManager = new EnvironmentAssembliesLoadClass(enVars);
         }
 
         private void mainAppLayoutForm_Resize(object sender, EventArgs e)
@@ -633,7 +633,7 @@ namespace AeonLabs.Layouts.Main
                 if (!Information.IsNothing(currentForm))
                 {
                     currentForm.Close();
-                    AssembliesManager.unload("sideBarSettings");
+                    enVars.AssembliesManager.unload("sideBarSettings");
                 }
 
                 panelMenuOptionsContainer.Height = 0;
@@ -645,14 +645,14 @@ namespace AeonLabs.Layouts.Main
                 Type loadedType;
                 FormCustomized formToLoad;
 
-                loadedType = AssembliesManager.friendlyLoadTypeObjectFromAssembly("sideBarSettings");
+                loadedType = enVars.AssembliesManager.friendlyLoadTypeObjectFromAssembly("sideBarSettings");
                 if (loadedType is null)
                 {
-                    msgbox = new messageBoxForm(resources.GetString("errorPlugIn", CultureInfo.CurrentCulture) + " ! \n\r" + AssembliesManager.errorMessage, resources.GetString("exclamation", CultureInfo.CurrentCulture), MessageBoxButtons.OK, MessageBoxIcon.Exclamation, this.Location.X + this.Width / 2, this.Location.Y + this.Height / 2, enVars);
+                    msgbox = new messageBoxForm(resources.GetString("errorPlugIn", CultureInfo.CurrentCulture) + " ! \n\r" + enVars.AssembliesManager.errorMessage, resources.GetString("exclamation", CultureInfo.CurrentCulture), MessageBoxButtons.OK, MessageBoxIcon.Exclamation, this.Location.X + this.Width / 2, this.Location.Y + this.Height / 2, enVars);
                     msgbox.ShowDialog();
                     return;
                 }
-                formToLoad = Activator.CreateInstance(loadedType, enVars, updateMainApp) as FormCustomized;
+                formToLoad = Activator.CreateInstance(loadedType, enVars) as FormCustomized;
                 panelMenuOptionsContainer.Height = formToLoad.Height;
                 openChildForm(panelMenuOptionsContainer, formToLoad);
             }

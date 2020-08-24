@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
-using AeonLabs.Environment;
+using AeonLabs.Environment.Core;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
 

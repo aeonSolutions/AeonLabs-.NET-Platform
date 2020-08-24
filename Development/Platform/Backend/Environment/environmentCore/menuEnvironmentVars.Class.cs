@@ -33,7 +33,7 @@ namespace AeonLabs.Environment.Core
         {
             // settings for loading contents
             public string nameSpaceString { get; set; }         // Note that I´m in namespace  "ConsoleApplication1.MyClassA"
-            public string friendlyUID { get; set; }
+            public string assemblyFriendlyUID { get; set; }
             public Form formWithContentsToLoad { get; set; }
             public bool showAsDialog { get; set; }
 

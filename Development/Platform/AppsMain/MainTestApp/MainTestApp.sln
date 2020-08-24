@@ -5,12 +5,6 @@ VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MainTestApp", "MainTestApp\MainTestApp.csproj", "{88F91E86-8D6B-4052-97B7-339285713CC6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "environmentCore", "..\..\Backend\Environment\environmentCore\environmentCore.csproj", "{77C506E3-1874-4C89-A31A-C3E505BA68E5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LTBM", "..\..\UI Layouts\Main\LTBM\LTBM\LTBM.csproj", "{C0C47401-C156-4CF5-857A-40C360262D61}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menu Layout Builder", "..\..\Backend\Menu Layout Builder\Menu Layout Builder\Menu Layout Builder.csproj", "{B2AB7EAE-0D92-4896-839B-322C8AB015CF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,18 +15,6 @@ Global
 		{88F91E86-8D6B-4052-97B7-339285713CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88F91E86-8D6B-4052-97B7-339285713CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88F91E86-8D6B-4052-97B7-339285713CC6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{77C506E3-1874-4C89-A31A-C3E505BA68E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{77C506E3-1874-4C89-A31A-C3E505BA68E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{77C506E3-1874-4C89-A31A-C3E505BA68E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{77C506E3-1874-4C89-A31A-C3E505BA68E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0C47401-C156-4CF5-857A-40C360262D61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0C47401-C156-4CF5-857A-40C360262D61}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0C47401-C156-4CF5-857A-40C360262D61}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0C47401-C156-4CF5-857A-40C360262D61}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B2AB7EAE-0D92-4896-839B-322C8AB015CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2AB7EAE-0D92-4896-839B-322C8AB015CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2AB7EAE-0D92-4896-839B-322C8AB015CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2AB7EAE-0D92-4896-839B-322C8AB015CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

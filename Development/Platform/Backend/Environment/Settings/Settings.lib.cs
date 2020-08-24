@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using AeonLabs.Environment;
+using AeonLabs.Environment.Core;
 using AeonLabs.Security;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;

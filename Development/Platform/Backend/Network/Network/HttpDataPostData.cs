@@ -6,7 +6,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Web;
-using AeonLabs.Environment;
+using AeonLabs.Environment.Core;
 using AeonLabs.Security;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;

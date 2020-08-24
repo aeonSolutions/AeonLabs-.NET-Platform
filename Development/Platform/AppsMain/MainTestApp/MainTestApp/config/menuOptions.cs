@@ -1,8 +1,8 @@
-﻿using AeonLabs.Environment;
+﻿using AeonLabs.Environment.Core;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
-using static AeonLabs.Environment.menuEnvironmentVarsClass;
+using static AeonLabs.Environment.Core.menuEnvironmentVarsClass;
 
 public class menuOptions
 {
@@ -32,7 +32,7 @@ public class menuOptions
         global::System.Int32 subMenuIdx = 0;
         menuItem.menuUID = "MyProfile";
         menuItem.menuTitle = rm.GetString("menuItemMyProfile", CultureInfo.CurrentCulture);
-        menuItem.friendlyUID = "profile.dll";
+        menuItem.assemblyFriendlyUID = "MyProfile";
         menuItem.formWithContentsToLoad = default;
         menuItem.nameSpaceString = "usersProfileForm";
         menuItem.showAsDialog = true;
@@ -45,7 +45,7 @@ public class menuOptions
         subMenuIdx += 1;
         menuItem.menuUID = "Settings";
         menuItem.menuTitle = rm.GetString("menuItemSettings", CultureInfo.CurrentCulture); 
-        menuItem.friendlyUID = "settings.dll";
+        menuItem.assemblyFriendlyUID = "MySettings";
         menuItem.formWithContentsToLoad = default;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = true;
@@ -58,7 +58,7 @@ public class menuOptions
         subMenuIdx += 1;
         menuItem.menuUID = "Logout";
         menuItem.menuTitle = rm.GetString("menuItemLogout", CultureInfo.CurrentCulture);
-        menuItem.friendlyUID = default;
+        menuItem.assemblyFriendlyUID = default;
         menuItem.formWithContentsToLoad = default;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = true;
@@ -72,7 +72,7 @@ public class menuOptions
         subMenuIdx += 1;
         menuItem.menuUID = "Exit";
         menuItem.menuTitle = rm.GetString("menuItemLogout", CultureInfo.CurrentCulture); 
-        menuItem.friendlyUID = default;
+        menuItem.assemblyFriendlyUID = default;
         menuItem.formWithContentsToLoad = default;
         menuItem.nameSpaceString = "";
         menuItem.showAsDialog = default;

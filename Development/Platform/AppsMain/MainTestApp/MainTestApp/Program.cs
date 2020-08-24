@@ -1,4 +1,4 @@
-using AeonLabs.Environment;
+using AeonLabs.Environment.Core;
 using AeonLabs.environmentLoading;
 using System;
 using System.Collections;
@@ -9,8 +9,8 @@ using System.Reflection;
 using System.Resources;
 using System.Windows.Forms;
 using System.Runtime.Loader;
-using AeonLabs.Layouts.Dialogs;
 using AeonLabs.Layouts.Main;
+using AeonLabs.Layouts.Dialogs;
 
 namespace AeonLabs
 {
@@ -132,8 +132,8 @@ namespace AeonLabs
         {
             // to delete
             var dataUpdate = new updateMainAppClass();
-            dataUpdate.envars = enVars;
-            dataUpdate.envars.successLogin = true;
+            dataUpdate.enVars = enVars;
+            dataUpdate.enVars.successLogin = true;
             dataUpdate.updateTask = updateMainAppClass.UPDATE_LAYOUT;
             updateMainApp.Invoke(default, ref dataUpdate);
             return;
@@ -173,7 +173,7 @@ namespace AeonLabs
         #region "update main"
         public static void updateMain(global::System.Object sender, ref updateMainAppClass updateContents)
         {
-            enVars = updateContents.envars;
+            enVars = updateContents.enVars;
             if (!enVars.successLogin & enVars.customization.hasLogin)
             {
                 tasksCompletedSuccessfully = false;

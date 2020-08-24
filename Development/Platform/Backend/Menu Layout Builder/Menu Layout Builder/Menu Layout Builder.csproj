@@ -28,6 +28,9 @@
     <Reference Include="environment">
       <HintPath>..\..\..\AppsMain\builds\debug\environment.dll</HintPath>
     </Reference>
+    <Reference Include="MessageBox">
+      <HintPath>..\..\..\AppsMain\builds\debug\MessageBox.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
