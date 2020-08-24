@@ -72,6 +72,13 @@ namespace AeonLabs.Environment.Core
 
         public string errorMessage {get; set;}
 
+
+        public void ListManifestResourceNames() {
+            //Assembly assembly = Assembly.GetExecutingAssembly();
+            //foreach (string s in assembly.GetManifestResourceNames())
+            //    System.Diagnostics.Debug.WriteLine(s);
+        }
+
         #region Assign Control to assembly
         public Boolean assignControlAssembly(string friendlyName, Control ctrl) {
             bool err = false;

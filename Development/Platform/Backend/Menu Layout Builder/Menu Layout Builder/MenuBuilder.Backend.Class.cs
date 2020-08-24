@@ -107,8 +107,12 @@ namespace AeonLabs.Layouts.MenuBuilder
         public environmentVarsCore buildMenu()
         {
             IList<menuItemClass> menuItems = (IList<menuItemClass>)(from s in enVars.layoutDesign.menu.items
-                                                                    where s.subMenuIndex.Equals(0)
+                                                                    where s.subMenuIndex==0
                                                                     select s).ToList();
+            if (menuItems.Count == 0)
+            {
+                Interaction.MsgBox("No menu items found!");
+            }
             int previousSubMenuItemsCounter = 0;
             setup.menuTotalHeight = 0;
             int menuItemsCount = 0;
@@ -198,6 +202,10 @@ namespace AeonLabs.Layouts.MenuBuilder
             subMenuPanel.Click += menuPanel_Click;
             if (placeIndex.Equals(0))
             {
+
+                Interaction.MsgBox("icon size:" + iconSize.ToString());
+
+
                 subMenuIcon = new PictureBox()
                 {
                     Width = iconSize,
@@ -244,12 +252,14 @@ namespace AeonLabs.Layouts.MenuBuilder
                 subMenuIcon.SizeMode = PictureBoxSizeMode.StretchImage;
                 subMenuIcon.Click += menuPanel_Click;
                 subMenuPanel.Controls.Add(subMenuIcon);
+                
+                //expand icon
                 subMenuExpandIcon = new IconPictureBox()
                 {
                     IconColor = enVars.layoutDesign.labelForeColor,
                     BackColor = Color.Transparent,
                     Cursor = Cursors.Hand,
-                    IconChar = IconChar.AngleDown,
+                    IconChar = IconChar.Ideal,
                     IconSize = iconSize,
                     Location = new Point(enVars.layoutDesign.menu.properties.width - enVars.layoutDesign.menu.properties.height, Convert.ToInt16(enVars.layoutDesign.menu.properties.height / 2 - iconSize / 2)),
                     Name = menuItem.menuUID + "_expandIcon-" + index,
@@ -553,7 +563,7 @@ namespace AeonLabs.Layouts.MenuBuilder
             Type loadedType;
             FormCustomized formToLoad;
 
-            loadedType = enVars.AssembliesManager.friendlyLoadTypeObjectFromAssembly(enVars.layoutDesign.menu.items.ElementAt(subMenuPos).friendlyUID);
+            loadedType = enVars.AssembliesManager.friendlyLoadTypeObjectFromAssembly(enVars.layoutDesign.menu.items.ElementAt(subMenuPos).assemblyFriendlyUID);
             if (loadedType is null)
             {
                 messageBoxForm msgbox = new messageBoxForm(resources.GetString("errorPlugIn", CultureInfo.CurrentCulture) + " ! \n\r" + enVars.AssembliesManager.errorMessage, resources.GetString("exclamation", CultureInfo.CurrentCulture), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

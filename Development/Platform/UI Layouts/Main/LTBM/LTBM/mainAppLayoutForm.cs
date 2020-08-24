@@ -12,6 +12,7 @@ using System.Globalization;
 using AeonLabs.Layouts.Dialogs;
 using AeonLabs.Environment.Core;
 using AeonLabs.Layouts.MenuBuilder;
+using static AeonLabs.Environment.Core.menuEnvironmentVarsClass;
 
 namespace AeonLabs.Layouts.Main
 {
@@ -39,7 +40,6 @@ namespace AeonLabs.Layouts.Main
                 return;
             }
             bool error = false;
-            var t = enVars.assemblies;
             error = !enVars.AssembliesManager.assignControlAssembly("sideBarSettings", panelMenuOptionsContainer);
 
             if (error)
@@ -49,6 +49,7 @@ namespace AeonLabs.Layouts.Main
                 return;
             }
         }
+
         #endregion
 
         #region Constants, Variables and Fields
@@ -399,27 +400,21 @@ namespace AeonLabs.Layouts.Main
                 return;
             }
 
-            environmentVarsCore t = enVars;
             // ASSIGN ASSEMBLIES TO PANELS
             assignControlToAssembly();
-
+            
             SuspendLayout();
             loaded = false;
-            {
-                var withBlock = panelLeftSide;
-                withBlock.Parent = this;
-                withBlock.Width = enVars.layoutDesign.menu.properties.ClosedStateSize;
-                withBlock.BackColor = Color.Transparent;
-                withBlock.AutoScroll = true;
-            }
+            
+            panelLeftSide.Parent = this;
+            panelLeftSide.Width = enVars.layoutDesign.menu.properties.ClosedStateSize;
+            panelLeftSide.BackColor = Color.Transparent;
+            panelLeftSide.AutoScroll = true;
 
             // TOP OPTIONS ON SIDE PANEL
-            {
-                var withBlock1 = panelMenuOptions;
-                withBlock1.Parent = panelLeftSide;
-                withBlock1.Dock = DockStyle.Top;
-                withBlock1.BringToFront();
-            }
+            panelMenuOptions.Parent = panelLeftSide;
+            panelMenuOptions.Dock = DockStyle.Top;
+            panelMenuOptions.BringToFront();
 
             // lateralPanelMenuOptions.BackColor = Color.FromArgb(50, Color.Red)
 
@@ -429,13 +424,17 @@ namespace AeonLabs.Layouts.Main
             menuToggleIcon.Height = enVars.layoutDesign.MENU_CLOSED_STATE - 3;
             iconMenuSettings.Parent = panelMenuOptions;
             iconMenuSettings.BackColor = Color.Transparent;
-            {
-                var withBlock2 = panelMenuOptionsContainer;
-                withBlock2.Parent = panelLeftSide;
-                withBlock2.Height = 0;
-                withBlock2.Dock = DockStyle.Top;
-                withBlock2.BringToFront();
+            
+            panelMenuOptionsContainer.Parent = panelLeftSide;
+            panelMenuOptionsContainer.Height = 0;
+            panelMenuOptionsContainer.Dock = DockStyle.Top;
+            panelMenuOptionsContainer.BringToFront();
+
+            string test = "";
+            for (int i = 0, loopTo = enVars.layoutDesign.menu.items.Count - 1; i <= loopTo; i++) { 
+                test += enVars.layoutDesign.menu.items[i].subMenuIndex.ToString() + " ";
             }
+            Interaction.MsgBox(test);
 
             menuBuilder = new MenuBuilderClass(this, panelLeftSide, enVars, MenuBuilderClass.MENU_VERTICAL, ref enVars.updateViewLayout);
             enVars = menuBuilder.buildMenu();

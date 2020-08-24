@@ -97,6 +97,9 @@ namespace AeonLabs
             // LOAD STARTUP FORM
             loadStartupForm();
 
+            //initialize the assmblies manager
+            enVars.initializeAssemblyManager();
+
             // LOAD MAIN LAYOUT ASSEMBLY
             EnvironmentAssembliesLoadClass AssembliesLoader = new EnvironmentAssembliesLoadClass(enVars);
 

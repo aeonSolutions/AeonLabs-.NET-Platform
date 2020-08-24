@@ -54,8 +54,7 @@ static class TestingVars
         // MENU PRIFILE ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         envars.layoutDesign.menu.items = new System.Collections.Generic.List<menuItemClass>();
         var menuItem = new menuItemClass();
-            int subMenuIdx = 0;
-            
+        int subMenuIdx = 0;
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "Menu 1";
         menuItem.assemblyFriendlyUID = "profile.dll";
@@ -141,7 +140,6 @@ static class TestingVars
             // SUB MENU SETTINGS
             menuItem = new menuItemClass();
             subMenuIdx += 1;
-
         menuItem.menuUID = Guid.NewGuid().ToString().Replace("-", "");
         menuItem.menuTitle = "sub menu 1";
         menuItem.assemblyFriendlyUID = "settings.dll";

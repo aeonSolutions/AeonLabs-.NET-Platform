@@ -12,7 +12,6 @@ namespace AeonLabs.Environment.Core
         #region "constructor"
         public environmentVarsCore()
         {
-
             layoutDesign = new environmentLayoutClass();
             layoutDesign.loadDefaults(this);
         }
@@ -54,6 +53,12 @@ namespace AeonLabs.Environment.Core
         public Dictionary<string, environmentAssembliesClass> assemblies { get; set; } = new Dictionary<string, environmentAssembliesClass>();
 
         public Dictionary<string, List<EnvironmentAssignedToControlClass>> assignedAssembliesToControl { get; set; } = new Dictionary<string, List<EnvironmentAssignedToControlClass>>();
+
+        // initialize the assemblies manager 
+        public bool initializeAssemblyManager() {
+            AssembliesManager = new EnvironmentAssembliesLoadClass(this);
+            return true;
+        }
         #endregion
 
         #region "settings"

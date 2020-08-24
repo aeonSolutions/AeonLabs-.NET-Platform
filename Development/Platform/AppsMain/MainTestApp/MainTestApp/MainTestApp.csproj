@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Backend\Environment\environmentCore\environmentCore.csproj" />
     <ProjectReference Include="..\..\..\UI Layouts\Main\LTBM\LTBM\LTBM.csproj" />
   </ItemGroup>
 
@@ -37,9 +38,6 @@
     </Reference>
     <Reference Include="controls.gui">
       <HintPath>..\..\builds\debug\controls.gui.dll</HintPath>
-    </Reference>
-    <Reference Include="environment">
-      <HintPath>..\..\builds\debug\environment.dll</HintPath>
     </Reference>
     <Reference Include="EnvironmentLoading">
       <HintPath>..\..\builds\debug\EnvironmentLoading.dll</HintPath>
