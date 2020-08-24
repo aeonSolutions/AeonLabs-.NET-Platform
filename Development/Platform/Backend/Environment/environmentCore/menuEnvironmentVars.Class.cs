@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace AeonLabs.Environment
+namespace AeonLabs.Environment.Core
 {
     public class menuEnvironmentVarsClass
     {

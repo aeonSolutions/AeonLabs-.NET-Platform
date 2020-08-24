@@ -1,11 +1,10 @@
-﻿using AeonLabs.Environment;
+﻿using AeonLabs.Environment.Core;
 using System;
 using System.Drawing;
-using static AeonLabs.Environment.constants;
-using static AeonLabs.Environment.menuEnvironmentVarsClass;
+using static AeonLabs.Environment.Core.constants;
+using static AeonLabs.Environment.Core.menuEnvironmentVarsClass;
 
-
-    static class TestingVars
+static class TestingVars
     {
         public static environmentVarsCore loadTestingEnvironmentVars(environmentVarsCore envars)
         {

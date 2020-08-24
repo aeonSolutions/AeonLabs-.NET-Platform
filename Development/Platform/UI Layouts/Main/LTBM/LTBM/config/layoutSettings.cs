@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Windows;
-using AeonLabs.Environment;
+using AeonLabs.Environment.Core;
 using Microsoft.VisualBasic;
 
 namespace AeonLabs.Layouts.Main

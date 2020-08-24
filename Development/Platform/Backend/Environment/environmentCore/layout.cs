@@ -6,7 +6,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
-namespace AeonLabs.Environment
+namespace AeonLabs.Environment.Core
 {
     public class environmentLayoutClass
     {

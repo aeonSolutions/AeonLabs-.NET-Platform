@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "environmentCore", "..\..\Ba
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LTBM", "..\..\UI Layouts\Main\LTBM\LTBM\LTBM.csproj", "{C0C47401-C156-4CF5-857A-40C360262D61}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menu Layout Builder", "..\..\Backend\Menu Layout Builder\Menu Layout Builder\Menu Layout Builder.csproj", "{B2AB7EAE-0D92-4896-839B-322C8AB015CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C0C47401-C156-4CF5-857A-40C360262D61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0C47401-C156-4CF5-857A-40C360262D61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0C47401-C156-4CF5-857A-40C360262D61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2AB7EAE-0D92-4896-839B-322C8AB015CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2AB7EAE-0D92-4896-839B-322C8AB015CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2AB7EAE-0D92-4896-839B-322C8AB015CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2AB7EAE-0D92-4896-839B-322C8AB015CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

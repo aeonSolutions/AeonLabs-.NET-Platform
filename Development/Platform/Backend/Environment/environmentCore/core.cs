@@ -4,7 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 
-namespace AeonLabs.Environment
+namespace AeonLabs.Environment.Core
 {
     public class environmentVarsCore
     {

@@ -1,4 +1,4 @@
-﻿using AeonLabs.Environment;
+﻿using AeonLabs.Environment.Core;
 using System.Collections.Generic;
 using System.Windows.Forms;
 

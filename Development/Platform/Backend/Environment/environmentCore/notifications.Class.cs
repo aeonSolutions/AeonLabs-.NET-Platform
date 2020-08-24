@@ -1,5 +1,5 @@
 ﻿
-namespace AeonLabs.Environment
+namespace AeonLabs.Environment.Core
 {
     public class notificationsClass
     {

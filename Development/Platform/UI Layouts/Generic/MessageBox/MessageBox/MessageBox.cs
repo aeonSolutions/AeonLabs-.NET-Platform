@@ -6,7 +6,7 @@ namespace AeonLabs.Layouts.Dialogs
 {
     public partial class messageBoxForm : FormCustomized
     {
-        public messageBoxForm(global::System.String _message, global::System.String _title, MessageBoxButtons _buttons, MessageBoxIcon _icon, global::System.Int32 posx = -1, global::System.Int32 posy = -1, AeonLabs.Environment.environmentVarsCore _state = default)
+        public messageBoxForm(global::System.String _message, global::System.String _title, MessageBoxButtons _buttons, MessageBoxIcon _icon, global::System.Int32 posx = -1, global::System.Int32 posy = -1, AeonLabs.Environment.Core.environmentVarsCore _state = default)
         {
             base.Load += messageBoxForm_Load;
             base.Shown += messageBoxForm_show;

@@ -8,11 +8,11 @@ using System.Net;
 using System.Reflection;
 using System.Resources;
 using System.Windows.Forms;
-using AeonLabs.Environment;
+using AeonLabs.Environment.Core;
 using FontAwesome.Sharp;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
-using static AeonLabs.Environment.menuEnvironmentVarsClass;
+using static AeonLabs.Environment.Core.menuEnvironmentVarsClass;
 
 public class MenuBuilderClass
     {
@@ -545,7 +545,7 @@ public class MenuBuilderClass
                 MenuUpdate(true);
             }
 
-            if (enVars.layoutDesign.menu.items.ElementAt(subMenuPos).formWithContentsToLoad is object)
+            if (enVars.layoutDesign.menu.items.ElementAt(subMenuPos).formWithContentsToLoad != null)
             {
                 MenuUpdate(false);
                 MenuItemActiveBarReset();

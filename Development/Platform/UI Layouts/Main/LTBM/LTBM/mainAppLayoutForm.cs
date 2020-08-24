@@ -5,12 +5,12 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using AeonLabs.Environment;
 using Microsoft.VisualBasic;
 using System.Resources;
 using System.Reflection;
 using System.Globalization;
 using AeonLabs.Layouts.Dialogs;
+using AeonLabs.Environment.Core;
 
 namespace AeonLabs.Layouts.Main
 {

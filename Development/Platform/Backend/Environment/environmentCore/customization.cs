@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace AeonLabs.Environment
+namespace AeonLabs.Environment.Core
 {
     public class customization
     {

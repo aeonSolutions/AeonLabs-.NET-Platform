@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System.Windows.Forms;
 
-namespace AeonLabs.Environment
+namespace AeonLabs.Environment.Core
 {
     public class environmentAssembliesClass
     {
@@ -60,9 +60,9 @@ namespace AeonLabs.Environment
 
         public Dictionary<string, CollectibleAssemblyLoadContext> context = new Dictionary<string, CollectibleAssemblyLoadContext>();
         
-        public Dictionary<string, Environment.environmentAssembliesClass> getAssemblies { get; set; }
+        public Dictionary<string, Environment.Core.environmentAssembliesClass> getAssemblies { get; set; }
 
-        private Dictionary<string, Environment.environmentAssembliesClass> enVarsAssemblies;
+        private Dictionary<string, Environment.Core.environmentAssembliesClass> enVarsAssemblies;
         private environmentVarsCore enVars;
 
         public EnvironmentAssembliesLoadClass(environmentVarsCore _enVars) {
@@ -146,7 +146,7 @@ namespace AeonLabs.Environment
                     MethodInfo methodInfo = typeMainLayoutIni.GetMethod("AssembliesToLoadAtStart");
                     if (methodInfo != null)
                     {
-                        Dictionary<string, Environment.environmentAssembliesClass> assembliesOn = (Dictionary<string, Environment.environmentAssembliesClass>)methodInfo.Invoke(iniClass, default);
+                        Dictionary<string, Environment.Core.environmentAssembliesClass> assembliesOn = (Dictionary<string, Environment.Core.environmentAssembliesClass>)methodInfo.Invoke(iniClass, default);
                         getAssemblies = enVarsAssemblies.Union(assembliesOn.Where(k => !enVarsAssemblies.ContainsKey(k.Key))).ToDictionary(k => k.Key, v => v.Value);
                     }
                 }

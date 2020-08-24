@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms.VisualStyles;
 using Microsoft.VisualBasic.CompilerServices;
 
-namespace AeonLabs.Environment
+namespace AeonLabs.Environment.Core
 {
     public class updateEnvironmentClass
     {

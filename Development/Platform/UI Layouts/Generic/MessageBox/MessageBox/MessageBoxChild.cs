@@ -1,4 +1,4 @@
-﻿using AeonLabs.Environment;
+﻿using AeonLabs.Environment.Core;
 using System;
 using System.Drawing;
 using System.Reflection;
@@ -10,7 +10,7 @@ namespace AeonLabs.Layouts.Dialogs
     public partial class MessageBoxChild : FormCustomized
     {
 
-        public MessageBoxChild(global::System.String _message, global::System.String _title, MessageBoxButtons _buttons, MessageBoxIcon _icon, global::System.Int32 posx = -1, global::System.Int32 posy = -1, AeonLabs.Environment.environmentVarsCore _state = default)
+        public MessageBoxChild(global::System.String _message, global::System.String _title, MessageBoxButtons _buttons, MessageBoxIcon _icon, global::System.Int32 posx = -1, global::System.Int32 posy = -1, AeonLabs.Environment.Core.environmentVarsCore _state = default)
         {
             base.Load += message_box_frm_load;
             base.Shown += message_box_frm_show;
@@ -27,7 +27,7 @@ namespace AeonLabs.Layouts.Dialogs
             buttons = _buttons;
             if (_state == null)
             {
-                enVars = new AeonLabs.Environment.environmentVarsCore();
+                enVars = new AeonLabs.Environment.Core.environmentVarsCore();
                 enVars.loadEnvironmentcoreDefaults();
             }
             else

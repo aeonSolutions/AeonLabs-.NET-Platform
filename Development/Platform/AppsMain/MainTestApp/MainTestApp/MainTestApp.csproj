@@ -29,8 +29,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Backend\Environment\environmentCore\environmentCore.csproj" />
-    <ProjectReference Include="..\..\..\Backend\Environment\environmentCore\environmentCore\environmentCore.csproj" />
-    <ProjectReference Include="..\..\..\Layouts\Main\LTBM\LTBM\LTBM.csproj" />
     <ProjectReference Include="..\..\..\UI Layouts\Main\LTBM\LTBM\LTBM.csproj" />
   </ItemGroup>
 
@@ -46,9 +44,6 @@
     </Reference>
     <Reference Include="management">
       <HintPath>..\..\builds\debug\management.dll</HintPath>
-    </Reference>
-    <Reference Include="MessageBox">
-      <HintPath>..\..\builds\debug\MessageBox.dll</HintPath>
     </Reference>
     <Reference Include="Network">
       <HintPath>..\..\builds\debug\Network.dll</HintPath>
