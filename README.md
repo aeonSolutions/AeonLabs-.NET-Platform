@@ -3,8 +3,8 @@ The AeonLabs Platform is being developed in .Net 5.0 and is an open source platf
 - Reusing libraries
 - Modular code design based on microservices principles
 - Fully customizable with almost no programming requiered
-- Allows development of custom pachages and widgets
-- Allows live installation of widgets and packages downloaded from the [AeonLabs store](https://www.store.aeonlabs.solutions "AeonLabs store")
+- Allows development of custom packages and widgets
+- Allows live installation of widgets and packages downloaded from the [AeonLabs store](https://www.store.aeonlabs.solutions "AeonLabs store"). Also a open source store that anyone can install and run
 - Uses standard encryption over http data transfers in the cloud
 
 ## Build Status
