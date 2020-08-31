@@ -53,6 +53,10 @@ namespace AeonLabs.Layouts.Main
         #endregion
 
         #region Constants, Variables and Fields
+        
+        #region Constants
+        private const bool ENABLE_TESTING_ENVIRONMENT = true;
+        #endregion
 
         #region Layout Settings
         private const int LATERAL_MENU_OPEN_WIDTH = 400;
@@ -61,10 +65,6 @@ namespace AeonLabs.Layouts.Main
 
         // AssembliesToLoadAtStart = {({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"}), ({"Filename.Dll", "FormName", "NameSpace","UUID"})}
         public readonly object AssembliesToLoadAtStartOLD = new[] { new[] { "", "", "", "" }, new[] { "", "", "", "" }, new[] { "", "", "", "" }, new[] { "", "", "", "" } };
-
-        #region Constants
-        private const bool ENABLE_TESTING_ENVIRONMENT = false;
-        #endregion
 
         #region Public Fields
         public environmentVarsCore enVars { get; set; } = new environmentVarsCore();
@@ -647,9 +647,18 @@ namespace AeonLabs.Layouts.Main
                     msgbox.ShowDialog();
                     return;
                 }
-                formToLoad = Activator.CreateInstance(loadedType, enVars) as FormCustomized;
-                panelMenuOptionsContainer.Height = formToLoad.Height;
-                openChildForm(panelMenuOptionsContainer, formToLoad);
+                try
+                {
+                    formToLoad = Activator.CreateInstance(loadedType, enVars) as FormCustomized;
+                    panelMenuOptionsContainer.Height = formToLoad.Height;
+                    openChildForm(panelMenuOptionsContainer, formToLoad);
+                }
+                catch (Exception ex) {
+                    Interaction.MsgBox("Error loading plugin. \r\n(" + ex.Message+")");
+                }
+
+
+
             }
         }
         #endregion

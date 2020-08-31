@@ -16,7 +16,7 @@ namespace AeonLabs.PlugIns.SideBar.Settings
         [STAThread]
         static void Main()
         {
-            Application.Run(new lateralSettingsForm(null, null));
+            Application.Run(new lateralSettingsForm(new Environment.Core.environmentVarsCore()));
 
         }
     }

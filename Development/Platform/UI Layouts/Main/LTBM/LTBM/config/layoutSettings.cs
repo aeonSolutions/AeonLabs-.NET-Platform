@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Windows;
 using AeonLabs.Environment.Core;
 using Microsoft.VisualBasic;
 
@@ -24,7 +23,7 @@ namespace AeonLabs.Layouts.Main
             envars.addExternalFileToLoad("menuExpandArrow", "downarrow.png");
             envars.addExternalFileToLoad("noNetwork", "noNetwork.png");
             if (envars.stateErrorFound) {
-                MessageBox.Show(envars.stateErrorMessage);
+                Interaction.MsgBox(envars.stateErrorMessage);
             }
             string testFilesExist = "";
             foreach (KeyValuePair<string, string> item in envars.externalFilesToLoad)

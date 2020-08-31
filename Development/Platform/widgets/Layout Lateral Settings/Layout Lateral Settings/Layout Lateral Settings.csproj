@@ -23,9 +23,11 @@
 <ItemGroup>
   <Reference Include="controls.gui">
     <HintPath>..\..\..\AppsMain\builds\debug\controls.gui.dll</HintPath>
+    <EmbedInteropTypes>true</EmbedInteropTypes>
   </Reference>
   <Reference Include="environment">
     <HintPath>..\..\..\AppsMain\builds\debug\environment.dll</HintPath>
+    <EmbedInteropTypes>true</EmbedInteropTypes>
   </Reference>
 </ItemGroup>
 </Project>
