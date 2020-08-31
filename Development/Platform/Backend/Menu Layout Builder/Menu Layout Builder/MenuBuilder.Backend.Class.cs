@@ -203,9 +203,6 @@ namespace AeonLabs.Layouts.MenuBuilder
             if (placeIndex.Equals(0))
             {
 
-                Interaction.MsgBox("icon size:" + iconSize.ToString());
-
-
                 subMenuIcon = new PictureBox()
                 {
                     Width = iconSize,
@@ -259,7 +256,7 @@ namespace AeonLabs.Layouts.MenuBuilder
                     IconColor = enVars.layoutDesign.labelForeColor,
                     BackColor = Color.Transparent,
                     Cursor = Cursors.Hand,
-                    IconChar = IconChar.Ideal,
+                    IconChar = IconChar.ArrowDown,
                     IconSize = iconSize,
                     Location = new Point(enVars.layoutDesign.menu.properties.width - enVars.layoutDesign.menu.properties.height, Convert.ToInt16(enVars.layoutDesign.menu.properties.height / 2 - iconSize / 2)),
                     Name = menuItem.menuUID + "_expandIcon-" + index,

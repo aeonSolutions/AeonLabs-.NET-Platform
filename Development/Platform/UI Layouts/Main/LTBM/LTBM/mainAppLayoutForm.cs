@@ -265,7 +265,7 @@ namespace AeonLabs.Layouts.Main
                 
             }
 
-            enVars.layoutDesign.menu.properties.ClosedStateSize = LATERAL_MENU_OPEN_WIDTH;
+            enVars.layoutDesign.menu.properties.width = LATERAL_MENU_OPEN_WIDTH;
 
             resources = new ResourceManager(GetType().Namespace + ".config.strings", Assembly.GetExecutingAssembly());
 
@@ -429,12 +429,6 @@ namespace AeonLabs.Layouts.Main
             panelMenuOptionsContainer.Height = 0;
             panelMenuOptionsContainer.Dock = DockStyle.Top;
             panelMenuOptionsContainer.BringToFront();
-
-            string test = "";
-            for (int i = 0, loopTo = enVars.layoutDesign.menu.items.Count - 1; i <= loopTo; i++) { 
-                test += enVars.layoutDesign.menu.items[i].subMenuIndex.ToString() + " ";
-            }
-            Interaction.MsgBox(test);
 
             menuBuilder = new MenuBuilderClass(this, panelLeftSide, enVars, MenuBuilderClass.MENU_VERTICAL, ref enVars.updateViewLayout);
             enVars = menuBuilder.buildMenu();

@@ -89,7 +89,7 @@ namespace AeonLabs.Layouts.Main
             // 
             this.iconMenuSettings.BackColor = System.Drawing.Color.Transparent;
             this.iconMenuSettings.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.iconMenuSettings.IconChar = FontAwesome.Sharp.IconChar.Ideal;
+            this.iconMenuSettings.IconChar = FontAwesome.Sharp.IconChar.Cog;
             this.iconMenuSettings.IconColor = System.Drawing.Color.White;
             this.iconMenuSettings.IconSize = 35;
             this.iconMenuSettings.Location = new System.Drawing.Point(14, 3);

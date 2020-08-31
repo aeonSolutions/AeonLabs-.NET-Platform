@@ -19,14 +19,14 @@
    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FontAwesome.Sharp" Version="5.14.0" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="controls.gui">
       <HintPath>..\..\..\AppsMain\builds\debug\controls.gui.dll</HintPath>
     </Reference>
     <Reference Include="environment">
       <HintPath>..\..\..\AppsMain\builds\debug\environment.dll</HintPath>
+    </Reference>
+    <Reference Include="FontAwesome.Sharp">
+      <HintPath>..\..\..\AppsMain\builds\release\FontAwesome.Sharp.dll</HintPath>
     </Reference>
     <Reference Include="MessageBox">
       <HintPath>..\..\..\AppsMain\builds\debug\MessageBox.dll</HintPath>
