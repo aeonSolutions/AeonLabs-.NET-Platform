@@ -12,29 +12,31 @@ The AeonLabs Platform is being developed in .Net 5.0 and is an open source platf
 ## Build Status
 
 ### UI
-- Rapid develpment of custom grid layouts (90%)
-- Transparency UI - 100%
-- Rapid customization of UI - 100%
-- Custom Splash Screen (0%)
-- Custom Login Screen (70%)
+- Rapid develpment of custom grid layouts ( 90% )
+- Transparency UI ( 100% )
+- Rapid customization of UI ( 100% )
+- Custom Splash Screen ( 0% )
+- Custom Login Screen ( 70% )
 
 ### Menu Builder
-- Horizontal / Vertical Menus - 100% 
-- Dynamic Menu Builder - 100%
-- Load packages and widgets - 90%
-- Menu visual effects - 70%
+- Horizontal / Vertical Menus ( 100% ) 
+- Dynamic Menu Builder ( 100% )
+- Load packages and widgets ( 90% )
+- Menu visual effects ( 70% )
 
 ### Packages and Widgets
-- Load assemblies and prepare for rapid deployment (100%)
-- On demanad (live) load / unload of assemblies (90%)
+- Load assemblies and prepare for rapid deployment ( 100% )
+- On demanad (live) load / unload of assemblies ( 90% )
+- Assemblies dependencies manager ( 0% )
+- Assemblies version manager and checker ( 0% )
 
 ## Libraries
-- HTTP data communication using JSON and starndard encryption (100%)
-- Security features for deplyment of copyrighted applications (50%)
-- Crash and Diagnostics data collection (50%)
-- Queue scheduler for tasks managemnt (100%)
-- Export data (100%)
-- Basic libraries (100%)
+- HTTP data communication using JSON and starndard encryption ( 100% )
+- Security features for deplyment of copyrighted applications ( 50% )
+- Crash and Diagnostics data collection ( 50% )
+- Queue scheduler for tasks managemnt ( 100% )
+- Export data ( 100% )
+- Basic libraries ( 100% )
 
 ## Documentation
 Please refer to the [wiki](https://github.com/aeonSolutions/AeonLabs-.NET-Platform/wiki) to learn how to use this code.
