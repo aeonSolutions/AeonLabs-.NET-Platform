@@ -50,6 +50,6 @@ Please refer to the [wiki](https://github.com/aeonSolutions/AeonLabs-.NET-Platfo
 To view running the current state of the art goto releases
 https://github.com/aeonSolutions/AeonLabs-.NET-Platform/releases
 
-## current layout
-(example)
+## Current Layout 
+(in use for development)
 ![alt text](http://www.aeonlabs.solutions/images/github/layout3.jpg)
