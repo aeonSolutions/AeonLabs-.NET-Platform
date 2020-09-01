@@ -1,15 +1,19 @@
 # AeonLabs-.NET-Platform
 The AeonLabs Platform is being developed in .Net 5.0 and is an open source platform. The main purpose is to facilitate development of windows applications:
-- Enables reusing of libraries
+- Enable reusing of libraries
 - Modular code design based on microservices principles
 - Fully customizable with almost no programming requiered
+
 - Allows development of custom packages and widgets
+- Integrity and Authenticity using PKCK
 - Allows live installation of widgets and packages downloaded from the [AeonLabs store](https://www.store.aeonlabs.solutions "AeonLabs store"). Also a open source store that anyone can install and run
+
+- Cloud communication using HTTP, data formatted in JSON wrapped in standard commercial encription standards (AES, DES,... )
+- Easy integration with common cloud APIs 
+
 - Suited for development of Cloud Windows applications
 - Suited for development of Cloudless windows applications
 - Suited for development of Applications for the internet of things
-- Integrity and Authenticity using PKCK
-- Cloud communication using HTTP, data formatted in JSON wrapped in standard commercial encription standards (AES, DES,... )
 
 ## Build Status
 
