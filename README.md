@@ -37,7 +37,7 @@ The AeonLabs Platform is being developed in .Net 5.0 and is an open source platf
 
 ## Libraries
 - HTTP data communication using JSON and starndard encryption ( 100% )
-- Security features for deplyment of copyrighted applications ( 50% )
+- Security features for deployment of copyrighted applications ( 50% )
 - Crash and Diagnostics data collection ( 50% )
 - Queue scheduler for tasks managemnt ( 100% )
 - Export data ( 100% )
