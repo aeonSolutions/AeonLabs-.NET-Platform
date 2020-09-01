@@ -8,10 +8,11 @@ The AeonLabs Platform is being developed in .Net 5.0 and is an open source platf
 - Suited for development of Cloud Windows applications
 - Suited for development of Cloudless windows applications
 - Suited for development of Applications for the internet of things
+- Integrity and Authenticity using PKCK
+- Cloud communication using HTTP, data formatted in JSON wrapped in standard commercial encription standards (AES, DES,... )
 
 ## Build Status
 
-### UI
 - Rapid develpment of custom grid layouts ( 90% )
 - Transparency UI ( 100% )
 - Rapid customization of UI ( 100% )
@@ -25,10 +26,10 @@ The AeonLabs Platform is being developed in .Net 5.0 and is an open source platf
 - Menu visual effects ( 70% )
 
 ### Packages and Widgets
-- Load assemblies and prepare for rapid deployment ( 100% )
-- On demanad (live) load / unload of assemblies ( 90% )
-- Assemblies dependencies manager ( 0% )
-- Assemblies version manager and checker ( 0% )
+- On demand deployment ( 100% )
+- On demand (live) load / unload of assemblies ( 90% )
+- Assemblies dependencies manager ( 20% )
+- Assemblies version manager and checker ( 20% )
 
 ## Libraries
 - HTTP data communication using JSON and starndard encryption ( 100% )
