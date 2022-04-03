@@ -66,7 +66,12 @@ https://github.com/aeonSolutions/AeonLabs-.NET-Platform/releases
 ![alt text](http://www.aeonlabs.solutions/images/github/layout3.jpg)
 
 ### License
-Copyright 2021 Miguel Tomás under GPL license
+2022 Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+
+https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+### Own a copy of this work
+if you like to own a copy of this work, you can buy it as a NFT or Ethereum. Contact me for more details at mtpsilva@gmail.com
 
 ## Join the WhatsApp Group
 If you like this kind of projects and want to stay updated with the latest research ideas and prototypes during the day and week, join the WhatsApp Group
