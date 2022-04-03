@@ -4,7 +4,7 @@
 [![](https://jitci.com/gh/aeonSolutions/AeonLabs-.NET-Platform/svg)](https://jitci.com/gh/aeonSolutions/AeonLabs-.NET-Platform)
 ![](https://views.whatilearened.today/views/github/aeonSolutions/AeonLabs-.NET-Platform.svg)
 
-[![CodeFactor](https://www.codefactor.io/repository/github/aeonsolutions/aeonlabs-.net-platform/badge)](https://www.codefactor.io/repository/github/aeonsolutions/aeonlabs-.net-platform)
+[![CodeFactor](https://www.codefactor.io/repository/github/aeonsolutions/Aeonlabs-.net-platform/badge)](https://www.codefactor.io/repository/github/aeonsolutions/Aeonlabs-.net-platform)
 
 ![GitHub all releases](https://img.shields.io/github/downloads/aeonSolutions/AeonLabs-.NET-Platform/total?style=for-the-badge)
 ![GitHub search hit counter](https://img.shields.io/github/search/aeonSolutions/AeonLabs-.NET-Platform/AeonLabs%20.NET%20Platform?style=for-the-badge)
